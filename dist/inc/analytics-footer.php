@@ -1,6 +1,6 @@
 <?php
 /**
- * analytics-footer.php
+ * Analytics-footer.php
  *
  * <footer>内に入れるanalytics関連を記述します
  *

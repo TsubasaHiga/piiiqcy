@@ -1,8 +1,8 @@
 <?php
 /**
- * index.php
+ * Index.php
  *
- * index.phpです
+ * Index.phpです
  *
  * @since 0.0.1
  * @package piiiQcy
@@ -16,15 +16,15 @@ get_header();
 
 <!-- main -->
 <main class="l-page" data-barba="wrapper">
-	<div class="l-container" data-barba="container" data-barba-namespace="<?php echo esc_html($page_name); ?>">
+	<div class="l-container" data-barba="container" data-barba-namespace="<?php echo esc_html( $page_name ); ?>">
 
 		<!-- contents -->
 		<div class="swiper-container">
 			<div class="swiper-wrapper">
-				<div class="swiper-slide"><img src="<?php echo get_template_directory_uri(); ?>/assets/images/top/img-01.jpg" alt="slide image1"></div>
-				<div class="swiper-slide"><img src="<?php echo get_template_directory_uri(); ?>/assets/images/top/img-02.jpg" alt="slide image2"></div>
-				<div class="swiper-slide"><img src="<?php echo get_template_directory_uri(); ?>/assets/images/top/img-03.jpg" alt="slide image3"></div>
-				<div class="swiper-slide"><img src="<?php echo get_template_directory_uri(); ?>/assets/images/top/img-04.jpg" alt="slide image4"></div>
+				<div class="swiper-slide"><img src="<?php echo esc_url( get_template_directory_uri() ); ?>/assets/images/top/img-01.jpg" alt="slide image1"></div>
+				<div class="swiper-slide"><img src="<?php echo esc_url( get_template_directory_uri() ); ?>/assets/images/top/img-02.jpg" alt="slide image2"></div>
+				<div class="swiper-slide"><img src="<?php echo esc_url( get_template_directory_uri() ); ?>/assets/images/top/img-03.jpg" alt="slide image3"></div>
+				<div class="swiper-slide"><img src="<?php echo esc_url( get_template_directory_uri() ); ?>/assets/images/top/img-04.jpg" alt="slide image4"></div>
 			</div>
 			<div class="swiper-pagination"></div>
 			<div class="swiper-button-prev"></div>

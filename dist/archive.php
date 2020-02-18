@@ -1,6 +1,6 @@
 <?php
 /**
- * archive.php
+ * Archive.php
  *
  * アーカイブの表示を行います
  *

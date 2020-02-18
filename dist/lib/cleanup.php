@@ -1,6 +1,6 @@
 <?php
 /**
- * cleanup.php
+ * Cleanup.php
  *
  * WordPressのデフォルトの機能を削除、またはクリーンアップする為の指定を行います。
  *

@@ -1,6 +1,6 @@
 <?php
 /**
- * tools.php
+ * Tools.php
  *
  * 様々な関数を記述します
  *
@@ -21,7 +21,7 @@
  * -------------------------------------------------------------
  */
 function c_gen_breadcrumbs( $page_relation_list ) {
-	$site_url        = home_url( '/');
+	$site_url        = home_url( '/' );
 	$breadcrumbs_top = BREADCRUMBS_TOP;
 
 	$html_first = <<< EOM

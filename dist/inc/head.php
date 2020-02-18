@@ -1,6 +1,6 @@
 <?php
 /**
- * head.php
+ * Head.php
  *
  * <head>内関連をまとめて記述します
  *
@@ -20,11 +20,11 @@
 		<meta name="viewport" content="width=device-width">
 		<meta name="format-detection" content="telephone=no">
 		<meta name="theme-color" content="<%= siteSetting.themeColor %>">
-		<link rel="shortcut icon" href="<?php echo get_template_directory_uri(); ?>/assets/images/favicon.ico">
+		<link rel="shortcut icon" href="<?php echo esc_url( get_template_directory_uri() ); ?>/assets/images/favicon.ico">
 		<link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin>
-		<link rel="preload" as="style" href="<?php echo get_template_directory_uri(); ?>/assets/css/style.css?rev">
-		<link rel="preload" as="script" href="<?php echo get_template_directory_uri(); ?>/assets/js/bundle.js?rev">
-		<link rel="stylesheet" href="<?php echo get_template_directory_uri(); ?>/assets/css/style.css?rev">
+		<link rel="preload" as="style" href="<?php echo esc_url( get_template_directory_uri() ); ?>/assets/css/style.css?rev">
+		<link rel="preload" as="script" href="<?php echo esc_url( get_template_directory_uri() ); ?>/assets/js/bundle.js?rev">
+		<link rel="stylesheet" href="<?php echo esc_url( get_template_directory_uri() ); ?>/assets/css/style.css?rev">
 		<?php
 		wp_head();
 		require_once 'analytics-head.php';

@@ -1,6 +1,6 @@
 <?php
 /**
- * footer.php
+ * Footer.php
  *
  * <footer>の中身
  *
@@ -16,7 +16,7 @@
 	</div>
 </footer>
 
-<script src="<?php echo get_template_directory_uri(); ?>/assets/js/bundle.js" defer="defer"></script>
+<script src="<?php echo esc_url( get_template_directory_uri() ); ?>/assets/js/bundle.js" defer="defer"></script>
 <?php
 require_once 'inc/analytics-footer.php';
 wp_footer();

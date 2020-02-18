@@ -1,8 +1,8 @@
 <?php
 /**
- * env.php
+ * Env.php
  *
- * env指定を行います。
+ * Env指定を行います。
  *
  * @since 0.0.1
  * @package piiiQcy
@@ -24,4 +24,4 @@ if ( preg_match( '/(www.){0,1}' . DOMAIN_PRODUCTION . '{1}+$/', $domain_name ) )
 	define( 'APPLICATION_ENV', 'development' );
 }
 
-?>
+

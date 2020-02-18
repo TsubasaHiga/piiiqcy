@@ -14,14 +14,14 @@ require_once dirname( __FILE__ ) . '/../inc/common.php';
 get_header();
 
 // パンくず.
-$page_relation_list = [
+$page_relation_list = array(
 	'sample2' => $page_name,
-];
+);
 ?>
 
 <!-- main -->
 <main class="l-page" data-barba="wrapper">
-	<div class="l-container" data-barba="container" data-barba-namespace="<?php echo esc_html($page_name); ?>">
+	<div class="l-container" data-barba="container" data-barba-namespace="<?php echo esc_html( $page_name ); ?>">
 
 		<?php echo c_gen_breadcrumbs( $page_relation_list ); ?>
 

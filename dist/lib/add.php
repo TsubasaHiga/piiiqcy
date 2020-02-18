@@ -1,6 +1,6 @@
 <?php
 /**
- * add.php
+ * Add.php
  *
  * WordPressのデフォルトに無い機能を追加する為の指定を行います。
  *
@@ -17,5 +17,3 @@ function custom_enqueue() {
 	wp_enqueue_style( 'custom_css', get_template_directory_uri() . '/assets/css/wp_admin.css', array(), true );
 }
 add_action( 'admin_enqueue_scripts', 'custom_enqueue' );
-
-?>

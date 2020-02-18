@@ -1,6 +1,6 @@
 <?php
 /**
- * single.php
+ * Single.php
  *
  * 記事の詳細です
  *

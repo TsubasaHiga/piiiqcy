@@ -1,6 +1,6 @@
 <?php
 /**
- * analytics-head.php
+ * Analytics-head.php
  *
  * <head>内に入れるanalytics関連を記述します
  *

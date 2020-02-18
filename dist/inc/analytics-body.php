@@ -1,6 +1,6 @@
 <?php
 /**
- * analytics-body.php
+ * Analytics-body.php
  *
  * <body>内に入れるanalytics関連を記述します
  *
