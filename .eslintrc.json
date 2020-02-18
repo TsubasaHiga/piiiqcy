@@ -1,0 +1,37 @@
+{
+    "env": {
+        "browser": true,
+        "es6": true
+    },
+    "extends": [
+        "standard"
+    ],
+    "globals": {
+        "Atomics": false,
+        "SharedArrayBuffer": false,
+        "Back": false,
+        "Bounce": false,
+        "Circ": false,
+        "Cubic": false,
+        "Ease": false,
+        "EaseLookup": false,
+        "Elastic": false,
+        "Expo": false,
+        "Linear": false,
+        "Power0": false,
+        "Power1": false,
+        "Power2": false,
+        "Power3": false,
+        "Power4": false,
+        "Quad": false,
+        "Quart": false,
+        "Quint": false
+    },
+    "parserOptions": {
+        "ecmaVersion": 2018,
+        "sourceType": "module"
+    },
+    "rules": {
+        "no-unused-vars": 0
+    }
+}
