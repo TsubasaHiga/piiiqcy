@@ -33,9 +33,13 @@ get_header();
 
 		<br>
 
+		<a href="https://example.com" target="_blank">https://example.com</a>
+		<a href="https://example.com">https://example.com</a>
+		<a href="#a">#a</a>
+
 		<h2>H2 見出し2</h2>
 		<h3>H3 見出し3</h3>
-		<h4>H4 見出し4</h4>
+		<h4 id="a">H4 見出し4</h4>
 		<h5>H5 見出し5</h5>
 		<h6>H6 見出し6</h6>
 		<blockquote>一行の引用です。一行の引用です。</blockquote>

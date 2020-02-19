@@ -10,5 +10,6 @@ export default {
   NAV: document.querySelectorAll('.l-nav__link'),
   HMB: document.querySelector('#hmb'),
   HMBBG: document.querySelector('#hmb__bg'),
-  STICKY: document.querySelectorAll('.sticky')
+  STICKY: document.querySelectorAll('.sticky'),
+  ALLLINKS: document.querySelectorAll('a:not([target="_blank"])')
 }

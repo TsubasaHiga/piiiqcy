@@ -17,6 +17,7 @@ import ieSmoothScrollDisable from './helper/ieSmoothScrollDisable'
 import isTouchSupport from './helper/isTouchSupport'
 import navCurrent from './helper/navCurrent'
 import getOrientation from './helper/getOrientation'
+import pageAnimation from './helper/pageAnimation'
 
 // plugins
 import objectFitImages from 'object-fit-images'
@@ -53,6 +54,9 @@ window.addEventListener('DOMContentLoaded', () => {
 
   // getOrientation
   getOrientation()
+
+  // pageAnimation
+  pageAnimation()
 })
 
 /**
