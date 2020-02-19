@@ -12,6 +12,13 @@
 
 <?php
 
+// Remove X-Powered-By.
+header_register_callback(
+	function() {
+		header_remove( 'X-Powered-By' );
+	}
+);
+
 // 定数読み込み.
 require_once 'const.php';
 

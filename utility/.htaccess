@@ -1,0 +1,14 @@
+# deny from all wp-config.php
+<files wp-config.php>
+order allow,deny
+deny from all
+</files>
+
+# disabled xmlrpc.php
+<IfModule mod_rewrite.c>
+～
+RewriteBase /
+RewriteRule ^xmlrpc\.php$ "http\:\/\/0\.0\.0\.0\/" [R=301,L]
+RewriteRule ^index\.php$ - [L]
+～
+</IfModule>

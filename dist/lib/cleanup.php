@@ -38,7 +38,20 @@ function remove_dashboard_widget() {
 add_filter( 'comments_open', '__return_false' );
 /** 管理画面のadminbarの表示 */
 add_filter( 'show_admin_bar', '__return_false' );
+/** Xmlrpc.phpの無効化 */
+add_filter( 'xmlrpc_enabled', '__return_false' );
 
+/**
+ * Remove x-pingback
+ *
+ * @param object $headers headers.
+ * @return $headers
+ */
+function remove_x_pingback( $headers ) {
+	unset( $headers['X - Pingback'] );
+	return $headers;
+}
+add_filter( 'wp_headers', 'remove_x_pingback' );
 
 
 /** -----------------------------------------------------------
@@ -72,7 +85,7 @@ remove_action( 'wp_head', 'feed_links', 2 );
 /** DNSプリフェッチコード挿入を削除 */
 add_filter( 'wp_resource_hints', 'remove_dns_prefetch', 10, 2 );
 /** Gutenbergの読み込みスタイルを削除 */
-add_action( 'wp_enqueue_scripts', 'remove_block_library_style' );
+// add_action( 'wp_enqueue_scripts', 'remove_block_library_style' );
 /** Remove_block_library_style */
 function remove_block_library_style() {
 	wp_dequeue_style( 'wp-block-library' );
