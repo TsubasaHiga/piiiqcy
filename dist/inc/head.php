@@ -33,3 +33,5 @@
 
 	<body id="gotop" class="<?php echo esc_html( $page_name ); ?>">
 	<?php require_once 'analytics-body.php'; ?>
+		<div id="mainwrap" class="mainwrap">
+			<div class="mainwrap__inner">

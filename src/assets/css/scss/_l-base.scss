@@ -1,28 +1,7 @@
 @charset "utf-8";
 
 html {
-  $time: 500ms;
-  $ease: ease;
-
   height: 100%;
-  opacity: 0;
-  transform: translateY(10px);
-  transition: opacity $time $ease, transform $time $ease;
-  will-change: transform, opacity;
-
-  &.is-page {
-    // ページ離脱時のアニメーション
-
-    &-enter-animation {
-      opacity: 1;
-      transform: translateY(0);
-    }
-
-    &-leave-animation {
-      opacity: 0;
-      transform: translateY(-10px);
-    }
-  }
 }
 
 body {
@@ -42,6 +21,34 @@ body {
     (min-resolution: 2dppx) {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+  }
+}
+
+.mainwrap {
+
+  &__inner {
+    $time: 500ms;
+    $ease: ease;
+
+    height: 100%;
+    opacity: 0;
+    transform: translateY(10px);
+    transition: opacity $time $ease, transform $time $ease;
+    // will-change: transform, opacity;
+
+    &.is-page {
+      // ページ離脱時のアニメーション
+
+      &-enter-animation {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      &-leave-animation {
+        opacity: 0;
+        transform: translateY(-10px);
+      }
+    }
   }
 }
 

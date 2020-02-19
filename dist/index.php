@@ -15,8 +15,8 @@ get_header();
 ?>
 
 <!-- main -->
-<main class="l-page" data-barba="wrapper">
-	<div class="l-container" data-barba="container" data-barba-namespace="<?php echo esc_html( $page_name ); ?>">
+<main class="l-page">
+	<div class="l-container">
 
 		<!-- contents -->
 		<div class="swiper-container">

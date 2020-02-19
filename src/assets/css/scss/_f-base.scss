@@ -1,13 +1,13 @@
 @charset "utf-8";
 
 * {
-  backface-visibility: hidden;
+  // backface-visibility: hidden;
   box-sizing: border-box;
   -webkit-overflow-scrolling: touch;
 
   &:before,
   &:after {
-    backface-visibility: hidden;
+    // backface-visibility: hidden;
     box-sizing: border-box;
   }
 }

@@ -7,6 +7,8 @@ export default {
   HEADER: document.getElementsByTagName('header')[0],
   MAIN: document.getElementsByTagName('main')[0],
   FOOTER: document.getElementsByTagName('footer')[0],
+  MAINWRAP: document.querySelector('.mainwrap'),
+  MAINWRAPINNER: document.querySelector('.mainwrap__inner'),
   NAV: document.querySelectorAll('.l-nav__link'),
   HMB: document.querySelector('#hmb'),
   HMBBG: document.querySelector('#hmb__bg'),

@@ -20,8 +20,8 @@ $page_relation_list = array(
 ?>
 
 <!-- main -->
-<main class="l-page" data-barba="wrapper">
-	<div class="l-container" data-barba="container" data-barba-namespace="<?php echo esc_html( $page_name ); ?>">
+<main class="l-page">
+	<div class="l-container">
 
 		<?php echo c_gen_breadcrumbs( $page_relation_list ); ?>
 

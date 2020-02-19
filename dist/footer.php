@@ -16,11 +16,14 @@
 	</div>
 </footer>
 
+</div>
+</div>
+
 <script src="<?php echo esc_url( get_template_directory_uri() ); ?>/assets/js/bundle.js" defer="defer"></script>
+
 <?php
 require_once 'inc/analytics-footer.php';
 wp_footer();
 ?>
 </body>
-
 </html>

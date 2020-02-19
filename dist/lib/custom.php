@@ -181,6 +181,7 @@ function pagination( $pages, $current_page, $range = 2, $show_only = false ) {
 	}
 
 	if ( 1 !== $pages ) {
+		echo '<div>';
 		if ( $current_page > $range + 1 ) {
 			// 「最初へ」 の表示
 			echo '<a href="', esc_url( get_pagenum_link( 1 ) ) ,'" class="first">', esc_html( $text_first ) ,'</a>';

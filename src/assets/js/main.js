@@ -26,9 +26,15 @@ import lazysizes from 'lazysizes'
 import { throttle, debounce } from 'throttle-debounce'
 import 'nodelist-foreach-polyfill'
 import 'instant.page'
+import luxy from 'luxy.js'
 
 // page scripts
 import pageNameTop from './page/top'
+
+// luxy
+luxy.init({
+  wrapper: '#mainwrap'
+})
 
 /**
  * DOMCONTENTLOADED

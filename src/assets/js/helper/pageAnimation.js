@@ -14,7 +14,7 @@ export default () => {
 
   // ページ遷移後のクラスを付与
   setTimeout(() => {
-    EL.HTML.classList.add('is-page-enter-animation')
+    EL.MAINWRAPINNER.classList.add('is-page-enter-animation')
   }, 10)
 
   for (let i = 0; i < EL.ALLLINKS.length; i = (i + 1) | 0) {
@@ -25,7 +25,7 @@ export default () => {
       link.addEventListener('click', e => {
         pd(e)
 
-        EL.HTML.classList.add('is-page-leave-animation')
+        EL.MAINWRAPINNER.classList.add('is-page-leave-animation')
         setTimeout(() => {
           window.location = link.href
         }, 500)
