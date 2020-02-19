@@ -36,9 +36,9 @@ EOM;
 		$html .= "<span property='itemListElement' typeof='ListItem'>";
 		$html .= "<a property='item' typeof='WebPage' title='{$page_name}' href='{$site_url}{$page_url}/'>";
 		$html .= "<span property='name'>{$page_name}</span>";
-		$html .= "</a>";
+		$html .= '</a>';
 		$html .= "<meta property='position' content='{$i}'>";
-		$html .= "</span>";
+		$html .= '</span>';
 		$i ++;
 	}
 	$html .= "</div></div>\n";

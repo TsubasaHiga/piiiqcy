@@ -163,7 +163,7 @@ function pagination( $pages, $current_page, $range = 2, $show_only = false ) {
 
 	// float型で渡ってくるので明示的に int型 へ.
 	$pages        = (int) $pages;
-	$current_page = $current_page ? : 1;
+	$current_page = $current_page ? $current_page : 1;
 
 	// 表示テキスト.
 	$text_first  = '最初へ';
