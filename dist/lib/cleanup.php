@@ -91,6 +91,27 @@ function remove_block_library_style() {
 	wp_dequeue_style( 'wp-block-library' );
 	wp_dequeue_style( 'wp-block-library-theme' );
 }
+/**
+ * Disable Yoast's Mark and its version.
+ *
+ * @link https://gist.github.com/paulcollett/4c81c4f6eb85334ba076
+ */
+add_action(
+	'template_redirect',
+	function () {
+		if ( ! class_exists( '\WPSEO_Frontend' ) ) {
+			return;
+		}
+		$instance = \WPSEO_Frontend::get_instance();
+		// make sure, future version of the plugin does not break our site.
+		if ( ! method_exists( $instance, 'debug_mark' ) ) {
+			return;
+		}
+		// ok, let us remove the love letter.
+		remove_action( 'wpseo_head', array( $instance, 'debug_mark' ), 2 );
+	},
+	9999
+);
 
 
 
