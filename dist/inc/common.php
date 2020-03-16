@@ -8,10 +8,6 @@
  * @package piiiQcy
  */
 
-?>
-
-<?php
-
 // Remove X-Powered-By.
 header_register_callback(
 	function() {

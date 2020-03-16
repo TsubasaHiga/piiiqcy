@@ -8,10 +8,6 @@
  * @package piiiQcy
  */
 
-?>
-
-<?php
-
 // 定数読み込み.
 require_once 'inc/const.php';
 

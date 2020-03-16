@@ -11,7 +11,6 @@
 $page_name = 'top';
 
 require_once 'inc/common.php';
-get_header();
 ?>
 
 <!-- main -->
@@ -229,4 +228,5 @@ get_header();
 
 	</div>
 </main>
+
 <?php get_footer(); ?>

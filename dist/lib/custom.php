@@ -8,39 +8,57 @@
  * @package piiiQcy
  */
 
-?>
-
-<?php
-/** -----------------------------------------------------------
- * Summary     | Post_typeと件数指定のクエリarguments
- * Description | Post_typeと件数を指定すると$argsを返します。先頭固定表示指定のある記事は省かれます
+/**
+ * Post_typeと件数指定のクエリarguments
+ * Post_typeと件数を指定すると$argsを返します。先頭固定表示指定のある記事は省かれます
  *
  * @param string $post_type 取得したいpost_typeを指定します.
  * @param int    $posts_per_page 取得する件数を指定します.
+ * @param number $_paged 取得する投稿のページ送り.
+ * @param number $year 取得する投稿年月日で絞ります.
+ * @param string $orderby orderby.
+ * @param string $order order.
+ * @param string $meta_key meta_key.
  * @return array $args
- * -----------------------------------------------------------*/
-function c_get_args( $post_type, $posts_per_page ) {
+ */
+function c_get_args(
+	$post_type,
+	$posts_per_page,
+	$_paged = 1,
+	$year = false,
+	$orderby = 'data',
+	$order = 'DESC',
+	$meta_key = false
+	) {
 	$args = array(
 		'post_type'      => $post_type,
 		'posts_per_page' => $posts_per_page,
-		'orderby'        => 'deta',
-		'order'          => 'DESC',
+		'orderby'        => $orderby,
+		'order'          => $order,
+		'paged'          => $_paged,
 		'post_status'    => 'publish',
 		'post__not_in'   => get_option( 'sticky_posts' ),
 	);
+
+	if ( $year && is_numeric( $year ) ) {
+		$args['year'] = $year;
+	}
+	if ( $meta_key ) {
+		$args['meta_key'] = $meta_key;
+	}
 	return $args;
 }
 
 
 
-/** -----------------------------------------------------------
- * Summary     | タクソノミー名からタームの配列を出力
- * Description | 取得したいタクソノミーを指定すると$termsを取得出来ます
+/**
+ * タクソノミー名からタームの配列を出力
+ * 取得したいタクソノミーを指定すると$termsを取得出来ます
  *
  * @param string $taxonomies 取得したいタクソノミーを指定します.
  * @param int    $number 取得する件数を指定します.
  * @return array $args
- * -----------------------------------------------------------*/
+ */
 function c_get_terms( $taxonomies, $number ) {
 	$args  = array(
 		'orderby' => 'count',
@@ -53,14 +71,14 @@ function c_get_terms( $taxonomies, $number ) {
 
 
 
-/** -----------------------------------------------------------
- * Summary     | アーカイブページで$term取得
- * Description | アーカイブページでも$termを取得することが出来ます
+/**
+ * アーカイブページで$term取得
+ * アーカイブページでも$termを取得することが出来ます
  *
  * @link https://goo.gl/De3qpF
  *
  * @return array $args
- * -----------------------------------------------------------*/
+ */
 function c_get_current_term() {
 
 	$id;
@@ -83,18 +101,44 @@ function c_get_current_term() {
 }
 
 
+/**
+ * アーカイブページでslug取得
+ *
+ * @link https://wemo.tech/1161#index_id5
+ * @return string
+ */
+function c_get_archive_slug() {
+	// アーカイブページでない場合、false を返す.
+	if ( ! is_archive() ) {
+		return false;
+	}
 
-/** -----------------------------------------------------------
- * Summary     | ループ中に指定のタームを種類別に出力
- * Description | ループ中で指定されたタームのname、slug、id等を取得することが出来ます
+	// 投稿タイプアーカイブページ.
+	if ( is_post_type_archive() ) {
+		$post_type = get_query_var( 'post_type' );
+		if ( is_array( $post_type ) ) {
+			$post_type = reset( $post_type );
+		}
+		return $post_type;
+	}
+
+	// それ以外（カテゴリ・タグ・タクソノミーアーカイブページ）.
+	$term = get_queried_object();
+	return $term->slug;
+}
+
+
+
+/**
+ * ループ中に指定のタームを種類別に出力
+ * ループ中で指定されたタームのname、slug、id等を取得することが出来ます
  *
  * @param string $tax 取得したいタームが属するタクソノミーを指定します.
  * @param string $kind |name|slug|id|の内いづれかを指定します.
  * @param bool   $link aリンクを含めるかの指定を行います.
  * @param int    $number 取得する数を指定します。0で全て取得.
  * @param string $html_tag 文字列を囲むhtmlタグを指定します.
- * @return string $html htmlを返します.
- * -----------------------------------------------------------*/
+ */
 function c_get_term( $tax, $kind, $link, $number, $html_tag ) {
 
 	global $post;
@@ -143,14 +187,16 @@ function c_get_term( $tax, $kind, $link, $number, $html_tag ) {
 	} else {
 		$html .= '';
 	}
-	return $html;
+	// @codingStandardsIgnoreStart
+	echo $html;
+	// @codingStandardsIgnoreEnd
 }
 
 
 
-/** -----------------------------------------------------------
- * Summary     | ページネーション出力関数.
- * Description | ループ中で自動でページネーションを出力します.
+/**
+ * ページネーション出力関数.
+ * ループ中で自動でページネーションを出力します.
  *
  * @link https://wemo.tech/978 参考
  *
@@ -159,17 +205,17 @@ function c_get_term( $tax, $kind, $link, $number, $html_tag ) {
  * @param int  $range 左右に何ページ表示するか.
  * @param bool $show_only 1ページしかない時に表示するかどうか.
  */
-function pagination( $pages, $current_page, $range = 2, $show_only = false ) {
+function pagination( $pages, $current_page, $range = 4, $show_only = false ) {
 
 	// float型で渡ってくるので明示的に int型 へ.
 	$pages        = (int) $pages;
 	$current_page = $current_page ? $current_page : 1;
 
 	// 表示テキスト.
-	$text_first  = '最初へ';
-	$text_before = '前へ';
-	$text_next   = '次へ';
-	$text_last   = '最後へ';
+	$text_first = '最初へ';
+	$text_prev  = 'BACK';
+	$text_next  = 'NEXT';
+	$text_last  = '最後へ';
 
 	if ( $show_only && 1 === $pages ) {
 		// １ページのみで表示設定が true の時.
@@ -181,83 +227,134 @@ function pagination( $pages, $current_page, $range = 2, $show_only = false ) {
 	}
 
 	if ( 1 !== $pages ) {
-		echo '<div>';
-		if ( $current_page > $range + 1 ) {
-			// 「最初へ」 の表示
-			echo '<a href="', esc_url( get_pagenum_link( 1 ) ) ,'" class="first">', esc_html( $text_first ) ,'</a>';
-		}
-		if ( $current_page > 1 ) {
-			// 「前へ」 の表示
-			echo '<a href="', esc_url( get_pagenum_link( $current_page - 1 ) ) ,'" class="prev">', esc_html( $text_before ) ,'</a>';
-		}
+		echo '<div class="c-pager">';
+
+		$prev_class = $current_page > 1 ? '' : 'is-disabled';
+		$next_class = $current_page < $pages ? '' : 'is-disabled';
+
+		// 「前へ」 の表示
+		echo '<a href="', esc_url( get_pagenum_link( $current_page - 1 ) ) ,'" class="arrow prev ', esc_html( $prev_class ) ,'">', esc_html( $text_prev ) ,'</a>';
+
 		for ( $i = 1; $i <= $pages; $i++ ) {
 			if ( $i <= $current_page + $range && $i >= $current_page - $range ) {
 				// $current_page +- $range 以内であればページ番号を出力
 				if ( $current_page === $i ) {
-					echo '<span class="current pager">', esc_html( $i ) ,'</span>';
+					echo '<span class="is-current pager">', esc_html( $i ) ,'</span>';
 				} else {
 					echo '<a href="', esc_url( get_pagenum_link( $i ) ) ,'" class="pager">', esc_html( $i ) ,'</a>';
 				}
+			} elseif ( $i === $pages - 1 ) {
+				echo '<span class="dotted l-lg">…</span>';
+			} elseif ( $i === $pages ) {
+				echo '<a href="', esc_url( get_pagenum_link( $i ) ) ,'" class="pager">', esc_html( $i ) ,'</a>';
 			}
 		}
-		if ( $current_page < $pages ) {
-			// 「次へ」 の表示
-			echo '<a href="', esc_url( get_pagenum_link( $current_page + 1 ) ) ,'" class="next">', esc_html( $text_next ) ,'</a>';
-		}
-		if ( $current_page + $range < $pages ) {
-			// 「最後へ」 の表示
-			echo '<a href="', esc_url( get_pagenum_link( $pages ) ) ,'" class="last">', esc_html( $text_last ) ,'</a>';
-		}
+
+		$current_number = <<< EOM
+		<div class="current-number l-sm">
+			<p class="current-number__current">{$current_page}</p>
+			<p class="current-number__maxnumber">{$pages}</p>
+		</div>
+EOM;
+		// @codingStandardsIgnoreStart
+		echo $current_number;
+		// @codingStandardsIgnoreEnd
+
+		// 「次へ」 の表示
+		echo '<a href="', esc_url( get_pagenum_link( $current_page + 1 ) ) ,'" class="arrow next ', esc_html( $next_class ) ,'">', esc_html( $text_next ) ,'</a>';
+
 		echo '</div>';
 	}
 }
 
 
-
-/** -----------------------------------------------------------
- * Summary     | wppからwp_query用args取得.
- * Description | wppでもwp_queryと同じ感覚で出力できるようidを取得し、wp_queryで用いる形でargsを出力します.
+/**
+ * Show txt
  *
- * @param strings $post_type カスタム投稿を指定。デフォルトnull.
- * @param strings $range |day|weekly|month|から集計期間を選択.
- * @param int     $limit 取得する件数のリミットを指定.
- * @return $wpp_id idを返す.
- * -----------------------------------------------------------*/
-function c_get_wpp_args( $post_type = '', $range = 'weekly', $limit = 5 ) {
-	// urlを作成.
-	$shortcode  = '[wpp';
-	$atts       = '
-		post_html      = "{url},"
-		wpp_start      = ""
-		wpp_end        = ""
-		order_by       = "views"
-		post_type      = "post"
-		stats_comments = 0
-		stats_views    = 1
-	';
-	$atts_2     = ' range=' . $range;
-	$atts_3     = ' limit=' . $limit;
-	$shortcode .= ' ' . $atts . $atts_2 . $atts_3 . ']';
-	$result     = explode( ',', wp_strip_all_tags( do_shortcode( $shortcode ) ) );
-	$wpp_id     = array();
-
-	// urlから投稿IDを作成.
-	foreach ( $result as $_url ) {
-		if ( ! empty( $_url ) && trim( $_url ) !== '' ) {
-			$id_string = url_to_postid( $_url );
-			array_push( $wpp_id, intval( $id_string ) );
-		}
+ * @param string $txt .
+ * @param number $length .
+ * @return void
+ */
+function show_txt( $txt, $length ) {
+	if ( mb_strlen( $txt, 'utf-8' ) > $length ) {
+		$_txt = mb_substr( $txt, 0, $length, 'utf-8' ) . '…';
+	} else {
+		$_txt = $txt;
 	}
 
-	$args = array(
-		'post_type'      => $post_type,
-		'posts_per_page' => $limit,
-		'orderby'        => 'post__in',
-		'order'          => 'DESC',
-		'post_status'    => 'publish',
-		'post__in'       => $wpp_id,
-		'post__not_in'   => get_option( 'sticky_posts' ),
-	);
+	echo esc_html( $_txt );
+}
 
-	return $args;
+
+/**
+ * Get txt
+ *
+ * @param string $txt .
+ * @param number $length .
+ * @return $_txt
+ */
+function get_txt( $txt, $length ) {
+	if ( mb_strlen( $txt, 'utf-8' ) > $length ) {
+		$_txt = mb_substr( $txt, 0, $length, 'utf-8' ) . '…';
+	} else {
+		$_txt = $txt;
+	}
+
+	return $_txt;
+}
+
+
+/**
+ * 画像が無い時にnoimageを出す
+ *
+ * @param number  $id .
+ * @param string  $size .
+ * @param boolean $is_noimage .
+ */
+function show_thumb( $id, $size, $is_noimage ) {
+	if ( has_post_thumbnail( $id ) ) {
+		$image = get_the_post_thumbnail_url( $id, $size );
+	} else {
+		if ( $is_noimage ) {
+			$image = NOIMAGE_2X;
+		} else {
+			$image = null;
+		}
+	}
+	// @codingStandardsIgnoreStart
+	echo $image;
+	// @codingStandardsIgnoreEnd
+}
+
+
+/**
+ * 曜日取得
+ *
+ * @param string $date .
+ * @param string $language .
+ * @return day_name 英字の場合は小文字で返します
+ */
+function get_dayname( $date, $language = 'en' ) {
+	$dates       = DateTime::createFromFormat( 'Ymd', str_replace( '.', '', $date ) );
+	$day_name_ja = array( '日', '月', '火', '水', '木', '金', '土' );
+	if ( 'en' === $language ) {
+		$day_name = mb_strtolower( $dates->format( 'D' ) );
+	} elseif ( 'ja' === $language ) {
+		$day_name = $day_name_ja[ $dates->format( 'w' ) ];
+	}
+	return $day_name;
+}
+
+
+/**
+ * 日付を特定の書式にフォーマット
+ *
+ * @param string $date .
+ * @param string $format .
+ * @return $date
+ */
+function get_dayformat( $date, $format ) {
+	$dates = DateTime::createFromFormat( 'Ymd', str_replace( '.', '', $date ) );
+	$date  = $dates->format( $format );
+	return $date;
 }

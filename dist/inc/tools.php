@@ -8,17 +8,10 @@
  * @package piiiQcy
  */
 
-?>
-
-<?php
-/** ------------------------------------------------------------
- *
+/**
  * パンくずリスト生成
  *
- * @param string $page_relation_list 兄弟関係のページが入った連想配列.
- * @return string htmlテキストを返します.
- *
- * -------------------------------------------------------------
+ * @param array $page_relation_list 兄弟関係のページが入った連想配列.
  */
 function c_gen_breadcrumbs( $page_relation_list ) {
 	$site_url        = home_url( '/' );
@@ -43,5 +36,21 @@ EOM;
 	}
 	$html .= "</div></div>\n";
 
-	return $html;
+	// @codingStandardsIgnoreStart
+	echo $html;
+	// @codingStandardsIgnoreEnd
+}
+
+
+/**
+ * Assets filepath and query string
+ *
+ * @param string $file_path .
+ */
+function c_get_assetspath( $file_path ) {
+	$path      = THEMEROOTPATH . $file_path;
+	$path_full = THEMEROOTFULLPATH . $file_path;
+	$query     = '?rev=' . gmdate( 'YmdGis', filemtime( $path_full ) );
+
+	echo esc_url( $path . $query );
 }
