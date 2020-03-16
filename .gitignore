@@ -155,6 +155,7 @@ $RECYCLE.BIN/
 *.map
 #*map/
 env.json
+app/WordPress
 
 dist/assets/css/
 dist/assets/js/

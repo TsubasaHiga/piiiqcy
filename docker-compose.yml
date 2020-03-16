@@ -1,0 +1,27 @@
+version: "3.3"
+
+services:
+
+  wordpress:
+    container_name: "wordpress"
+    depends_on:
+      - db
+    build: .
+    ports:
+      - "8000:80"
+    volumes:
+      - ./app/WordPress:/var/www/html
+      # - ./dist:/var/www/html/wp-content/themes
+    restart: always
+    env_file: .env
+
+  db:
+    container_name: "wordpress-db"
+    image: mysql:5.7
+    volumes:
+      - db_data:/var/lib/mysql
+    restart: always
+    env_file: .env
+
+volumes:
+  db_data:
