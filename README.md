@@ -81,3 +81,26 @@ docker network ls
 docker exec -it {container名} bash
 ```
 
+## docker compose wo-cli操作
+
+``` bash
+# 初期設定
+docker-compose run --rm wpcli wp core install --url='http://localhost' --title='test' --admin_user='test' --admin_password='test' --admin_email='info@example.com' --allow-root
+
+# 日本語設定
+docker-compose run --rm wpcli wp language core install ja --activate --allow-root 
+
+# wp-cli plugin一覧確認
+docker-compose run --rm wpcli plugin list
+
+# 推奨pluginの一括インストール＆有効化
+docker-compose run --rm wpcli plugin install admin-menu-editor advanced-custom-fields custom-post-type-ui wordPress-popular-posts siteguard --activate --allow-root 
+```
+
+| wp-cli上のPlugin名 | 必須 / 要件に応じて |
+| --- | --- |
+| admin-menu-editor | 必須 |
+| advanced-custom-fields | 必須 |
+| custom-post-type-ui | 必須 |
+| wordPress-popular-posts | 要件に応じて |
+| siteguard | 要件に応じて |

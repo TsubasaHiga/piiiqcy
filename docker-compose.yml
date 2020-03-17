@@ -11,9 +11,19 @@ services:
       - "8080:80"
     volumes:
       - ./app/WordPress:/var/www/html
+      - ./config/php.conf.ini:/usr/local/etc/php/conf.d/conf.ini
       - ./dist:/var/www/html/wp-content/themes/quicint
     restart: always
     env_file: .env
+
+  wpcli:
+    image: wordpress:cli
+    volumes:
+      - ./config/php.conf.ini:/usr/local/etc/php/conf.d/conf.ini
+      - ./app/WordPress:/var/www/html
+    depends_on:
+      - db
+      - wordpress
 
   db:
     container_name: "wordpress-db"

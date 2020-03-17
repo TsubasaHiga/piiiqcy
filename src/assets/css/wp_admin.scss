@@ -3,28 +3,28 @@
 // 管理画面の左メニュー幅
 // ----------------------------------------------------------
 
-// #adminmenuback,
-// #adminmenuwrap,
-// #adminmenu,
-// #adminmenu .wp-submenu {
-//   width: 200px;
-// }
+#adminmenuback,
+#adminmenuwrap,
+#adminmenu,
+#adminmenu .wp-submenu {
+  width: 200px;
+}
 
-// #wpcontent,
-// #wpfooter {
-//   margin-left: 200px;
-// }
+#wpcontent,
+#wpfooter {
+  margin-left: 200px;
+}
 
-// #adminmenu .opensub .wp-submenu {
-//   left: 200px;
-// }
+#adminmenu .opensub .wp-submenu {
+  left: 200px;
+}
 
-// #postimagediv {
+#postimagediv {
 
-//   .description {
+  .description {
 
-//     span {
-//       color: #999;
-//     }
-//   }
-// }
+    span {
+      color: #999;
+    }
+  }
+}
