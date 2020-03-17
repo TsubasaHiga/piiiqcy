@@ -17,3 +17,67 @@ piiiQcy（ピィキュー）はWordPressコーディング規約に則ったWord
 - WP Mail SMTP
 - WPS Hide Login
 - Yoast SEO
+
+# Docker and WordPress
+
+## docker コマンド
+
+``` bash
+# docker image一覧確認
+docker image ls
+
+# docker container 起動済みimageの一覧確認
+docker container ls
+
+# docker container 起動していないimageも含め一覧確認
+docker container ls -a
+
+# docker container 削除
+docker rm {containerのハッシュ値}
+
+# docker container 一括削除
+docker container prune
+```
+
+## docker compose コマンド
+
+``` bash
+# docker compose build
+docker-compose build
+
+# docker compose build（キャッシュなし）
+docker-compose build --no-cache
+
+# docker compose起動
+docker-compose up -d
+
+# docker composeの停止
+docker-compose stop
+
+# docker composeの再起動
+docker-compose restart
+
+# docker composeのステータス確認
+docuker-compose ps
+
+# docker composeの削除
+docker-compose down
+
+# docker composeの削除（ボリュームも削除）
+docker-compose down --volumes
+```
+
+## docker compose コマンド network
+
+``` bash
+# docker network一覧
+docker network ls
+```
+
+## docker compose コマンド host操作
+
+``` bash
+# docker exec -it bash
+docker exec -it {container名} bash
+```
+
