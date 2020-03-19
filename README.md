@@ -25,10 +25,19 @@ docker-compose run --rm wpcli wp core install --url='http://localhost:8000' --ti
 docker-compose run --rm wpcli wp language core install ja --activate --allow-root
 
 # wp-cliで基本pluginのインストールと有効化
-docker-compose run --rm wpcli plugin install admin-menu-editor advanced-custom-fields custom-post-type-ui --activate --allow-root 
+docker-compose run --rm wpcli plugin install admin-menu-editor advanced-custom-fields custom-post-type-ui --activate --allow-root
 
 # serve起動
 npm run serve
+```
+
+### WordPressのurlをIPアドレスに変更
+
+wp-config.phpにて`WP_HOME`と`WP_SITEURL`をIPアドレスで明示することで同一ネットワーク内でのアクセスが可能になります。スマホで確認する際に便利です。
+
+``` php
+define( 'WP_HOME', 'http://192.168.0.16:3000' );
+define( 'WP_SITEURL', 'http://192.168.0.16:3000' );
 ```
 
 ## コマンドリスト
@@ -100,6 +109,12 @@ docker-compose run --rm wpcli plugin list
 
 # 推奨pluginの一括インストール＆有効化
 docker-compose run --rm wpcli plugin install admin-menu-editor advanced-custom-fields custom-post-type-ui --activate --allow-root 
+
+# 色々アップデート
+docker-compose run --rm wpcli wp core update && wp plugin update --all && wp theme update --all && wp core language update
+
+# プラグインアップデート
+docker-compose run --rm wpcli wp plugin update --all
 ```
 
 | wp-cli上のPlugin名 | 必須 / 要件に応じて |
