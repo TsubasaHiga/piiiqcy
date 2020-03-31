@@ -30,11 +30,7 @@ import luxy from 'luxy.js'
 
 // page scripts
 import pageNameTop from './page/top'
-
-// luxy
-luxy.init({
-  wrapper: '#mainwrap'
-})
+import getDeviceType from './helper/getDeviceType'
 
 /**
  * DOMCONTENTLOADED
@@ -61,8 +57,22 @@ window.addEventListener('DOMContentLoaded', () => {
   // getOrientation
   getOrientation()
 
-  // pageAnimation
-  pageAnimation()
+  if (getDeviceType() === 'lg') {
+    // luxy
+    luxy.init({
+      wrapper: '#mainwrap'
+    })
+  }
+})
+
+/**
+ * bfcache対策
+ */
+window.addEventListener('pageshow', e => {
+  if (e.persisted) {
+    // ページ遷移後の`.is-page-leave-animation`クラスを削除
+    EL.HTML.classList.remove('is-page-leave-animation')
+  }
 })
 
 /**
@@ -70,6 +80,9 @@ window.addEventListener('DOMContentLoaded', () => {
  */
 window.addEventListener('load', () => {
   EL.HTML.classList.add('is-loaded')
+
+  // pageAnimation
+  pageAnimation()
 
   // hmb menu
   hmb()
@@ -91,7 +104,7 @@ window.addEventListener('load', () => {
  */
 window.addEventListener(
   'scroll',
-  throttle(300, () => {
+  throttle(150, () => {
     const y = window.pageYOffset
     const documentH = getDocumentH()
 

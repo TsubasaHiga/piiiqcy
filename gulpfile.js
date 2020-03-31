@@ -45,8 +45,8 @@ const isExistFile = file => {
 }
 
 // 環境設定ファイルの読み込み.
-const env = isExistFile('./env.json')
-  ? JSON.parse(fs.readFileSync('./env.json', 'utf8'))
+const setting = isExistFile('./setting.json')
+  ? JSON.parse(fs.readFileSync('./setting.json', 'utf8'))
   : ''
 
 // webpackの設定ファイルの読み込み.
@@ -55,20 +55,14 @@ const webpackConfigBuild = require('./webpack.production.config')
 
 // json file check task.
 const jsoncFileCeck = cb => {
-  // サイト設定ファイルの読み込み.
-  const siteSetting = isExistFile('./setting.json')
-    ? JSON.parse(fs.readFileSync('./setting.json', 'utf8'))
-    : ''
-
-  if (env && siteSetting) {
+  if (setting) {
     gulp
-      .src([env.io.env, env.io.siteSetting])
+      .src([setting.io.setting])
       .pipe(jsonlint())
       .pipe(jsonlint.reporter())
 
     console.log('---------------------------'.green)
     console.log('json file check OK! Ready..'.bold.green)
-    console.log('- OK: env.json'.cyan)
     console.log('- OK: setting.json'.cyan)
     console.log('---------------------------'.green)
   } else {
@@ -81,7 +75,7 @@ const jsoncFileCeck = cb => {
 }
 
 // BrowserSync - sync.
-const sync = () => browserSync.init(env.browsersync)
+const sync = () => browserSync.init(setting.browsersync)
 
 // BrowserSync - reload.
 const reload = cb => {
@@ -91,13 +85,13 @@ const reload = cb => {
 
 // CleanImg.
 const cleanImg = () => {
-  return del(env.io.output.img + '**/*.{png,jpg,gif,svg}')
+  return del(setting.io.output.img + '**/*.{png,jpg,gif,svg}')
 }
 
 // Scss compile.
 const scss = () => {
   return gulp
-    .src(env.io.input.css + '**/*.scss')
+    .src(setting.io.input.css + '**/*.scss')
     .pipe(
       plumber({
         errorHandler: err => {
@@ -126,14 +120,14 @@ const scss = () => {
       ])
     )
     .pipe(sourcemaps.write('/maps'))
-    .pipe(gulp.dest(env.io.output.css))
+    .pipe(gulp.dest(setting.io.output.css))
     .pipe(gulpif(browserSync.active === true, browserSync.stream()))
 }
 
 // Img compressed.
 const img = () => {
   return gulp
-    .src(env.io.input.img + '**/*.{png,jpg,gif,svg}')
+    .src(setting.io.input.img + '**/*.{png,jpg,gif,svg}')
     .pipe(
       plumber({
         errorHandler: err => {
@@ -142,7 +136,7 @@ const img = () => {
         }
       })
     )
-    .pipe(newer(env.io.output.img)) // srcとdistを比較して異なるものだけ処理
+    .pipe(newer(setting.io.output.img)) // srcとdistを比較して異なるものだけ処理
     .pipe(
       imagemin([
         pngquant({
@@ -159,13 +153,13 @@ const img = () => {
         imagemin.gifsicle()
       ])
     )
-    .pipe(gulp.dest(env.io.output.img))
+    .pipe(gulp.dest(setting.io.output.img))
 }
 
 // WebpackStream.
 const js = () => {
   return gulp
-    .src(env.io.input.js + '**/*.js')
+    .src(setting.io.input.js + '**/*.js')
     .pipe(
       plumber({
         errorHandler: err => {
@@ -175,13 +169,13 @@ const js = () => {
       })
     )
     .pipe(webpackStream(webpackConfig, webpack))
-    .pipe(gulp.dest(env.io.output.js))
+    .pipe(gulp.dest(setting.io.output.js))
 }
 
 // WebpackStream build
 const jsBuild = () => {
   return gulp
-    .src(env.io.input.js + '**/*.js')
+    .src(setting.io.input.js + '**/*.js')
     .pipe(
       plumber({
         errorHandler: err => {
@@ -191,16 +185,15 @@ const jsBuild = () => {
       })
     )
     .pipe(webpackStream(webpackConfigBuild, webpack))
-    .pipe(gulp.dest(env.io.output.js))
+    .pipe(gulp.dest(setting.io.output.js))
 }
 
 // Watch files.
 const watch = () => {
-  gulp.watch(env.io.input.css + '**/*.scss', scss)
-  gulp.watch(env.io.input.img + '**/*', img)
-  gulp.watch(env.io.input.js + '**/*.js', gulp.series(js, reload))
-  gulp.watch(
-    env.io.output.php + '**/*.php',
+  gulp.watch(setting.io.input.css + '**/*.scss', scss)
+  gulp.watch(setting.io.input.img + '**/*', img)
+  gulp.watch(setting.io.input.js + '**/*.js', gulp.series(js, reload))
+  gulp.watch(setting.io.output.php + '**/*.php',
     { interval: 250 }, reload)
 }
 
@@ -219,11 +212,11 @@ const genDir = (dirname, type) => {
         '!' + distname + '/**/*Thumbs.db'
       ])
       .pipe(zip(dirname + '.zip'))
-      .pipe(gulp.dest(env.publishDir))
+      .pipe(gulp.dest(setting.publishDir))
       .pipe(
         notify({
           title: '納品データをZIP化しました 🗜',
-          message: '出力先：' + env.publishDir + '/' + dirname + '.zip'
+          message: '出力先：' + setting.publishDir + '/' + dirname + '.zip'
         })
       )
   } else {
@@ -250,19 +243,21 @@ const genPublishDir = cb => {
 // 納品タスク
 const genZipArchive = cb => {
   // サイト設定ファイルの読み込み.
-  const siteSetting = JSON.parse(fs.readFileSync('./setting.json', 'utf8'))
+  const detting = JSON.parse(fs.readFileSync('./setting.json', 'utf8'))
 
   // 納品ファイル作成
   const dt = new Date()
   const date = dt.toFormat('YYMMDD-HHMI')
-  const dirname = 'publish__' + date + '__' + siteSetting.publishFileName
+  const dirname = 'publish__' + date + '__' + detting.publishFileName
   genDir(dirname, 'zip')
   cb()
 }
 
 exports.default = gulp.series(jsoncFileCeck, gulp.parallel(watch, sync))
-exports.json_check = jsoncFileCeck
-exports.img_reset = gulp.series(cleanImg, img)
+
 exports.development = gulp.series(jsoncFileCeck, scss, cleanImg, img, js)
 exports.production = gulp.series(jsoncFileCeck, scss, cleanImg, img, jsBuild, genPublishDir, js)
+
+exports.checkJson = jsoncFileCeck
 exports.zip = gulp.series(jsoncFileCeck, scss, cleanImg, img, jsBuild, genZipArchive, js)
+exports.resetImg = gulp.series(cleanImg, img)

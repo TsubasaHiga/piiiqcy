@@ -27,27 +27,26 @@ body {
 .mainwrap {
 
   &__inner {
-    $time: 500ms;
+    $time: 350ms;
+    $move: -10px;
     $ease: ease;
 
     height: 100%;
     opacity: 0;
-    transform: translateY(10px);
-    transition: opacity $time $ease, transform $time $ease;
-    // will-change: transform, opacity;
+    position: relative;
+    top: $move;
+    will-change: top;
 
-    &.is-page {
-      // ページ離脱時のアニメーション
+    .is-page-enter-animation & {
+      opacity: 1;
+      top: 0;
+      transition: opacity $time $ease, top $time $ease;
+    }
 
-      &-enter-animation {
-        opacity: 1;
-        transform: translateY(0);
-      }
-
-      &-leave-animation {
-        opacity: 0;
-        transform: translateY(-10px);
-      }
+    .is-page-leave-animation & {
+      opacity: 0;
+      top: $move;
+      transition: opacity $time $ease, top $time $ease;
     }
   }
 }

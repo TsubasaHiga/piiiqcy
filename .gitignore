@@ -153,8 +153,6 @@ $RECYCLE.BIN/
 
 # CUSTOM
 *.map
-#*map/
-env.json
 app/WordPress
 
 dist/assets/css/

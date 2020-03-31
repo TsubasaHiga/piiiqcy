@@ -1,10 +1,44 @@
 {
-    "siteName": "HTML5案件用のボイラープレートQuicit",
-    "siteDomain": "https://example.com",
-    "metaAuthor": "サンプルテキスト",
-    "metaAppid": "0123456789",
-    "metaTwitterSite": "サンプルテキスト",
-    "metaTwitterCreator": "サンプルテキスト",
-    "publishFileName": "Quicint",
-    "themeColor": "#000"
+  "browsersync": {
+    "browser": "google chrome",
+    "proxy": "localhost:8000",
+    "notify": false,
+    "open": false,
+    "ghostMode": {
+      "clicks": false,
+      "forms": false,
+      "scroll": false
+    },
+    "https": false,
+    "reloadOnRestart": true
+  },
+  "htmlmin": {
+    "collapseWhitespace": false,
+    "removeComments": false
+  },
+  "htmlminProduction": {
+    "collapseWhitespace": true,
+    "removeComments": true
+  },
+  "htmlbeautify": {
+    "indent_size": 2,
+    "preserve_newlines": false
+  },
+  "publishDir": "/Users/higa/Desktop",
+  "publishFileName": "piiiQcy",
+  "io": {
+    "input": {
+      "css": "src/assets/css/",
+      "img": "src/assets/images/",
+      "js": "src/assets/js/",
+      "ejs": "src/"
+    },
+    "output": {
+      "css": "dist/assets/css/",
+      "img": "dist/assets/images/",
+      "js": "dist/assets/js/",
+      "php": "dist/"
+    },
+    "setting": "./setting.json"
+  }
 }

@@ -8,14 +8,10 @@ import pd from './preventDefault'
  * ページ遷移用のアニメーション（class toggle）処理を行います
  */
 export default () => {
-  window.addEventListener('popstate', function (e) {
-    console.log('hey')
-  })
-
   // ページ遷移後のクラスを付与
   setTimeout(() => {
-    EL.MAINWRAPINNER.classList.add('is-page-enter-animation')
-  }, 10)
+    EL.HTML.classList.add('is-page-enter-animation')
+  }, 50)
 
   for (let i = 0; i < EL.ALLLINKS.length; i = (i + 1) | 0) {
     const link = EL.ALLLINKS[i]
@@ -25,10 +21,30 @@ export default () => {
       link.addEventListener('click', e => {
         pd(e)
 
-        EL.MAINWRAPINNER.classList.add('is-page-leave-animation')
-        setTimeout(() => {
-          window.location = link.href
-        }, 500)
+        if (!e.target.classList.contains('js-data-link')) {
+          EL.HTML.classList.add('is-page-leave-animation')
+          setTimeout(() => {
+            window.location = link.href
+          }, 350)
+        }
+      })
+    }
+  }
+
+  // data-linkでページ遷移させている箇所にも適応
+  const datalink = document.querySelectorAll('.js-data-link')
+  if (datalink) {
+    for (let i = 0; i < datalink.length; i = (i + 1) | 0) {
+      const link = datalink[i]
+
+      link.addEventListener('click', e => {
+        pd(e)
+        if (e.target.classList.contains('js-data-link')) {
+          EL.HTML.classList.add('is-page-leave-animation')
+          setTimeout(() => {
+            window.location = link.dataset.link
+          }, 350)
+        }
       })
     }
   }

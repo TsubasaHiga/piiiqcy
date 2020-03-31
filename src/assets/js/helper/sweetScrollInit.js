@@ -21,16 +21,17 @@ export default () => {
 
     // get hash.
     const hash = window.location.hash
-    const needsInitialScroll = document.getElementById(hash.substr(1)) != null
-    if (needsInitialScroll) {
-      // window.location.hash = ''
-      sweetScroll.to(hash, { updateURL: 'replace' })
+    if (hash) {
+      const needsInitialScroll = document.getElementById(hash.substr(1)) != null
+      if (needsInitialScroll) {
+        sweetScroll.to(hash, { updateURL: 'replace' })
+      }
     }
 
     // resize
     window.addEventListener(
       'resize',
-      debounce(300, () => {
+      debounce(150, () => {
         // スムーススクロール destroy.
         if (
           typeof sweetScroll !== 'undefined' &&
