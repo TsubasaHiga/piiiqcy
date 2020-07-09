@@ -37,7 +37,7 @@
 // ----------------------------------------------------------
 @mixin hideText() {
   color: transparent;
-  font: 0/0 a;
+  font: 0/0;
   overflow: hidden;
   text-shadow: none;
 }
@@ -94,12 +94,7 @@
 // 05__gradation
 // ----------------------------------------------------------
 @mixin gradation($topColor, $bottomColor, $angle: to bottom) {
-  background: mix(
-    $topColor,
-    $bottomColor,
-    50%
-  ); //開始色と終了色の中間の色を背景色に指定
-
+  background: mix($topColor, $bottomColor, 50%); //開始色と終了色の中間の色を背景色に指定
   background: linear-gradient($angle, $topColor, $bottomColor);
 }
 
@@ -218,7 +213,7 @@
     &:after {
       border-color: transparent transparent $color transparent;
       border-width: 0 #{$width/2}px #{$height}px #{$width/2}px;
-      left: calc(50% - #{$width/2}px);
+      left: calc(50% - #{$width/2px});
       top: -#{$height}px;
     }
   }
@@ -229,7 +224,7 @@
       border-color: transparent transparent transparent $color;
       border-width: #{$width/2}px 0 #{$width/2}px #{$height}px;
       right: -#{$height}px;
-      top: calc(50% - #{$width/2}px);
+      top: calc(50% - #{$width/2px});
     }
   }
 
@@ -239,7 +234,7 @@
       border-color: $color transparent transparent transparent;
       border-width: #{$height}px #{$width/2}px 0 #{$width/2}px;
       bottom: -#{$height}px;
-      left: calc(50% - #{$width/2}px);
+      left: calc(50% - #{$width/2px});
     }
   }
 
@@ -249,7 +244,7 @@
       border-color: transparent $color transparent transparent;
       border-width: #{$width/2}px #{$height}px #{$width/2}px 0;
       left: -#{$height}px;
-      top: calc(50% - #{$width/2}px);
+      top: calc(50% - #{$width/2px});
     }
   }
 
@@ -295,6 +290,7 @@
   @if $position {
     -o-object-position: $position;
     object-position: $position;
+    /* stylelint-disable-next-line */
     font-family: "object-fit: #{$fit}; object-position: #{$position}";
   }
 
@@ -354,9 +350,8 @@
 
 // 14__edge (lg / sm)
 // ----------------------------------------------------------
-@mixin edge($size: false) {
-
-  html[data-browser = "edge"] & {
+@mixin edge($size: false, $engine: "edgehtml") {
+  html[data-browser="edge"][data-browserengine="#{$engine}"] & {
     @if ($size) {
       @if ($size == "lg") {
         @media screen and (min-width: $breakPoint) {
@@ -405,23 +400,16 @@
 // 16__safari (lg / sm)
 // ----------------------------------------------------------
 @mixin safari($size: false) {
+  @if ($size == "sm") {
 
-  html[data-browser = "safari"] & {
-    @if ($size) {
-      @if ($size == "lg") {
-        @media screen and (min-width: $breakPoint) {
-          @content;
-        }
-      }
-
-      @else if ($size == "sm") {
-        @media screen and (max-width: $breakPoint - 1) {
-          @content;
-        }
-      }
+    html[data-browser = "mobile-safari"] & {
+      @content;
     }
+  }
 
-    @else {
+  @else {
+
+    html[data-browser = "safari"] & {
       @content;
     }
   }
@@ -510,6 +498,10 @@
 // 23__placeholder
 // ----------------------------------------------------------
 @mixin placeholder {
+
+  &:placeholder {
+    @content;
+  }
 
   &:placeholder-shown {
     @content;

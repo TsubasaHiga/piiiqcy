@@ -6,7 +6,7 @@
  *
  */
 
-// プラグイン読み込み.
+// プラグイン読み込み
 const autoprefixer = require('gulp-autoprefixer')
 const browserSync = require('browser-sync').create()
 const css = require('gulp-sass')
@@ -26,15 +26,15 @@ const mqpacker = require('css-mqpacker')
 const newer = require('gulp-newer')
 const notify = require('gulp-notify')
 const packageImporter = require('node-sass-package-importer')
+const path = require('path')
 const plumber = require('gulp-plumber')
 const pngquant = require('imagemin-pngquant')
 const postcss = require('gulp-postcss')
-const sourcemaps = require('gulp-sourcemaps')
 const webpack = require('webpack')
 const webpackStream = require('webpack-stream')
 const zip = require('gulp-zip')
 
-// ファイル存在判定.
+// ファイル存在判定
 const isExistFile = file => {
   try {
     fs.statSync(file)
@@ -44,16 +44,16 @@ const isExistFile = file => {
   }
 }
 
-// 環境設定ファイルの読み込み.
+// 環境設定ファイルの読み込み
 const setting = isExistFile('./setting.json')
   ? JSON.parse(fs.readFileSync('./setting.json', 'utf8'))
   : ''
 
-// webpackの設定ファイルの読み込み.
+// webpackの設定ファイルの読み込み
 const webpackConfig = require('./webpack.config')
 const webpackConfigBuild = require('./webpack.production.config')
 
-// json file check task.
+// json file check task
 const jsoncFileCeck = cb => {
   if (setting) {
     gulp
@@ -74,24 +74,39 @@ const jsoncFileCeck = cb => {
   cb()
 }
 
-// BrowserSync - sync.
+// BrowserSync - sync
 const sync = () => browserSync.init(setting.browsersync)
 
-// BrowserSync - reload.
+// BrowserSync - reload
 const reload = cb => {
   browserSync.reload()
   cb()
 }
 
-// CleanImg.
+// CleanImg
 const cleanImg = () => {
-  return del(setting.io.output.img + '**/*.{png,jpg,gif,svg}')
+  return del(setting.io.output.img + '**/*.{png,apng,jpg,gif,svg}')
 }
 
-// Scss compile.
+// Clean garbage.
+const cleanGarbage = () => {
+  return del([
+    setting.io.output.php + '/**/maps',
+    setting.io.output.php + '/**/*.map',
+    setting.io.output.php + '/**/*.DS_Store',
+    setting.io.output.php + '/**/*.LICENSE',
+    setting.io.output.php + '/**/*Thumbs.db'
+  ])
+}
+
+// Scss compile
 const scss = () => {
   return gulp
-    .src(setting.io.input.css + '**/*.scss')
+    .src(
+      setting.io.input.css + '**/*.scss', {
+        sourcemaps: true
+      }
+    )
     .pipe(
       plumber({
         errorHandler: err => {
@@ -100,7 +115,6 @@ const scss = () => {
         }
       })
     )
-    .pipe(sourcemaps.init())
     .pipe(
       css({
         precision: 5,
@@ -119,15 +133,51 @@ const scss = () => {
         })
       ])
     )
-    .pipe(sourcemaps.write('/maps'))
-    .pipe(gulp.dest(setting.io.output.css))
+    .pipe(
+      gulp.dest(setting.io.output.css, {
+        sourcemaps: '/maps'
+      })
+    )
     .pipe(gulpif(browserSync.active === true, browserSync.stream()))
 }
 
-// Img compressed.
+// scssProduction compile.
+const scssProduction = () => {
+  return gulp
+    .src(setting.io.input.css + '**/*.scss')
+    .pipe(
+      plumber({
+        errorHandler: err => {
+          console.log(err.messageFormatted)
+          this.emit('end')
+        }
+      })
+    )
+    .pipe(
+      css({
+        precision: 5,
+        importer: packageImporter({
+          extensions: ['.scss', '.css']
+        })
+      })
+    )
+    .pipe(autoprefixer({}))
+    .pipe(
+      postcss([
+        mqpacker(),
+        cssnano({ autoprefixer: false }),
+        cssDeclarationSorter({
+          order: 'smacss'
+        })
+      ])
+    )
+    .pipe(gulp.dest(setting.io.output.css))
+    .pipe(gulpif(browserSync.active === true, browserSync.stream()))
+}
+// Img compressed
 const img = () => {
   return gulp
-    .src(setting.io.input.img + '**/*.{png,jpg,gif,svg}')
+    .src(setting.io.input.img + '**/*.{png,apng,jpg,gif,svg}')
     .pipe(
       plumber({
         errorHandler: err => {
@@ -139,15 +189,8 @@ const img = () => {
     .pipe(newer(setting.io.output.img)) // srcとdistを比較して異なるものだけ処理
     .pipe(
       imagemin([
-        pngquant({
-          quality: [0.5, 0.9],
-          speed: 1,
-          floyd: 0
-        }),
-        mozjpeg({
-          quality: 85,
-          progressive: true
-        }),
+        pngquant(setting.pngquant),
+        mozjpeg(setting.mozjpeg),
         imagemin.svgo(),
         imagemin.optipng(),
         imagemin.gifsicle()
@@ -156,14 +199,14 @@ const img = () => {
     .pipe(gulp.dest(setting.io.output.img))
 }
 
-// WebpackStream.
+// WebpackStream
 const js = () => {
   return gulp
     .src(setting.io.input.js + '**/*.js')
     .pipe(
       plumber({
         errorHandler: err => {
-          console.log(err)
+          console.log(err.messageFormatted)
           this.emit('end')
         }
       })
@@ -188,7 +231,7 @@ const jsBuild = () => {
     .pipe(gulp.dest(setting.io.output.js))
 }
 
-// Watch files.
+// Watch files
 const watch = () => {
   gulp.watch(setting.io.input.css + '**/*.scss', scss)
   gulp.watch(setting.io.input.img + '**/*', img)
@@ -201,6 +244,9 @@ const watch = () => {
 const genDir = (dirname, type) => {
   dirname = typeof dirname !== 'undefined' ? dirname : 'publish_data'
   const distname = 'dist'
+  const userHome = process.env[process.platform === 'win32' ? 'USERPROFILE' : 'HOME']
+  const publishDir = path.join(userHome, setting.publishDir)
+
   if (type === 'zip') {
     return gulp
       .src([
@@ -212,11 +258,11 @@ const genDir = (dirname, type) => {
         '!' + distname + '/**/*Thumbs.db'
       ])
       .pipe(zip(dirname + '.zip'))
-      .pipe(gulp.dest(setting.publishDir))
+      .pipe(gulp.dest(publishDir))
       .pipe(
         notify({
           title: '納品データをZIP化しました 🗜',
-          message: '出力先：' + setting.publishDir + '/' + dirname + '.zip'
+          message: '出力先：' + publishDir + '/' + dirname + '.zip'
         })
       )
   } else {
@@ -243,12 +289,12 @@ const genPublishDir = cb => {
 // 納品タスク
 const genZipArchive = cb => {
   // サイト設定ファイルの読み込み.
-  const detting = JSON.parse(fs.readFileSync('./setting.json', 'utf8'))
+  const siteSetting = JSON.parse(fs.readFileSync('./setting-site.json', 'utf8'))
 
   // 納品ファイル作成
   const dt = new Date()
   const date = dt.toFormat('YYMMDD-HHMI')
-  const dirname = 'publish__' + date + '__' + detting.publishFileName
+  const dirname = 'publish__' + date + '__' + siteSetting.publishFileName
   genDir(dirname, 'zip')
   cb()
 }
@@ -256,8 +302,11 @@ const genZipArchive = cb => {
 exports.default = gulp.series(jsoncFileCeck, gulp.parallel(watch, sync))
 
 exports.development = gulp.series(jsoncFileCeck, scss, cleanImg, img, js)
-exports.production = gulp.series(jsoncFileCeck, scss, cleanImg, img, jsBuild, genPublishDir, js)
+
+exports.production = gulp.series(jsoncFileCeck, scssProduction, cleanImg, img, jsBuild, cleanGarbage)
 
 exports.checkJson = jsoncFileCeck
-exports.zip = gulp.series(jsoncFileCeck, scss, cleanImg, img, jsBuild, genZipArchive, js)
+exports.garbage = cleanGarbage
+
+exports.zip = gulp.series(jsoncFileCeck, scssProduction, cleanImg, img, jsBuild, genZipArchive)
 exports.resetImg = gulp.series(cleanImg, img)

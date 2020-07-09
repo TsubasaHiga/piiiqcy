@@ -96,7 +96,7 @@ typings/
 .yarn-integrity
 
 # dotenv environment variables file
-.env
+# .env
 .env.test
 
 # parcel-bundler cache (https://parceljs.org/)
@@ -159,4 +159,8 @@ dist/assets/css/
 dist/assets/js/
 dist/assets/images/
 
+dist-production
+dist-production-fullpath
+
 app/WordPress/
+db-data
