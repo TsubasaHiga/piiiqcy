@@ -1,0 +1,48 @@
+version: "3.3"
+
+services:
+
+  wordpress:
+    container_name: "wordpress"
+    image: wordpress:latest
+    depends_on:
+      - db
+    ports:
+      - "8000:80"
+    volumes:
+      - ./app/WordPress:/var/www/html
+      - ./config/php.conf.ini:/usr/local/etc/php/conf.d/conf.ini
+      - ./dist:/var/www/html/wp-content/themes/quicint
+    restart: always
+    env_file: .env
+
+  wpcli:
+    image: wordpress:cli
+    volumes:
+      - ./config/php.conf.ini:/usr/local/etc/php/conf.d/conf.ini
+      - ./app/WordPress:/var/www/html
+    depends_on:
+      - db
+      - wordpress
+
+  db:
+    image: mysql:5.7
+    volumes:
+      - db-data:/var/lib/mysql
+      - ./db-data:/docker-entrypoint-initdb.d
+    restart: always
+    env_file: .env
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    depends_on:
+      - db
+    environment:
+      PMA_HOST: db
+    restart: always
+    ports:
+      - "8080:80"
+
+volumes:
+  db-data:
+    driver: local

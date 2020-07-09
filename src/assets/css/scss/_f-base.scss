@@ -1,0 +1,84 @@
+@charset "utf-8";
+
+* {
+  box-sizing: border-box;
+
+  &:before,
+  &:after {
+    box-sizing: border-box;
+  }
+}
+
+html {
+  font-size: $fontSize;
+  -webkit-font-smoothing: antialiased;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+
+body {
+  background-color: $color--body;
+  color: $color--text;
+  font-family: $fontFamily;
+  font-feature-settings: "palt";
+  letter-spacing: .8px;
+  line-height: $lineHeight;
+  -webkit-text-size-adjust: 100%;
+  -ms-text-size-adjust: 100%;
+  word-wrap: break-word;
+}
+
+a {
+  @include hoverOpacity(.6);
+
+  color: $color--link;
+  outline: none;
+  text-decoration: none;
+
+  &[href ^= "tel:"] {
+    @include media(lg) {
+      pointer-events: none;
+    }
+  }
+}
+
+// image
+
+img,
+svg,
+video {
+  max-width: 100%;
+  vertical-align: top;
+}
+
+picture {
+
+  img {
+    width: 100%;
+  }
+}
+
+// table
+
+table {
+  border: 1px solid $color--border;
+  border-collapse: collapse;
+  max-width: 100%;
+  width: 100%;
+
+  th,
+  td {
+    border: 1px solid $color--border;
+    word-break: break-all;
+  }
+}
+
+// IE11のクリアボタンを非表示
+
+input::-ms-clear {
+  display: none;
+}
+
+ul,
+ol {
+  list-style-position: inside;
+}

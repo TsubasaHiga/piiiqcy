@@ -1,0 +1,30 @@
+@charset "utf-8";
+
+// debug
+
+body {
+  // $space: 39px;
+  $space: 20px;
+  // $space: 50%;
+
+  &:before,
+  &:after {
+    @include icon-ini;
+
+    background-color: #000;
+    display: none;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    width: 1px;
+    z-index: 999999;
+  }
+
+  &:before {
+    left: $space;
+  }
+
+  &:after {
+    right: $space;
+  }
+}
