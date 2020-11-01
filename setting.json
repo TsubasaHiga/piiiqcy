@@ -1,31 +1,22 @@
 {
-  "browsersync": {
-    "browser": "google chrome",
-    "proxy": "localhost:8000",
-    "notify": false,
-    "open": false,
-    "ghostMode": {
-      "clicks": false,
-      "forms": false,
-      "scroll": false
+    "browsersync": {
+        "browser": "google chrome",
+        "proxy": "localhost:8000",
+        "notify": false,
+        "open": false,
+        "ghostMode": {
+            "clicks": false,
+            "forms": false,
+            "scroll": false
+        },
+        "https": false,
+        "reloadOnRestart": true
     },
-    "https": false,
-    "reloadOnRestart": true
-  },
-  "htmlmin": {
-    "collapseWhitespace": false,
-    "removeComments": false
-  },
-  "htmlminProduction": {
-    "collapseWhitespace": true,
-    "removeComments": true
-  },
-  "htmlbeautify": {
-    "indent_size": 2,
-    "preserve_newlines": false
-  },
     "pngquant": {
-        "quality": [0.7, 0.9],
+        "quality": [
+            0.7,
+            0.9
+        ],
         "speed": 1,
         "floyd": 0
     },
@@ -33,20 +24,54 @@
         "quality": 85,
         "progressive": true
     },
+    "svgo": {
+        "removeXMLNS": true,
+        "removeDimensions": true,
+        "plugins": [
+            {
+                "removeAttrs": {
+                    "attrs": "data.*"
+                }
+            },
+            {
+                "removeUnknownsAndDefaults": false
+            },
+            {
+                "removeViewBox": false
+            }
+        ]
+    },
+    "gifsicle": {
+        "optimizationLevel": 5
+    },
+    "pngquantManual": {
+        "quality": [
+            0.8,
+            0.9
+        ],
+        "speed": 1,
+        "floyd": 0
+    },
+    "mozjpegManual": {
+        "quality": 85,
+        "progressive": true
+    },
+    "imageManualLists": [
+    ],
     "publishDir": "Desktop",
-  "io": {
-    "input": {
-      "css": "src/assets/css/",
-      "img": "src/assets/images/",
-      "js": "src/assets/js/",
-      "ejs": "src/"
-    },
-    "output": {
-      "css": "dist/assets/css/",
-      "img": "dist/assets/images/",
-      "js": "dist/assets/js/",
-      "php": "dist/"
-    },
-    "setting": "./setting.json"
-  }
+    "io": {
+        "input": {
+            "css": "src/assets/css/",
+            "img": "src/assets/images/",
+            "js": "src/assets/js/",
+            "ejs": "src/"
+        },
+        "output": {
+            "css": "dist/assets/css/",
+            "img": "dist/assets/images/",
+            "js": "dist/assets/js/",
+            "php": "dist/"
+        },
+        "setting": "./setting.json"
+    }
 }
