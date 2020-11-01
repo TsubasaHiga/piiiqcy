@@ -7,27 +7,25 @@
         "serve": "cross-env NODE_ENV=development gulp",
         "development": "cross-env NODE_ENV=development gulp development",
         "production": "cross-env NODE_ENV=production gulp production",
-        "zip": "cross-env NODE_ENV=production gulp zip",
         "checkJson": "cross-env NODE_ENV=development gulp checkJson",
         "resetImg": "cross-env NODE_ENV=development gulp resetImg",
-        "lint:css": "stylelintsrc/assets/css/scss/**/*.scss",
-        "lint:js": "eslint src/assets/js/main.js",
-        "fix:css": "stylelint --fix src/assets/css/scss/**/*.scss",
-        "fix:js": "eslint --fix src/assets/js/**/*.js",
-        "precommit": "lint-staged"
+        "lint:css": "stylelint \"src/assets/css/scss/**/*.scss\"",
+        "lint:js": "eslint \"src/assets/js/**/*.js\"",
+        "fix:css": "stylelint --fix \"src/assets/css/scss/**/*.scss\"",
+        "fix:js": "eslint --fix \"src/assets/js/**/*.js\""
     },
     "husky": {
         "hooks": {
-            "precommit": "lint-staged"
+            "pre-commit": "lint-staged"
         }
     },
     "lint-staged": {
         "*.scss": [
-            "yarn fix:css && yarn lint:css",
+            "stylelint",
             "git add"
         ],
         "*.js": [
-            "eslint --fix",
+            "eslint",
             "git add"
         ]
     },
