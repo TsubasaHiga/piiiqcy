@@ -1,14 +1,14 @@
 'use strict'
 
-const autoprefixer = require('gulp-autoprefixer')
+const autoprefixer = require('autoprefixer')
 const browserSync = require('browser-sync').create()
-const css = require('gulp-sass')
 const cssnano = require('cssnano')
 const cssDeclarationSorter = require('css-declaration-sorter')
 const colors = require('colors')
 const crypto = require('crypto')
 const dateutils = require('date-utils')
 const del = require('del')
+const Fiber = require('fibers')
 const fs = require('fs')
 const gulp = require('gulp')
 const gulpif = require('gulp-if')
@@ -23,6 +23,7 @@ const path = require('path')
 const plumber = require('gulp-plumber')
 const pngquant = require('imagemin-pngquant')
 const postcss = require('gulp-postcss')
+const sass = require('gulp-sass')
 const webpack = require('webpack')
 const webpackStream = require('webpack-stream')
 const zip = require('gulp-zip')
@@ -110,42 +111,20 @@ const cleanGarbage = () => {
  */
 const scss = () => {
   return gulp
-    .src(
-      setting.io.input.css + '**/*.scss', {
-        sourcemaps: true
-      }
-    )
+    .src(setting.io.input.css + '**/*.scss', { sourcemaps: true })
     .pipe(
-      plumber({
-        errorHandler: err => {
-          console.log(err.messageFormatted)
-          this.emit('end')
-        }
-      })
+      sass({ fiber: Fiber, outputStyle: 'compressed' })
+        .on('error', sass.logError)
     )
-    .pipe(
-      css({
-        precision: 5,
-        importer: packageImporter({
-          extensions: ['.scss', '.css']
-        })
-      })
-    )
-    .pipe(autoprefixer({}))
     .pipe(
       postcss([
+        autoprefixer(),
         mqpacker(),
         cssnano({ autoprefixer: false }),
-        cssDeclarationSorter({
-          order: 'smacss'
-        })
+        cssDeclarationSorter({ order: 'smacss' })
       ])
     )
-    .pipe(
-      gulp.dest(setting.io.output.css, {
-        sourcemaps: '/maps'
-      })
-    )
+    .pipe(gulp.dest(setting.io.output.css, { sourcemaps: '/maps' }))
     .pipe(gulpif(browserSync.active === true, browserSync.stream()))
 }
 
@@ -156,29 +135,15 @@ const scssProduction = () => {
   return gulp
     .src(setting.io.input.css + '**/*.scss')
     .pipe(
-      plumber({
-        errorHandler: err => {
-          console.log(err.messageFormatted)
-          this.emit('end')
-        }
-      })
+      sass({ fiber: Fiber, outputStyle: 'compressed' })
+        .on('error', sass.logError)
     )
-    .pipe(
-      css({
-        precision: 5,
-        importer: packageImporter({
-          extensions: ['.scss', '.css']
-        })
-      })
-    )
-    .pipe(autoprefixer({}))
     .pipe(
       postcss([
+        autoprefixer(),
         mqpacker(),
         cssnano({ autoprefixer: false }),
-        cssDeclarationSorter({
-          order: 'smacss'
-        })
+        cssDeclarationSorter({ order: 'smacss' })
       ])
     )
     .pipe(gulp.dest(setting.io.output.css))
