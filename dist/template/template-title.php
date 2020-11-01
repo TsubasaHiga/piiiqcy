@@ -18,9 +18,5 @@
 				<span>title</span><?php the_title_attribute(); ?>
 			</a>
 		</p>
-		<p>カテゴリ</p>
-		<p><?php echo c_get_term( 'category', 'name', true, 0, 'span' ); ?></p>
-		<p>タグ</p>
-		<p><?php echo c_get_term( 'post_tag', 'name', true, 0, 'span' ); ?></p>
 	</li>
 </ul>

@@ -19,12 +19,12 @@ global $page_name;
 		<meta name="format-detection" content="telephone=no">
 		<meta name="theme-color" content="#000">
 		<link rel="shortcut icon" href="<?php echo esc_url( get_template_directory_uri() ); ?>/assets/images/favicon.ico">
-		<link rel="preconnect dns-prefetch" href="https://use.typekit.net/" crossorigin>
-		<link rel="preload" as="style" href="<?php c_get_assetspath( '/assets/css/style.css' ); ?>">
-		<link rel="preload" as="script" href="<?php c_get_assetspath( '/assets/js/bundle.js' ); ?>">
+		<link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin>
+		<link rel="preload" as="style" href="<?php get_assetspath( '/assets/css/style.css' ); ?>">
+		<link rel="preload" as="script" href="<?php get_assetspath( '/assets/js/bundle.js' ); ?>">
 <?php // @codingStandardsIgnoreStart ?>
-		<link rel="stylesheet" href="https://use.typekit.net/dmc3zsw.css">
-		<link rel="stylesheet" href="<?php c_get_assetspath( '/assets/css/style.css' ); ?>">
+		<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@200;400;500;600;700&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+		<link rel="stylesheet" href="<?php get_assetspath( '/assets/css/style.css' ); ?>">
 <?php // @codingStandardsIgnoreEnd?>
 		<?php
 		wp_head();

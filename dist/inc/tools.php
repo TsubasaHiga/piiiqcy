@@ -2,7 +2,7 @@
 /**
  * Tools.php
  *
- * 様々な関数を記述します
+ * WP経由しない場合でも用いるfunction類を記述します
  *
  * @since 0.0.1
  * @package piiiQcy
@@ -13,7 +13,7 @@
  *
  * @param array $page_relation_list 兄弟関係のページが入った連想配列.
  */
-function c_gen_breadcrumbs( $page_relation_list ) {
+function get_breadcrumbs( $page_relation_list ) {
 	$site_url        = home_url( '/' );
 	$breadcrumbs_top = BREADCRUMBS_TOP;
 
@@ -47,7 +47,7 @@ EOM;
  *
  * @param string $file_path .
  */
-function c_get_assetspath( $file_path ) {
+function get_assetspath( $file_path ) {
 	$path      = THEMEROOTPATH . $file_path;
 	$path_full = THEMEROOTFULLPATH . $file_path;
 	$query     = '?rev=' . gmdate( 'YmdGis', filemtime( $path_full ) );

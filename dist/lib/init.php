@@ -88,35 +88,6 @@ add_filter( 'excerpt_more', 'change_excerpt_more' );
 
 
 /**
- * カテゴリー選択をラジオに変更
- *
- * @return void
- */
-function change_category_to_radio() {
-	$script = <<<EOM
-	<script>
-		jQuery(function($) {
-			$('#news_taxchecklist input[type=checkbox]').each(function() {
-				$(this).replaceWith($(this).clone().attr('type', 'radio'));
-			});
-			$('#news_taxchecklist input[type=radio]:first').prop('checked', true);
-
-			$('#event_taxchecklist input[type=checkbox]').each(function() {
-				$(this).replaceWith($(this).clone().attr('type', 'radio'));
-			});
-			$('#event_taxchecklist input[type=radio]:first').prop('checked', true);
-		});
-	</script>
-EOM;
-	// @codingStandardsIgnoreStart
-	echo $script;
-	// @codingStandardsIgnoreEnd
-}
-add_action( 'admin_head-post-new.php', 'change_category_to_radio' );
-add_action( 'admin_head-post.php', 'change_category_to_radio' );
-
-
-/**
  * Change title separator
  *
  * @link https://www.webdesignleaves.com/pr/wp/wp_func_title_tag.html

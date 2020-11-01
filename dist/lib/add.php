@@ -8,13 +8,6 @@
  * @package piiiQcy
  */
 
-/** 管理画面用のオリジナルCSSファイルを追加 */
-function custom_enqueue() {
-	wp_enqueue_style( 'custom_css', get_template_directory_uri() . '/assets/css/wp_admin.css', array(), true );
-}
-add_action( 'admin_enqueue_scripts', 'custom_enqueue' );
-
-
 /**
  * メディアアップロード時にファイル名をMD5にリネーム.
  *
@@ -61,7 +54,7 @@ function add_archivespage_metatag() {
 
 		// Posttype archives.
 		if ( is_post_type_archive() ) {
-			$post_type = c_get_archive_slug();
+			$post_type = get_archive_slug();
 			$url       = get_home_url( null, '/' ) . $post_type . '/';
 			if ( 'news' === $post_type ) {
 				$desc = 'ニュースのdescriptionを設定します。';
@@ -72,7 +65,7 @@ function add_archivespage_metatag() {
 
 		// Taxonomy archives.
 		if ( is_tax() ) {
-			$term      = c_get_current_term();
+			$term      = get_current_term();
 			$term_name = $term->name;
 			$term_slug = $term->slug;
 			$term_tax  = $term->taxonomy;

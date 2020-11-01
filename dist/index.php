@@ -196,7 +196,7 @@ require_once 'inc/common.php';
 		<div class="u-temp__wrap">
 			<p class="u-temp__wrap--tit">post_type=post取得例（4件取得 ※先頭固定表示は例外）</p>
 			<?php
-			$query = new WP_Query( c_get_args( 'post', 4 ) );
+			$query = new WP_Query( get_query_args( 'post', 4 ) );
 			if ( $query->have_posts() ) {
 				while ( $query->have_posts() ) {
 					$query->the_post();
@@ -214,7 +214,7 @@ require_once 'inc/common.php';
 			<ul>
 				<?php
 				$taxonomies = 'category';
-				$terms      = c_get_terms( $taxonomies, 10 );
+				$terms      = get_terms( $taxonomies, 10 );
 				foreach ( $terms as $value ) {
 					echo '<li>';
 					$term_link = get_term_link( $value->slug, $taxonomies );

@@ -75,8 +75,6 @@ remove_action( 'wp_head', 'feed_links_extra', 3 );
 remove_action( 'wp_head', 'feed_links', 2 );
 /** DNSプリフェッチコード挿入を削除 */
 add_filter( 'wp_resource_hints', 'remove_dns_prefetch', 10, 2 );
-/** Gutenbergの読み込みスタイルを削除 */
-add_action( 'wp_enqueue_scripts', 'remove_block_library_style' );
 /** Remove_block_library_style */
 function remove_block_library_style() {
 	wp_dequeue_style( 'wp-block-library' );
@@ -121,7 +119,6 @@ function remove_image_sizes( $sizes ) {
 
 	return $sizes;
 }
-add_filter( 'intermediate_image_sizes_advanced', 'remove_image_sizes' );
 update_option( 'medium_large_size_w', 0 );
 
 
@@ -150,18 +147,14 @@ add_filter(
 	}
 );
 
-
 /**
- * DisableRestApi.
- *
- * @param string $result .
- * @param string $wp_rest_server .
- * @param string $request .
- * @return WP_Error.
+ * 投稿画面の不要な項目を非表示
  */
-function disable_rest_api( $result, $wp_rest_server, $request ) {
-
-	return new WP_Error( 'rest_disabled', __( 'The REST API on this site has been disabled.' ), array( 'status' => rest_authorization_required_code() ) );
+function remove_block_editor_options() {
+	remove_post_type_support( 'post', 'thumbnail' );
+	remove_post_type_support( 'post', 'excerpt' );
+	remove_post_type_support( 'post', 'comments' );
+	remove_post_type_support( 'post', 'trackbacks' );
+	unregister_taxonomy_for_object_type( 'post_tag', 'post' );
 }
-
-add_filter( 'rest_pre_dispatch', 'disable_rest_api', 10, 3 );
+add_action( 'init', 'remove_block_editor_options' );

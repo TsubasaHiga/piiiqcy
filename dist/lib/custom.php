@@ -21,7 +21,7 @@
  * @param string $meta_key meta_key.
  * @return array $args
  */
-function c_get_args(
+function get_query_args(
 	$post_type,
 	$posts_per_page,
 	$_paged = 1,
@@ -50,27 +50,6 @@ function c_get_args(
 }
 
 
-
-/**
- * タクソノミー名からタームの配列を出力
- * 取得したいタクソノミーを指定すると$termsを取得出来ます
- *
- * @param string $taxonomies 取得したいタクソノミーを指定します.
- * @param int    $number 取得する件数を指定します.
- * @return array $args
- */
-function c_get_terms( $taxonomies, $number ) {
-	$args  = array(
-		'orderby' => 'count',
-		'order'   => 'DESC',
-		'number'  => $number,
-	);
-	$terms = get_terms( $taxonomies, $args );
-	return $terms;
-}
-
-
-
 /**
  * アーカイブページで$term取得
  * アーカイブページでも$termを取得することが出来ます
@@ -79,7 +58,7 @@ function c_get_terms( $taxonomies, $number ) {
  *
  * @return array $args
  */
-function c_get_current_term() {
+function get_current_term() {
 
 	$id;
 	$tax_slug;
@@ -107,7 +86,7 @@ function c_get_current_term() {
  * @link https://wemo.tech/1161#index_id5
  * @return string
  */
-function c_get_archive_slug() {
+function get_archive_slug() {
 	// アーカイブページでない場合、false を返す.
 	if ( ! is_archive() ) {
 		return false;
@@ -128,72 +107,6 @@ function c_get_archive_slug() {
 }
 
 
-
-/**
- * ループ中に指定のタームを種類別に出力
- * ループ中で指定されたタームのname、slug、id等を取得することが出来ます
- *
- * @param string $tax 取得したいタームが属するタクソノミーを指定します.
- * @param string $kind |name|slug|id|の内いづれかを指定します.
- * @param bool   $link aリンクを含めるかの指定を行います.
- * @param int    $number 取得する数を指定します。0で全て取得.
- * @param string $html_tag 文字列を囲むhtmlタグを指定します.
- */
-function c_get_term( $tax, $kind, $link, $number, $html_tag ) {
-
-	global $post;
-
-	$i         = 0;
-	$html      = '';
-	$tax_array = array();
-	$terms     = get_the_terms( $post->ID, $tax );
-
-	if ( false !== $terms ) {
-		foreach ( $terms as $key => $value ) {
-			if ( 0 !== $number && $i >= $number ) {
-				break;
-			}
-			if ( 'id' === $kind ) {
-				$tax_array[ $key ] = array(
-					'id' => $value->term_id,
-				);
-			} elseif ( 'slug' === $kind ) {
-				$tax_array[ $key ] = array(
-					'slug' => $value->slug,
-				);
-			} elseif ( 'name' === $kind ) {
-				$tax_array[ $key ] = array(
-					'name' => $value->name,
-					'slug' => $value->slug,
-				);
-			}
-			$i ++;
-		}
-		if ( false === $link ) {
-			foreach ( $tax_array as $key => $value ) {
-				$html .= '<' . $html_tag . '>';
-				$html .= $value[ $kind ];
-				$html .= '</' . $html_tag . '>';
-			}
-		} elseif ( true === $link ) {
-			foreach ( $tax_array as $value ) {
-				$html .= '<' . $html_tag . '>';
-				$html .= '<a href="' . get_term_link( $value['slug'], $tax ) . '">';
-				$html .= $value[ $kind ];
-				$html .= '</a>';
-				$html .= '</' . $html_tag . '>';
-			}
-		}
-	} else {
-		$html .= '';
-	}
-	// @codingStandardsIgnoreStart
-	echo $html;
-	// @codingStandardsIgnoreEnd
-}
-
-
-
 /**
  * ページネーション出力関数.
  * ループ中で自動でページネーションを出力します.
@@ -205,7 +118,7 @@ function c_get_term( $tax, $kind, $link, $number, $html_tag ) {
  * @param int  $range 左右に何ページ表示するか.
  * @param bool $show_only 1ページしかない時に表示するかどうか.
  */
-function pagination( $pages, $current_page, $range = 4, $show_only = false ) {
+function get_pagination( $pages, $current_page, $range = 4, $show_only = false ) {
 
 	// float型で渡ってくるので明示的に int型 へ.
 	$pages        = (int) $pages;
@@ -270,6 +183,7 @@ EOM;
 
 /**
  * Show txt
+ * Esc_htmlを通して文字列を出力します
  *
  * @param string $txt .
  * @param number $length .
@@ -305,13 +219,13 @@ function get_txt( $txt, $length ) {
 
 
 /**
- * 画像が無い時にnoimageを出す
+ * 投稿サムネイルを取得します
  *
  * @param number  $id .
  * @param string  $size .
  * @param boolean $is_noimage .
  */
-function show_thumb( $id, $size, $is_noimage ) {
+function get_thumb( $id, $size, $is_noimage ) {
 	if ( has_post_thumbnail( $id ) ) {
 		$image = get_the_post_thumbnail_url( $id, $size );
 	} else {
@@ -328,33 +242,26 @@ function show_thumb( $id, $size, $is_noimage ) {
 
 
 /**
- * 曜日取得
+ * 画像のサイズを取得
  *
- * @param string $date .
- * @param string $language .
- * @return day_name 英字の場合は小文字で返します
+ * @param number $id .
  */
-function get_dayname( $date, $language = 'en' ) {
-	$dates       = DateTime::createFromFormat( 'Ymd', str_replace( '.', '', $date ) );
-	$day_name_ja = array( '日', '月', '火', '水', '木', '金', '土' );
-	if ( 'en' === $language ) {
-		$day_name = mb_strtolower( $dates->format( 'D' ) );
-	} elseif ( 'ja' === $language ) {
-		$day_name = $day_name_ja[ $dates->format( 'w' ) ];
+function get_thumb_size( $id ) {
+	if ( has_post_thumbnail( $id ) ) {
+		$size = wp_get_attachment_metadata( get_post_thumbnail_id( $id ) );
+		// @codingStandardsIgnoreStart
+		echo 'height="' . $size['height'] . '" width="' . $size['width'] . '"';
+		// @codingStandardsIgnoreEnd
 	}
-	return $day_name;
 }
 
 
 /**
- * 日付を特定の書式にフォーマット
+ * 小文字で返します
  *
- * @param string $date .
- * @param string $format .
- * @return $date
+ * @param string $txt .
+ * @return $txt
  */
-function get_dayformat( $date, $format ) {
-	$dates = DateTime::createFromFormat( 'Ymd', str_replace( '.', '', $date ) );
-	$date  = $dates->format( $format );
-	return $date;
+function get_lower_txt( $txt ) {
+	return mb_strtolower( $txt );
 }
