@@ -9,6 +9,7 @@ const crypto = require('crypto')
 const dateutils = require('date-utils')
 const del = require('del')
 const Fiber = require('fibers')
+const figlet = require('figlet')
 const fs = require('fs')
 const gulp = require('gulp')
 const gulpif = require('gulp-if')
@@ -61,6 +62,13 @@ const jsoncFileCeck = cb => {
       .pipe(jsonlint())
       .pipe(jsonlint.reporter())
 
+    figlet(setting.projectName, (err, data) => {
+      if (err) {
+        console.dir(err)
+        return
+      }
+      console.log(data)
+    })
     console.log('---------------------------'.green)
     console.log('json file check OK! Ready..'.bold.green)
     console.log('- OK: setting.json'.cyan)
@@ -91,20 +99,12 @@ const reload = cb => {
 /**
  * cleanImg
  */
-const cleanImg = () => del(setting.io.output.img + '**/*.{png,apng,jpg,gif,svg,webp}')
+const cleanImg = () => del(setting.io.output.img + '**/*.{png,apng,jpg,gif,svg,webp,ico}')
 
 /**
  * cleanGarbage
  */
-const cleanGarbage = () => {
-  return del([
-    setting.io.output.php + '/**/maps',
-    setting.io.output.php + '/**/*.map',
-    setting.io.output.php + '/**/*.DS_Store',
-    setting.io.output.php + '/**/*.LICENSE',
-    setting.io.output.php + '/**/*Thumbs.db'
-  ])
-}
+const cleanGarbage = () => del(setting.io.output.php + '/**/*{maps,.map,.DS_Store,.LICENSE,Thumbs.db}')
 
 /**
  * scss
@@ -118,7 +118,7 @@ const scss = () => {
     )
     .pipe(
       postcss([
-        autoprefixer(),
+        autoprefixer({ grid: true }),
         mqpacker(),
         cssnano({ autoprefixer: false }),
         cssDeclarationSorter({ order: 'smacss' })
@@ -140,7 +140,7 @@ const scssProduction = () => {
     )
     .pipe(
       postcss([
-        autoprefixer(),
+        autoprefixer({ grid: true }),
         mqpacker(),
         cssnano({ autoprefixer: false }),
         cssDeclarationSorter({ order: 'smacss' })
@@ -156,7 +156,7 @@ const scssProduction = () => {
  */
 const getImageLists = onlyManual => {
   // defaultLists
-  const defaultLists = setting.io.input.img + '**/*.{png,jpg,gif,svg}'
+  const defaultLists = setting.io.input.img + '**/*.{png,jpg,gif,svg,ico}'
 
   // lists
   const lists = []
@@ -251,14 +251,16 @@ const jsBuild = () => {
  */
 const watch = () => {
   gulp.watch(setting.io.input.css + '**/*.scss', scss)
-  gulp.watch(setting.io.input.img + '**/*', img)
+  gulp.watch(setting.io.input.img + '**/*', gulp.series(img, imgManual))
   gulp.watch(setting.io.input.js + '**/*.js', gulp.series(js, reload))
   gulp.watch(setting.io.output.php + '**/*.php', { interval: 250 }, reload)
 }
 
 exports.default = gulp.series(jsoncFileCeck, gulp.parallel(watch, sync))
-exports.development = gulp.series(jsoncFileCeck, scss, cleanImg, img, js)
-exports.production = gulp.series(jsoncFileCeck, scssProduction, cleanImg, img, jsBuild, cleanGarbage)
+exports.development = gulp.series(jsoncFileCeck, scss, cleanImg, img, imgManual, js)
+exports.production = gulp.series(jsoncFileCeck, scssProduction, cleanImg, img, imgManual, jsBuild, cleanGarbage)
+exports.productionJs = gulp.series(jsoncFileCeck, jsBuild, cleanGarbage)
+exports.productionScss = gulp.series(jsoncFileCeck, scssProduction, cleanGarbage)
 exports.checkJson = jsoncFileCeck
 exports.garbage = cleanGarbage
-exports.resetImg = gulp.series(cleanImg, img)
+exports.resetImg = gulp.series(cleanImg, img, imgManual)

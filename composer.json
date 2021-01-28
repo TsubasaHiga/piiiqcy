@@ -1,5 +1,5 @@
 {
-    "name": "higatsubasa/keis",
+    "name": "higatsubasa/piiiqcy",
     "description": "require phpcs and wp-coding-standards",
     "require": {
         "squizlabs/php_codesniffer": "^3.5",

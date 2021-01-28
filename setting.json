@@ -21,7 +21,7 @@
         "floyd": 0
     },
     "mozjpeg": {
-        "quality": 85,
+        "quality": 80,
         "progressive": true
     },
     "svgo": {
@@ -46,19 +46,20 @@
     },
     "pngquantManual": {
         "quality": [
-            0.8,
-            0.9
+            0.7,
+            0.8
         ],
         "speed": 1,
         "floyd": 0
     },
     "mozjpegManual": {
-        "quality": 85,
+        "quality": 70,
         "progressive": true
     },
     "imageManualLists": [
+        "**/*@2x.{png,jpg,gif,svg}"
     ],
-    "publishDir": "Desktop",
+    "projectName": "piiiqcy",
     "io": {
         "input": {
             "css": "src/assets/css/",
