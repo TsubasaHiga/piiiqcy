@@ -1,6 +1,6 @@
 <?php
 /**
- * Index.php
+ * Template Name: TOP
  *
  * Index.phpです
  *
@@ -18,20 +18,6 @@ require_once 'inc/common.php';
 	<div class="l-container">
 
 		<!-- contents -->
-		<div class="swiper-container">
-			<div class="swiper-wrapper">
-				<div class="swiper-slide"><img src="<?php echo esc_url( get_template_directory_uri() ); ?>/assets/images/top/img-01.jpg" alt="slide image1"></div>
-				<div class="swiper-slide"><img src="<?php echo esc_url( get_template_directory_uri() ); ?>/assets/images/top/img-02.jpg" alt="slide image2"></div>
-				<div class="swiper-slide"><img src="<?php echo esc_url( get_template_directory_uri() ); ?>/assets/images/top/img-03.jpg" alt="slide image3"></div>
-				<div class="swiper-slide"><img src="<?php echo esc_url( get_template_directory_uri() ); ?>/assets/images/top/img-04.jpg" alt="slide image4"></div>
-			</div>
-			<div class="swiper-pagination"></div>
-			<div class="swiper-button-prev"></div>
-			<div class="swiper-button-next"></div>
-		</div>
-
-		<br>
-
 		<a href="https://example.com" target="_blank">https://example.com</a>
 		<a href="https://example.com">https://example.com</a>
 		<a href="#a">#a</a>

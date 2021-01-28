@@ -40,75 +40,11 @@ add_filter( 'wp_handle_upload_prefilter', 'rename_upload_file', 1, 1 );
 
 
 /**
- * アーカイブページにmetaタグを追加
- */
-function add_archivespage_metatag() {
-
-	if ( is_post_type_archive() || is_tax() ) {
-		// All In One SEO Pack.
-		global $aioseop_options;
-
-		$title         = wp_get_document_title();
-		$site_name     = get_bloginfo( 'name' );
-		$home_ogpimage = isset( $aioseop_options ) ? $aioseop_options['modules']['aiosp_opengraph_options']['aiosp_opengraph_homeimage'] : OGPIMAGE;
-
-		// Posttype archives.
-		if ( is_post_type_archive() ) {
-			$post_type = get_archive_slug();
-			$url       = get_home_url( null, '/' ) . $post_type . '/';
-			if ( 'news' === $post_type ) {
-				$desc = 'ニュースのdescriptionを設定します。';
-			} elseif ( 'event' === $post_type ) {
-				$desc = 'イベントのdescriptionを設定します。';
-			}
-		}
-
-		// Taxonomy archives.
-		if ( is_tax() ) {
-			$term      = get_current_term();
-			$term_name = $term->name;
-			$term_slug = $term->slug;
-			$term_tax  = $term->taxonomy;
-			$url       = get_tag_link( $term->term_id );
-
-			if ( 'news_tax' === $term_tax ) {
-				$desc = $term_slug . 'のdescriptionを設定します。';
-			} elseif ( 'event_tax' === $term_tax ) {
-				$desc = $term_slug . 'のdescriptionを設定します。';
-			}
-		}
-
-		$meta = <<< EOM
-		<meta name="description" content="{$desc}">
-		<meta property="og:type" content="website">
-		<meta property="og:title" content="{$title}">
-		<meta property="og:description" content="{$desc}">
-		<meta property="og:url" content="{$url}">
-		<meta property="og:site_name" content="{$site_name}">
-		<meta property="og:image" content="{$home_ogpimage}">
-		<meta property="og:image:width" content="1200">
-		<meta property="og:image:height" content="630">
-		<meta name="twitter:card" content="summary_large_image">
-EOM;
-
-	// @codingStandardsIgnoreStart
-	echo $meta;
-	// @codingStandardsIgnoreEnd
-	}
-}
-add_action( 'wp_head', 'add_archivespage_metatag' );
-
-
-/**
- * All In One SEO Packのタイトルをpagedで変更
+ * 再利用ブロックへのリンクを追加
  *
- * @param string $title .
- * @return $title
+ * @link https://qiita.com/tbshiki/items/14e733e44f9266c8baf7
  */
-function custom_aioseop_title( $title ) {
-	if ( is_paged() ) {
-		$title = wp_get_document_title();
-	}
-	return $title;
+function add_reuse() {
+	add_menu_page( '再利用ブロック', '再利用ブロック', 'manage_options', 'edit.php?post_type=wp_block', '', 'dashicons-controls-repeat', '98.9' );
 }
-add_filter( 'aioseop_title', 'custom_aioseop_title' );
+add_action( 'admin_menu', 'add_reuse' );

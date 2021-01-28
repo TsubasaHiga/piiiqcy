@@ -85,7 +85,7 @@ function remove_block_library_style() {
 /**
  * アクティビティ、クイックドラフト、WordPressニュースの削除
  *
- * @param string $hints Description.
+ * @param array  $hints Description.
  * @param string $relation_type Description.
  * @return $hints
  */
@@ -147,14 +147,36 @@ add_filter(
 	}
 );
 
+
 /**
  * 投稿画面の不要な項目を非表示
  */
 function remove_block_editor_options() {
-	remove_post_type_support( 'post', 'thumbnail' );
 	remove_post_type_support( 'post', 'excerpt' );
 	remove_post_type_support( 'post', 'comments' );
 	remove_post_type_support( 'post', 'trackbacks' );
 	unregister_taxonomy_for_object_type( 'post_tag', 'post' );
 }
 add_action( 'init', 'remove_block_editor_options' );
+
+
+/**
+ * Remove src wp ver
+ *
+ * @link https://webjin.work/hide-version-of-wordpress/
+ * @param [type] $dep .
+ * @return void
+ */
+function remove_src_wp_ver( $dep ) {
+	$dep->default_version = '';
+}
+add_action( 'wp_default_scripts', 'remove_src_wp_ver' );
+add_action( 'wp_default_styles', 'remove_src_wp_ver' );
+
+
+/**
+ * Remove All Yoast HTML Comments
+ *
+ * @link https://gist.github.com/paulcollett/4c81c4f6eb85334ba076
+ */
+add_filter( 'wpseo_debug_markers', '__return_false' );
