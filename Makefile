@@ -9,10 +9,9 @@ wpinstall:
   docker-compose run --rm wpcli wp language core install ja --activate --allow-root && \
   docker-compose run --rm wpcli plugin install \
   admin-menu-editor \
-  advanced-custom-fields \
-  classic-editor \
   custom-post-type-ui \
-  all-in-one-seo-pack \
+  wordpress-seo \
+  ./wp-content/plugins/advanced-custom-fields-pro.zip \
   --activate --allow-root && \
   docker-compose run --rm wpcli plugin uninstall hello akismet
 
@@ -32,4 +31,4 @@ down:
 
 # mysqldump
 dbdump:
-	docker-compose exec db mysqldump -u wordpress -pwordpress wordpress > dump.sql
+	docker exec -it piiiqcy_db sh -c 'mysqldump wordpress -u wordpress -pwordpress 2> /dev/null' > dump.sql

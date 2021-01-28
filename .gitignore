@@ -164,6 +164,7 @@ dist-production-fullpath
 
 app/WordPress/
 wp-uploads/
+wp-plugins/
 
 /vendor/
 

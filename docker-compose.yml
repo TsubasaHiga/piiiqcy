@@ -12,10 +12,11 @@ services:
     ports:
       - "8000:80"
     volumes:
-      - ./app/WordPress:/var/www/html
       - ./docker/php/php.conf.ini:/usr/local/etc/php/conf.d/conf.ini
+      - ./app/WordPress:/var/www/html
       - ./dist:/var/www/html/wp-content/themes/piiiqcy
       - ./wp-uploads:/var/www/html/wp-content/uploads
+      - ./wp-plugins:/var/www/html/wp-content/plugins
     restart: always
     env_file: .env
 
@@ -24,14 +25,17 @@ services:
     volumes:
       - ./docker/php/php.conf.ini:/usr/local/etc/php/conf.d/conf.ini
       - ./app/WordPress:/var/www/html
+      - ./wp-plugins:/var/www/html/wp-content/plugins
     depends_on:
       - db
       - wordpress
     networks:
       - network_piiiqcy
+    user: xfs
 
   db:
-    image: mysql:5.7
+    container_name: "piiiqcy_db"
+    image: mysql:8
     volumes:
       - db-data:/var/lib/mysql
       - ./db-data:/docker-entrypoint-initdb.d
