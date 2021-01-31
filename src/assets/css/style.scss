@@ -1,30 +1,31 @@
 @charset "utf-8";
 
+// コーディング規約
+// 1. ファイル名に接頭辞が付いている場合、classNameにも接頭辞を付与します。
+// 2. ファイル名に接頭辞が付いていない場合、原則個別要素に影響しない内容を記述します。
+
 // plugins
-@import "~ress/ress.css";
+@use "../../../node_modules/ress/ress.css";
 
-// // yakuhanjp
-// $yakuhanjp-noto-eot-use: false;
-// $yakuhanjp-noto-cdn-use: true;
+// Foundation
+@use "scss/Foundation/functions";
+@use "scss/Foundation/base";
 
-// @import "~yakuhanjp/src/scss/yakuhanjp-noto.scss";
+// Layouts
+@use "scss/Layouts/l-base";
+@use "scss/Layouts/l-breadcrumbs";
+@use "scss/Layouts/l-footer";
+@use "scss/Layouts/l-header";
+@use "scss/Layouts/l-nav";
+@use "scss/Layouts/l-page-header";
 
-// default
-@import "scss/f-variables";
-@import "scss/f-mixin";
-@import "scss/f-base";
-@import "scss/c-button";
-@import "scss/c-form";
-@import "scss/c-parts";
-@import "scss/l-base";
-@import "scss/l-breadcrumbs";
-@import "scss/l-footer";
-@import "scss/l-header";
-@import "scss/l-nav";
-@import "scss/l-page-header";
-@import "scss/p-top";
-@import "scss/p-top_sp";
-@import "scss/u-layout";
-@import "scss/u-plugin";
-@import "scss/u-temporary";
-@import "scss/u-debug";
+// Components
+@use "scss/Components/c-button";
+@use "scss/Components/c-form";
+
+// Projects
+@use "scss/Projects/top-lg";
+@use "scss/Projects/top-sm";
+
+// Utilities
+@use "scss/Utilities/plugin";

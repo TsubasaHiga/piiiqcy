@@ -19,7 +19,7 @@
 </div>
 </div>
 <?php // @codingStandardsIgnoreStart?>
-<script src="<?php c_get_assetspath( '/assets/js/bundle.js' ); ?>" defer="defer"></script>
+<script src="<?php get_assetspath( '/assets/js/bundle.js' ); ?>" defer="defer"></script>
 <?php // @codingStandardsIgnoreEnd?>
 <?php
 require_once 'inc/analytics-footer.php';

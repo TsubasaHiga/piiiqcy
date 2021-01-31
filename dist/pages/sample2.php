@@ -23,7 +23,7 @@ $page_relation_list = array(
 <main class="l-page">
 	<div class="l-container">
 
-		<?php echo c_gen_breadcrumbs( $page_relation_list ); ?>
+		<?php get_breadcrumbs( $page_relation_list ); ?>
 
 		<!-- contents -->
 		sample2

@@ -21,7 +21,7 @@
  * @param string $meta_key meta_key.
  * @return array $args
  */
-function c_get_args(
+function get_query_args(
 	$post_type,
 	$posts_per_page,
 	$_paged = 1,
@@ -50,39 +50,18 @@ function c_get_args(
 }
 
 
-
-/**
- * タクソノミー名からタームの配列を出力
- * 取得したいタクソノミーを指定すると$termsを取得出来ます
- *
- * @param string $taxonomies 取得したいタクソノミーを指定します.
- * @param int    $number 取得する件数を指定します.
- * @return array $args
- */
-function c_get_terms( $taxonomies, $number ) {
-	$args  = array(
-		'orderby' => 'count',
-		'order'   => 'DESC',
-		'number'  => $number,
-	);
-	$terms = get_terms( $taxonomies, $args );
-	return $terms;
-}
-
-
-
 /**
  * アーカイブページで$term取得
  * アーカイブページでも$termを取得することが出来ます
  *
  * @link https://goo.gl/De3qpF
  *
- * @return array $args
+ * @return object $args
  */
-function c_get_current_term() {
+function get_current_term() {
 
-	$id;
-	$tax_slug;
+	$id       = null;
+	$tax_slug = null;
 
 	if ( is_category() ) {
 		$tax_slug = 'category';
@@ -102,99 +81,6 @@ function c_get_current_term() {
 
 
 /**
- * アーカイブページでslug取得
- *
- * @link https://wemo.tech/1161#index_id5
- * @return string
- */
-function c_get_archive_slug() {
-	// アーカイブページでない場合、false を返す.
-	if ( ! is_archive() ) {
-		return false;
-	}
-
-	// 投稿タイプアーカイブページ.
-	if ( is_post_type_archive() ) {
-		$post_type = get_query_var( 'post_type' );
-		if ( is_array( $post_type ) ) {
-			$post_type = reset( $post_type );
-		}
-		return $post_type;
-	}
-
-	// それ以外（カテゴリ・タグ・タクソノミーアーカイブページ）.
-	$term = get_queried_object();
-	return $term->slug;
-}
-
-
-
-/**
- * ループ中に指定のタームを種類別に出力
- * ループ中で指定されたタームのname、slug、id等を取得することが出来ます
- *
- * @param string $tax 取得したいタームが属するタクソノミーを指定します.
- * @param string $kind |name|slug|id|の内いづれかを指定します.
- * @param bool   $link aリンクを含めるかの指定を行います.
- * @param int    $number 取得する数を指定します。0で全て取得.
- * @param string $html_tag 文字列を囲むhtmlタグを指定します.
- */
-function c_get_term( $tax, $kind, $link, $number, $html_tag ) {
-
-	global $post;
-
-	$i         = 0;
-	$html      = '';
-	$tax_array = array();
-	$terms     = get_the_terms( $post->ID, $tax );
-
-	if ( false !== $terms ) {
-		foreach ( $terms as $key => $value ) {
-			if ( 0 !== $number && $i >= $number ) {
-				break;
-			}
-			if ( 'id' === $kind ) {
-				$tax_array[ $key ] = array(
-					'id' => $value->term_id,
-				);
-			} elseif ( 'slug' === $kind ) {
-				$tax_array[ $key ] = array(
-					'slug' => $value->slug,
-				);
-			} elseif ( 'name' === $kind ) {
-				$tax_array[ $key ] = array(
-					'name' => $value->name,
-					'slug' => $value->slug,
-				);
-			}
-			$i ++;
-		}
-		if ( false === $link ) {
-			foreach ( $tax_array as $key => $value ) {
-				$html .= '<' . $html_tag . '>';
-				$html .= $value[ $kind ];
-				$html .= '</' . $html_tag . '>';
-			}
-		} elseif ( true === $link ) {
-			foreach ( $tax_array as $value ) {
-				$html .= '<' . $html_tag . '>';
-				$html .= '<a href="' . get_term_link( $value['slug'], $tax ) . '">';
-				$html .= $value[ $kind ];
-				$html .= '</a>';
-				$html .= '</' . $html_tag . '>';
-			}
-		}
-	} else {
-		$html .= '';
-	}
-	// @codingStandardsIgnoreStart
-	echo $html;
-	// @codingStandardsIgnoreEnd
-}
-
-
-
-/**
  * ページネーション出力関数.
  * ループ中で自動でページネーションを出力します.
  *
@@ -205,17 +91,11 @@ function c_get_term( $tax, $kind, $link, $number, $html_tag ) {
  * @param int  $range 左右に何ページ表示するか.
  * @param bool $show_only 1ページしかない時に表示するかどうか.
  */
-function pagination( $pages, $current_page, $range = 4, $show_only = false ) {
+function get_pagination( $pages, $current_page, $range = 4, $show_only = false ) {
 
 	// float型で渡ってくるので明示的に int型 へ.
 	$pages        = (int) $pages;
 	$current_page = $current_page ? $current_page : 1;
-
-	// 表示テキスト.
-	$text_first = '最初へ';
-	$text_prev  = 'BACK';
-	$text_next  = 'NEXT';
-	$text_last  = '最後へ';
 
 	if ( $show_only && 1 === $pages ) {
 		// １ページのみで表示設定が true の時.
@@ -227,49 +107,51 @@ function pagination( $pages, $current_page, $range = 4, $show_only = false ) {
 	}
 
 	if ( 1 !== $pages ) {
-		echo '<div class="c-pager">';
+		$html = '<div class="c-pager">';
 
 		$prev_class = $current_page > 1 ? '' : 'is-disabled';
 		$next_class = $current_page < $pages ? '' : 'is-disabled';
 
+		$arrow        = '<svg xmlns="http://www.w3.org/2000/svg" width="5.97" height="10" viewBox="0 0 5.97 10"><path d="M5.98 4.99h-.01l.01.01-.75.72v-.01l-4.48 4.3-.74-.72L4.49 5 .01.7l.75-.71 4.47 4.29.01-.01z" fill="#b2b5b8" fill-rule="evenodd"></path></svg>';
+		$arrow_double = '<svg xmlns="http://www.w3.org/2000/svg" width="9.97" height="10" viewBox="0 0 9.97 10"><path d="M9.98 4.99h-.01l.01.01-.73.72-.01-.01-4.37 4.3-.73-.72L8.52 5 4.14.7l.73-.71 4.38 4.29.01-.01zm-4.85-.72l.73.72h-.01V5l-.73.72v-.01l-4.38 4.3-.73-.72L4.39 5 .01.7l.73-.71 4.38 4.29z" fill="#b2b5b8" fill-rule="evenodd"></path></svg>';
+
+		// 「最初へ」 の表示
+		$html .= '<a href="' . get_pagenum_link( 1 ) . '" class="arrow first double ' . esc_html( $prev_class ) . '" title="一番最初へ">' . $arrow_double . '</a>';
 		// 「前へ」 の表示
-		echo '<a href="', esc_url( get_pagenum_link( $current_page - 1 ) ) ,'" class="arrow prev ', esc_html( $prev_class ) ,'">', esc_html( $text_prev ) ,'</a>';
+		$html .= '<a href="' . get_pagenum_link( $current_page - 1 ) . '" class="arrow prev single ' . esc_html( $prev_class ) . '" title="前へ">' . $arrow . '</a>';
 
 		for ( $i = 1; $i <= $pages; $i++ ) {
 			if ( $i <= $current_page + $range && $i >= $current_page - $range ) {
 				// $current_page +- $range 以内であればページ番号を出力
 				if ( $current_page === $i ) {
-					echo '<span class="is-current pager">', esc_html( $i ) ,'</span>';
+					$html .= '<span class="is-current pager">' . esc_html( $i ) . '</span>';
 				} else {
-					echo '<a href="', esc_url( get_pagenum_link( $i ) ) ,'" class="pager">', esc_html( $i ) ,'</a>';
+					$html .= '<a href="' . get_pagenum_link( $i ) . '" class="pager">' . esc_html( $i ) . '</a>';
 				}
 			} elseif ( $i === $pages - 1 ) {
-				echo '<span class="dotted l-lg">…</span>';
+				$html .= '<span class="dotted l-lg">…</span>';
 			} elseif ( $i === $pages ) {
-				echo '<a href="', esc_url( get_pagenum_link( $i ) ) ,'" class="pager">', esc_html( $i ) ,'</a>';
+				$html .= '<a href="' . get_pagenum_link( $i ) . '" class="pager">' . esc_html( $i ) . '</a>';
 			}
 		}
 
-		$current_number = <<< EOM
-		<div class="current-number l-sm">
-			<p class="current-number__current">{$current_page}</p>
-			<p class="current-number__maxnumber">{$pages}</p>
-		</div>
-EOM;
-		// @codingStandardsIgnoreStart
-		echo $current_number;
-		// @codingStandardsIgnoreEnd
-
 		// 「次へ」 の表示
-		echo '<a href="', esc_url( get_pagenum_link( $current_page + 1 ) ) ,'" class="arrow next ', esc_html( $next_class ) ,'">', esc_html( $text_next ) ,'</a>';
+		$html .= '<a href="' . get_pagenum_link( $current_page + 1 ) . '" class="arrow next single ' . esc_html( $next_class ) . '" title="次へ">' . $arrow . '</a>';
+		// 「最後へ」 の表示
+		$html .= '<a href="' . get_pagenum_link( $pages ) . '" class="arrow last double ' . esc_html( $next_class ) . '" title="一番最後へ">' . $arrow_double . '</a>';
 
-		echo '</div>';
+		$html .= '</div>';
+
+		// @codingStandardsIgnoreStart
+		echo $html;
+		// @codingStandardsIgnoreEnd
 	}
 }
 
 
 /**
  * Show txt
+ * Esc_htmlを通して文字列を出力します
  *
  * @param string $txt .
  * @param number $length .
@@ -282,7 +164,9 @@ function show_txt( $txt, $length ) {
 		$_txt = $txt;
 	}
 
-	echo esc_html( $_txt );
+	// @codingStandardsIgnoreStart
+	echo $_txt;
+	// @codingStandardsIgnoreEnd
 }
 
 
@@ -305,56 +189,24 @@ function get_txt( $txt, $length ) {
 
 
 /**
- * 画像が無い時にnoimageを出す
+ * 投稿サムネイルを取得します
  *
  * @param number  $id .
  * @param string  $size .
  * @param boolean $is_noimage .
  */
-function show_thumb( $id, $size, $is_noimage ) {
+function get_thumb( $id, $size, $is_noimage ) {
 	if ( has_post_thumbnail( $id ) ) {
 		$image = get_the_post_thumbnail_url( $id, $size );
 	} else {
 		if ( $is_noimage ) {
-			$image = NOIMAGE_2X;
+			$image = NOIMAGE;
 		} else {
 			$image = null;
 		}
 	}
 	// @codingStandardsIgnoreStart
-	echo $image;
+	return $image;
 	// @codingStandardsIgnoreEnd
 }
 
-
-/**
- * 曜日取得
- *
- * @param string $date .
- * @param string $language .
- * @return day_name 英字の場合は小文字で返します
- */
-function get_dayname( $date, $language = 'en' ) {
-	$dates       = DateTime::createFromFormat( 'Ymd', str_replace( '.', '', $date ) );
-	$day_name_ja = array( '日', '月', '火', '水', '木', '金', '土' );
-	if ( 'en' === $language ) {
-		$day_name = mb_strtolower( $dates->format( 'D' ) );
-	} elseif ( 'ja' === $language ) {
-		$day_name = $day_name_ja[ $dates->format( 'w' ) ];
-	}
-	return $day_name;
-}
-
-
-/**
- * 日付を特定の書式にフォーマット
- *
- * @param string $date .
- * @param string $format .
- * @return $date
- */
-function get_dayformat( $date, $format ) {
-	$dates = DateTime::createFromFormat( 'Ymd', str_replace( '.', '', $date ) );
-	$date  = $dates->format( $format );
-	return $date;
-}

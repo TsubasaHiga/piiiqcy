@@ -21,6 +21,40 @@ add_theme_support( 'post-thumbnails' );
 
 
 /**
+ * Set post thumbnail size.
+ *
+ * @source Twenty Twenty 1.0 .
+ */
+set_post_thumbnail_size( 1200, 9999 );
+
+/*
+ * Switch default core markup for search form, comment form, and comments to output valid HTML5.
+ *
+ * @source Twenty Twenty 1.0 .
+ */
+add_theme_support(
+	'html5',
+	array(
+		'search-form',
+		'comment-form',
+		'comment-list',
+		'gallery',
+		'caption',
+		'script',
+		'style',
+	)
+);
+
+
+/**
+ * Add support for responsive embeds.
+ *
+ * @source Twenty Twenty 1.0 .
+ */
+add_theme_support( 'responsive-embeds' );
+
+
+/**
  * 管理画面からのテーマとプラグインの編集を無効
  */
 define( 'DISALLOW_FILE_EDIT', true );
@@ -44,7 +78,7 @@ add_filter( 'big_image_size_threshold', '__return_false' );
 /**
  * アーカイブページでの表示件数の制限
  *
- * @param string $query Description.
+ * @param object $query Description.
  */
 function change_posts_per_page( $query ) {
 	if ( is_admin() || ! $query->is_main_query() ) {
@@ -85,46 +119,3 @@ function change_excerpt_more( $more ) {
 	return '...';
 }
 add_filter( 'excerpt_more', 'change_excerpt_more' );
-
-
-/**
- * カテゴリー選択をラジオに変更
- *
- * @return void
- */
-function change_category_to_radio() {
-	$script = <<<EOM
-	<script>
-		jQuery(function($) {
-			$('#news_taxchecklist input[type=checkbox]').each(function() {
-				$(this).replaceWith($(this).clone().attr('type', 'radio'));
-			});
-			$('#news_taxchecklist input[type=radio]:first').prop('checked', true);
-
-			$('#event_taxchecklist input[type=checkbox]').each(function() {
-				$(this).replaceWith($(this).clone().attr('type', 'radio'));
-			});
-			$('#event_taxchecklist input[type=radio]:first').prop('checked', true);
-		});
-	</script>
-EOM;
-	// @codingStandardsIgnoreStart
-	echo $script;
-	// @codingStandardsIgnoreEnd
-}
-add_action( 'admin_head-post-new.php', 'change_category_to_radio' );
-add_action( 'admin_head-post.php', 'change_category_to_radio' );
-
-
-/**
- * Change title separator
- *
- * @link https://www.webdesignleaves.com/pr/wp/wp_func_title_tag.html
- * @param string $sep .
- * @return $sep
- */
-function change_title_separator( $sep ) {
-	$sep = '|';
-	return $sep;
-}
-add_filter( 'document_title_separator', 'change_title_separator' );

@@ -163,4 +163,13 @@ dist-production
 dist-production-fullpath
 
 app/WordPress/
-db-data
+wp-uploads/
+wp-plugins/
+
+/vendor/
+/honban/
+
+*.sql
+*.sql.gz
+
+*.dat

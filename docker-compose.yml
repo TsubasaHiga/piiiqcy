@@ -3,33 +3,44 @@ version: "3.3"
 services:
 
   wordpress:
-    container_name: "wordpress"
+    container_name: "piiiqcy"
     image: wordpress:latest
     depends_on:
       - db
+    networks:
+      - network_piiiqcy
     ports:
       - "8000:80"
     volumes:
+      - ./docker/php/php.conf.ini:/usr/local/etc/php/conf.d/conf.ini
       - ./app/WordPress:/var/www/html
-      - ./config/php.conf.ini:/usr/local/etc/php/conf.d/conf.ini
-      - ./dist:/var/www/html/wp-content/themes/quicint
+      - ./dist:/var/www/html/wp-content/themes/piiiqcy
+      - ./wp-uploads:/var/www/html/wp-content/uploads
+      - ./wp-plugins:/var/www/html/wp-content/plugins
     restart: always
     env_file: .env
 
   wpcli:
     image: wordpress:cli
     volumes:
-      - ./config/php.conf.ini:/usr/local/etc/php/conf.d/conf.ini
+      - ./docker/php/php.conf.ini:/usr/local/etc/php/conf.d/conf.ini
       - ./app/WordPress:/var/www/html
+      - ./wp-plugins:/var/www/html/wp-content/plugins
     depends_on:
       - db
       - wordpress
+    networks:
+      - network_piiiqcy
+    user: xfs
 
   db:
-    image: mysql:5.7
+    container_name: "piiiqcy_db"
+    image: mysql:8
     volumes:
       - db-data:/var/lib/mysql
       - ./db-data:/docker-entrypoint-initdb.d
+    networks:
+      - network_piiiqcy
     restart: always
     env_file: .env
 
@@ -37,11 +48,19 @@ services:
     image: phpmyadmin/phpmyadmin
     depends_on:
       - db
+    networks:
+      - network_piiiqcy
     environment:
       PMA_HOST: db
     restart: always
     ports:
       - "8080:80"
+    volumes:
+      - ./docker/phpmyadmin/phpmyadmin-misc.ini:/usr/local/etc/php/conf.d/phpmyadmin-misc.ini
+
+networks:
+  network_piiiqcy:
+    external: true
 
 volumes:
   db-data:

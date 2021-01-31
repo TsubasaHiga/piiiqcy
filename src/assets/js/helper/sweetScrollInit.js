@@ -2,7 +2,6 @@
 
 import DEFINE from '../constant/define'
 import getDeviceType from '../helper/getDeviceType'
-import { throttle, debounce } from 'throttle-debounce'
 import SweetScroll from 'sweet-scroll'
 
 /**
@@ -24,7 +23,16 @@ export default () => {
       func.getOption()
       func.sweetScroll = new SweetScroll(func.OPTION)
 
-      // get hash.
+      // scrollToHash
+      func.scrollToHash()
+
+      window.addEventListener('resize', func.resize, false)
+    },
+
+    /**
+     * scrollToHash
+     */
+    scrollToHash: () => {
       const hash = window.location.hash
       if (hash) {
         const needsInitialScroll = document.getElementById(hash.substr(1)) != null
@@ -32,8 +40,6 @@ export default () => {
           func.sweetScroll.to(hash, { updateURL: 'replace' })
         }
       }
-
-      window.addEventListener('resize', func.resize, false)
     },
 
     /**
@@ -41,9 +47,9 @@ export default () => {
      */
     getOption: () => {
       func.OPTION = {
-        offset: func.deviceType === 'lg' ? DEFINE.SCROLLOFFSETLG : DEFINE.SCROLLOFFSETSM,
-        easing: 'easeInOutQuart',
-        duration: 900
+        offset: func.deviceType === 'lg' ? DEFINE.SCROLL_OFFSET_LG : DEFINE.SCROLL_OFFSET_SM,
+        easing: func.deviceType === 'lg' ? DEFINE.SCROLL_EASING_LG : DEFINE.SCROLL_EASING_SM,
+        duration: func.deviceType === 'lg' ? DEFINE.SCROLL_DURATION_LG : DEFINE.SCROLL_DURATION_SM
       }
     },
 

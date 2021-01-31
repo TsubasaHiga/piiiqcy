@@ -20,7 +20,7 @@ get_header();
 		<div class="u-temp__wrap">
 			<p class="u-temp__wrap--tit">archive取得</p>
 			<?php
-			$getterm = c_get_current_term();
+			$getterm = get_current_term();
 
 			echo '<h1>「' . esc_html( $getterm->name ) . '」のアーカイブ</h1>';
 
@@ -33,8 +33,8 @@ get_header();
 				get_template_part( 'inc/parts-nopost' );
 			}
 
-			if ( function_exists( 'pagination' ) ) {
-				pagination( $wp_query->max_num_pages, get_query_var( 'paged' ) );
+			if ( function_exists( 'get_pagination' ) ) {
+				get_pagination( $wp_query->max_num_pages, get_query_var( 'paged' ) );
 			}
 
 			wp_reset_postdata();
