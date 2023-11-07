@@ -8,6 +8,13 @@
  * @package piiiQcy
  */
 
+ // Main switch to get frontend assets from a Vite dev server OR from production built folder
+// it is recommended to move it into wp-config.php
+define('IS_VITE_DEVELOPMENT', true);
+
+// Vite dev server URL
+require_once "inc/inc.vite.php";
+
 // 定数読み込み.
 require_once 'inc/const.php';
 

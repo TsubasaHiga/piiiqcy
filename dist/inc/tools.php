@@ -18,7 +18,7 @@ function get_breadcrumbs( $page_relation_list ) {
 	$breadcrumbs_top = BREADCRUMBS_TOP;
 
 	$html_first = <<< EOM
-	<div class="l-breadcrumbs__item" property="itemListElement" typeof="ListItem">
+	<div class="c-breadcrumbs__item" property="itemListElement" typeof="ListItem">
 		<a property="item" typeof="WebPage" title="{$breadcrumbs_top}" href="{$site_url}">
 			<span property="name">{$breadcrumbs_top}</span>
 		</a>
@@ -27,15 +27,15 @@ function get_breadcrumbs( $page_relation_list ) {
 EOM;
 
 	$i     = 2;
-	$html  = "<div class='l-breadcrumbs' typeof='BreadcrumbList' vocab='https://schema.org/'>";
-	$html .= "<div class='l-breadcrumbs__inner'>";
-	$html .= "<div class='l-breadcrumbs__list'>";
+	$html  = "<div class='c-breadcrumbs' typeof='BreadcrumbList' vocab='https://schema.org/'>";
+	$html .= "<div class='c-breadcrumbs__inner'>";
+	$html .= "<div class='c-breadcrumbs__list'>";
 
 	$html .= $html_first;
 
 	$key_last = array_key_last( $page_relation_list );
 	foreach ( $page_relation_list as $page_name => $page_url ) {
-		$html .= "<div class='l-breadcrumbs__item' property='itemListElement' typeof='ListItem'>";
+		$html .= "<div class='c-breadcrumbs__item' property='itemListElement' typeof='ListItem'>";
 
 		if ( $key_last !== $page_name ) {
 			$html .= "<a property='item' typeof='WebPage' title='{$page_name}' href='{$site_url}{$page_url}/'>";

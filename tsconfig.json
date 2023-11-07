@@ -1,0 +1,36 @@
+{
+  "compilerOptions": {
+    "target": "ESNext",
+    "useDefineForClassFields": true,
+    "allowJs": true,
+    "allowSyntheticDefaultImports": true,
+    "forceConsistentCasingInFileNames": true,
+    "module": "ESNext",
+    "lib": ["ESNext", "DOM", "dom.iterable"],
+    "moduleResolution": "Node",
+    "strict": true,
+    "resolveJsonModule": true,
+    "esModuleInterop": true,
+    "isolatedModules": true,
+    "noEmit": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noImplicitReturns": true,
+    "skipLibCheck": true,
+    "incremental": true,
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["src/scripts/*"],
+      "@components/*": ["src/scripts/components/*"],
+      "@const/*": ["src/scripts/const/*"],
+      "@libs/*": ["src/scripts/libs/*"],
+      "@modules/*": ["src/scripts/modules/*"],
+      "@pages/*": ["src/scripts/pages/*"],
+      "@styles/*": ["src/styles/*"],
+      "@type/*": ["src/scripts/types/*"],
+      "@utils/*": ["src/scripts/utils/*"]
+    }
+  },
+  "include": ["src", "vite.config.ts", ".eslintrc.cjs", "postcss.config.cjs", "tailwind.config.cjs"],
+  "exclude": ["node_modules", "vendor", "wp-plugins", "wp-uploads"]
+}

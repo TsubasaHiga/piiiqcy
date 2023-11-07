@@ -11,14 +11,12 @@
 $page_name = 'single';
 
 require_once 'inc/common.php';
-get_header();
 ?>
 
-<main id="pagetop" class="l-page">
-	<div class="l-container">
-
-		<div class="u-temp__wrap">
-			<p class="u-temp__wrap--tit">post_type=postのsingleページ</p>
+<div class="l-container l-spacer">
+	<div class="l-page">
+		<small>post_type=postのsingleページ</small>
+		<article class="bg-gray-200 rounded-lg p-10 my-10">
 			<?php
 			if ( have_posts() ) {
 				while ( have_posts() ) {
@@ -30,9 +28,8 @@ get_header();
 			}
 			wp_reset_postdata();
 			?>
-		</div>
-
+		</article>
 	</div>
-</main>
+</div>
 
 <?php get_footer(); ?>

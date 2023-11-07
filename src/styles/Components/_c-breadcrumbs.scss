@@ -1,0 +1,31 @@
+@charset "utf-8";
+
+@use 'sass:map';
+@use 'sass:math';
+@use '../Foundation/variables' as *;
+@use '../Foundation/mixin' as *;
+@use '../Foundation/functions' as *;
+
+.c-breadcrumbs {
+  &__inner {
+    overflow: auto;
+  }
+
+  &__list {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+  }
+
+  &__item {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+
+    @include notfirst {
+      &::before {
+        @include arrow(8, 1, currentColor, right);
+      }
+    }
+  }
+}

@@ -153,16 +153,8 @@ $RECYCLE.BIN/
 
 # CUSTOM
 *.map
-app/WordPress
-
-dist/assets/css/
-dist/assets/js/
-dist/assets/images/
-
-dist-production
-dist-production-fullpath
-
-app/WordPress/
+app/
+dist/assets/
 wp-uploads/
 wp-plugins/
 

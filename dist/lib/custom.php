@@ -124,14 +124,14 @@ function get_pagination( $pages, $current_page, $range = 4, $show_only = false )
 			if ( $i <= $current_page + $range && $i >= $current_page - $range ) {
 				// $current_page +- $range 以内であればページ番号を出力
 				if ( $current_page === $i ) {
-					$html .= '<span class="is-current pager">' . esc_html( $i ) . '</span>';
+					$html .= '<span class="is-current text">' . esc_html( $i ) . '</span>';
 				} else {
-					$html .= '<a href="' . get_pagenum_link( $i ) . '" class="pager">' . esc_html( $i ) . '</a>';
+					$html .= '<a href="' . get_pagenum_link( $i ) . '" class="text">' . esc_html( $i ) . '</a>';
 				}
 			} elseif ( $i === $pages - 1 ) {
-				$html .= '<span class="dotted l-lg">…</span>';
+				$html .= '<span class="dotted">…</span>';
 			} elseif ( $i === $pages ) {
-				$html .= '<a href="' . get_pagenum_link( $i ) . '" class="pager">' . esc_html( $i ) . '</a>';
+				$html .= '<a href="' . get_pagenum_link( $i ) . '" class="text">' . esc_html( $i ) . '</a>';
 			}
 		}
 

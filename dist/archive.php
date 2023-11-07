@@ -11,24 +11,23 @@
 $page_name = 'archive';
 
 require_once 'inc/common.php';
-get_header();
 ?>
 
-<main id="pagetop" class="l-page">
-	<div class="l-container">
-
-		<div class="u-temp__wrap">
-			<p class="u-temp__wrap--tit">archive取得</p>
+<div class="l-container l-spacer">
+	<div class="l-page">
+		<section class="bg-gray-200 rounded-lg p-10 my-10">
 			<?php
 			$getterm = get_current_term();
 
 			echo '<h1>「' . esc_html( $getterm->name ) . '」のアーカイブ</h1>';
 
 			if ( have_posts() ) {
+				echo '<ul>';
 				while ( have_posts() ) {
 					the_post();
 					get_template_part( 'template/template-title' );
 				}
+				echo '</ul>';
 			} else {
 				get_template_part( 'inc/parts-nopost' );
 			}
@@ -39,9 +38,8 @@ get_header();
 
 			wp_reset_postdata();
 			?>
-		</div>
-
+		</section>
 	</div>
-</main>
+</div>
 
 <?php get_footer(); ?>
