@@ -15,11 +15,10 @@ piiiQcy（ピィキュー）はWordPressコーディング規約に則ったWord
 
 | 項目                       | 詳細                                                                                                                      |
 | -------------------------- | ------------------------------------------------------------------------------------------------------------------------- |
-| node.js                    | 12.x required                                                                                                             |
+| node.js                    | 16.5x required                                                                                                            |
 | JavaScript Package manager | yarn                                                                                                                      |
 | PHP Package manager        | composer                                                                                                                  |
-| Build system               | Gulp v4                                                                                                                   |
-| Module bundler             | webpack                                                                                                                   |
+| Build system               | Vite                                                                                                                      |
 | ECMAScript                 | ES6                                                                                                                       |
 | CSS design                 | FLOCSS                                                                                                                    |
 | Lint                       | ESlint & Stylelint & phpcs                                                                                                |
@@ -145,22 +144,26 @@ make wpinstall
 
 ### 各種タスクの立ち上げ
 
-各種タスクも以下より同時に始めます。
+#### Install
 
-```console
+```bash
 yarn install
 ```
 
-インストール後は以下コマンドより初期`assetsファイル`の生成を行います。
+#### Dev
 
-```console
-yarn run development
+```bash
+yarn dev
 ```
 
-以上でファイルの生成は完了です。ローカルにてサーバーを起動させる場合は以下コマンドより起動します。同時に各種コンパイルも可能になります。
+#### Build
 
-```console
-yarn run serve # http://localhost:3000 or http://local-ipaddress:3000
+```bash
+# production build
+yarn build
+
+# production build + zip archive
+yarn archive
 ```
 
 ## URL
