@@ -48,3 +48,17 @@ function add_reuse() {
 	add_menu_page( '再利用ブロック', '再利用ブロック', 'manage_options', 'edit.php?post_type=wp_block', '', 'dashicons-controls-repeat', '98.9' );
 }
 add_action( 'admin_menu', 'add_reuse' );
+
+
+/**
+ * wp_enqueue_scriptで読み込んだスクリプトにtype="module"を追加
+ */
+function add_module_type_attribute( $tag, $handle ) {
+	// ここでモジュールタイプを追加したいスクリプトのハンドルをチェック
+	if ( 'vite-script' === $handle ) {
+		// str_replaceを使用してtype属性を追加
+		$tag = str_replace( '<script ', '<script type="module" ', $tag );
+	}
+	return $tag;
+}
+add_filter( 'script_loader_tag', 'add_module_type_attribute', 10, 3 );

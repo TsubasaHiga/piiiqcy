@@ -38,7 +38,7 @@ require_once 'inc/common.php';
 			<ul style="display: flex; flex-wrap: wrap; gap: 10px">
 				<?php
 				$taxonomies = 'category';
-				$terms      = get_terms( $taxonomies, 10 );
+				$terms      = get_terms( $taxonomies );
 				foreach ( $terms as $value ) {
 					echo '<li>';
 					$term_link = get_term_link( $value->slug, $taxonomies );

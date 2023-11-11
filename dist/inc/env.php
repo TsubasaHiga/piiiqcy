@@ -18,5 +18,3 @@ if ( preg_match( '/(www.){0,1}' . DOMAIN_PRODUCTION . '{1}+$/', $domain_name ) )
 } else {
 	define( 'APPLICATION_ENV', 'development' );
 }
-
-

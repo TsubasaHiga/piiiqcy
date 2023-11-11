@@ -41,4 +41,3 @@ define( 'THEMEROOTPATH', get_template_directory_uri() );
 
 // テーマディレクトリpath.
 define( 'THEMEROOTFULLPATH', get_template_directory() );
-

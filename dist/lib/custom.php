@@ -29,7 +29,7 @@ function get_query_args(
 	$orderby = 'data',
 	$order = 'DESC',
 	$meta_key = false
-	) {
+) {
 	$args = array(
 		'post_type'      => $post_type,
 		'posts_per_page' => $posts_per_page,
@@ -198,15 +198,12 @@ function get_txt( $txt, $length ) {
 function get_thumb( $id, $size, $is_noimage ) {
 	if ( has_post_thumbnail( $id ) ) {
 		$image = get_the_post_thumbnail_url( $id, $size );
-	} else {
-		if ( $is_noimage ) {
+	} elseif ( $is_noimage ) {
 			$image = NOIMAGE;
-		} else {
-			$image = null;
-		}
+	} else {
+		$image = null;
 	}
 	// @codingStandardsIgnoreStart
 	return $image;
 	// @codingStandardsIgnoreEnd
 }
-

@@ -142,7 +142,7 @@ add_filter( 'post_thumbnail_html', 'wps_post_thumbnail_remove_class' );
  */
 add_filter(
 	'redirect_canonical',
-	function( $redirect_url ) {
+	function () {
 		return false;
 	}
 );

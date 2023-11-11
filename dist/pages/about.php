@@ -10,7 +10,7 @@
 
 $page_name = 'about';
 
-require_once dirname( __FILE__ ) . '/../inc/common.php';
+require_once __DIR__ . '/../inc/common.php';
 
 // パンくず.
 $page_relation_list = array(

@@ -11,6 +11,7 @@
     "archive": "yarn build && yarn node --loader ts-node/esm utils/genDistArchive.ts",
     "lint:scripts": "eslint --ext .ts . --max-warnings=0",
     "lint:styles": "stylelint \"src/**/*.scss\"",
+    "lint:php": "./vendor/bin/phpcs --standard=WordPress-Extra --colors ./dist/**/*.php",
     "fix:scripts": "yarn lint:scripts --fix",
     "fix:styles": "yarn lint:styles --fix",
     "format": "prettier --write . --ignore-unknown",
@@ -31,6 +32,7 @@
   "lint-staged": {
     "*.{js,ts}": "yarn lint:scripts",
     "*.{css,scss}": "yarn lint:styles",
+    "dist/**/*.php": "./vendor/bin/phpcs --standard=WordPress-Extra --colors",
     "*": "yarn format"
   },
   "devDependencies": {
