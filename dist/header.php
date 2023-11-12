@@ -26,7 +26,7 @@
 						<a class="c-nav__link" href="<?php echo esc_url( home_url( '/' ) ); ?>">HOME</a>
 					</li>
 					<li class="c-nav__item">
-						<a class="c-nav__link" href="<?php echo esc_url( home_url( '/' ) ); ?>about/">About</a>
+						<a class="c-nav__link" href="<?php echo esc_url( home_url( '/' ) ); ?>about-page/">About</a>
 					</li>
 				</ul>
 			</div>
