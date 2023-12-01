@@ -1,0 +1,20 @@
+@charset "utf-8";
+
+@use 'sass:map';
+@use '../variables' as *;
+@use './icon-ini' as *;
+@use './canhover' as *;
+
+@mixin hover-dark($darken: 1, $ms: false, $ease: false) {
+  @include canhover {
+    @if $ease {
+      transition: color $ms $ease;
+    } @else {
+      transition: color $com-ms $com-es;
+    }
+
+    &:hover {
+      color: rgba(map.get($colors, 'color-black'), $darken);
+    }
+  }
+}

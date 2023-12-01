@@ -1,123 +1,114 @@
 {
-    "name": "piiiqcy",
-    "version": "0.0.1",
-    "description": "boilerplate for WP theme",
-    "main": "src/assets/js/main.js",
-    "scripts": {
-        "serve": "cross-env NODE_ENV=development gulp",
-        "development": "cross-env NODE_ENV=development gulp development",
-        "production": "cross-env NODE_ENV=production gulp production",
-        "productionJs": "cross-env NODE_ENV=production gulp productionJs",
-        "productionScss": "cross-env NODE_ENV=production gulp productionScss",
-        "checkJson": "cross-env NODE_ENV=development gulp checkJson",
-        "resetImg": "cross-env NODE_ENV=development gulp resetImg",
-        "garbage": "cross-env NODE_ENV=development gulp garbage",
-        "lint:css": "stylelint \"src/assets/css/scss/**/*.scss\"",
-        "lint:js": "eslint \"src/assets/js/**/*.js\"",
-        "fix:css": "stylelint --fix \"src/assets/css/scss/**/*.scss\"",
-        "fix:js": "eslint --fix \"src/assets/js/**/*.js\""
-    },
-    "husky": {
-        "hooks": {
-            "pre-commit": "lint-staged"
-        }
-    },
-    "lint-staged": {
-        "*.scss": [
-            "stylelint \"src/assets/css/scss/**/*.scss\"",
-            "git add"
-        ],
-        "*.js": [
-            "eslint",
-            "git add"
-        ]
-    },
-    "repository": {
-        "type": "git",
-        "url": "git+https://github.com/TsubasaHiga/piiiqcy.git"
-    },
-    "keywords": [
-        "wordpress",
-        "wordpress theme",
-        "theme",
-        "boilerplate"
-    ],
-    "author": "HigaTsubasa",
-    "license": "MIT",
-    "bugs": {
-        "url": "https://github.com/TsubasaHiga/piiiqcy/issues"
-    },
-    "homepage": "https://github.com/TsubasaHiga/piiiqcy#readme",
-    "browserslist": [
-        "> 0.5% in JP"
-    ],
-    "engines": {
-        "npm": "please_use_yarn_instead"
-    },
-    "prettier": {},
-    "devDependencies": {
-        "@babel/core": "^7.12.10",
-        "@babel/polyfill": "^7.12.1",
-        "@babel/preset-env": "^7.12.11",
-        "autoprefixer": "^9.0.0",
-        "babel-loader": "^8.2.2",
-        "browser-sync": "^2.26.14",
-        "colors": "^1.4.0",
-        "core-js": "^3.8.3",
-        "cross-env": "^7.0.3",
-        "crypto": "^1.0.1",
-        "css-declaration-sorter": "^5.1.2",
-        "css-loader": "^5.0.1",
-        "css-mqpacker": "^7.0.0",
-        "cssnano": "^4.1.10",
-        "date-utils": "^1.2.21",
-        "del": "^6.0.0",
-        "eslint": "^7.18.0",
-        "eslint-config-standard": "^16.0.2",
-        "eslint-plugin-import": "^2.22.1",
-        "eslint-plugin-node": "^11.1.0",
-        "eslint-plugin-promise": "^4.2.1",
-        "eslint-plugin-standard": "^4.1.0",
-        "fibers": "^5.0.0",
-        "figlet": "^1.5.0",
-        "focus-visible": "^5.2.0",
-        "fs": "0.0.2",
-        "gsap": "^3.6.0",
-        "gulp": "^4.0.2",
-        "gulp-if": "^3.0.0",
-        "gulp-imagemin": "^7.1.0",
-        "gulp-jsonlint": "^1.3.2",
-        "gulp-newer": "^1.4.0",
-        "gulp-notify": "^3.2.0",
-        "gulp-plumber": "^1.2.1",
-        "gulp-postcss": "^9.0.0",
-        "gulp-sass": "^4.1.0",
-        "gulp-zip": "^5.0.2",
-        "husky": "4.3.8",
-        "imagemin-mozjpeg": "^9.0.0",
-        "imagemin-pngquant": "^9.0.1",
-        "imports-loader": "^1.2.0",
-        "intersection-observer": "^0.12.0",
-        "lint-staged": "^10.5.3",
-        "node-sass-package-importer": "^5.3.2",
-        "object-fit-images": "^3.2.4",
-        "picturefill": "^3.0.3",
-        "ress": "^3.0.0",
-        "sass": "^1.32.5",
-        "standard": "^16.0.3",
-        "stickyfilljs": "^2.1.0",
-        "style-loader": "^2.0.0",
-        "stylelint": "13.9.0",
-        "stylelint-config-standard": "^20.0.0",
-        "stylelint-order": "^4.1.0",
-        "stylelint-scss": "^3.18.0",
-        "sweet-scroll": "^4.0.0",
-        "swiper": "^6.4.9",
-        "terser-webpack-plugin": "^5.1.1",
-        "throttle-debounce": "^3.0.1",
-        "ua-parser-js": "^0.7.23",
-        "webpack": "^5.18.0",
-        "webpack-cli": "^4.4.0",
-        "webpack-stream": "^6.1.2"
+  "name": "piiiqcy",
+  "version": "0.0.1",
+  "description": "boilerplate for WP theme",
+  "type": "module",
+  "scripts": {
+    "dev": "vite & yarn convertImages --watch",
+    "build": "tsc && vite build && yarn convertImages",
+    "analyze": "yarn build --mode analyze",
+    "preview": "yarn build && vite preview",
+    "archive": "yarn build && yarn node --loader ts-node/esm utils/genDistArchive.ts",
+    "convertImages": "yarn node --loader ts-node/esm utils/convertImages.ts",
+    "lint:scripts": "eslint --ext .ts . --max-warnings=0",
+    "lint:styles": "stylelint \"src/**/*.scss\"",
+    "lint:php": "./vendor/bin/phpcs --standard=WordPress-Extra --colors ./dist/**/*.php",
+    "fix:scripts": "yarn lint:scripts --fix",
+    "fix:styles": "yarn lint:styles --fix",
+    "format": "prettier --write . --ignore-unknown",
+    "prepare": "husky install"
+  },
+  "engines": {
+    "node": ">=16.15.0"
+  },
+  "browserslist": [
+    "> 0.5% in JP",
+    "not IE 11"
+  ],
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
     }
+  },
+  "lint-staged": {
+    "*.{js,ts}": "yarn lint:scripts",
+    "*.{css,scss}": "yarn lint:styles",
+    "dist/**/*.php": "./vendor/bin/phpcs --standard=WordPress-Extra --colors",
+    "*": "yarn format"
+  },
+  "devDependencies": {
+    "@types/archiver": "^6.0.0",
+    "@types/chokidar": "^2.1.3",
+    "@types/glob": "^8.1.0",
+    "@types/is-touch-device": "^1.0.1",
+    "@types/node": "^20.8.10",
+    "@types/throttle-debounce": "^5.0.1",
+    "@types/ua-parser-js": "^0.7.38",
+    "@typescript-eslint/eslint-plugin": "^6.9.1",
+    "@typescript-eslint/parser": "^6.9.1",
+    "archiver": "^6.0.1",
+    "autoprefixer": "^10.4.16",
+    "chokidar": "^3.5.3",
+    "css-declaration-sorter": "^7.1.1",
+    "css-mqpacker": "^7.0.0",
+    "cssnano": "^6.0.1",
+    "eslint": "^8.52.0",
+    "eslint-config-prettier": "^9.0.0",
+    "eslint-plugin-prettier": "^5.0.1",
+    "eslint-plugin-simple-import-sort": "^10.0.0",
+    "eslint-plugin-tailwindcss": "^3.13.0",
+    "fs": "^0.0.1-security",
+    "glob": "^10.3.10",
+    "husky": "8.0.3",
+    "lint-staged": "^15.0.2",
+    "path": "^0.12.7",
+    "postcss": "^8.4.31",
+    "prettier": "^3.0.3",
+    "rollup-plugin-visualizer": "^5.9.2",
+    "sass": "^1.69.5",
+    "sharp": "^0.32.6",
+    "stylelint": "15.11.0",
+    "stylelint-config-html": "^1.1.0",
+    "stylelint-config-prettier-scss": "^1.0.0",
+    "stylelint-config-recess-order": "^4.3.0",
+    "stylelint-config-standard-scss": "^11.0.0",
+    "svgo": "^3.0.3",
+    "ts-node": "^10.9.1",
+    "typescript": "^5.2.2",
+    "ua-parser-js": "^1.0.37",
+    "utility-types": "^3.10.0",
+    "vite": "^4.5.0",
+    "vite-plugin-full-reload": "^1.0.5",
+    "vite-tsconfig-paths": "^4.2.1"
+  },
+  "dependencies": {
+    "auto-bind": "^5.0.1",
+    "dayjs": "^1.11.10",
+    "focus-visible": "^5.2.0",
+    "gsap": "^3.12.2",
+    "is-touch-device": "^1.0.1",
+    "isomorphic-dompurify": "^1.9.0",
+    "ress": "^5.0.2",
+    "tailwindcss": "^3.3.5",
+    "throttle-debounce": "^5.0.0"
+  },
+  "volta": {
+    "node": "16.15.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/TsubasaHiga/piiiqcy.git"
+  },
+  "keywords": [
+    "wordpress",
+    "wordpress theme",
+    "theme",
+    "boilerplate"
+  ],
+  "author": "HigaTsubasa",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/TsubasaHiga/piiiqcy/issues"
+  },
+  "homepage": "https://github.com/TsubasaHiga/piiiqcy#readme"
 }

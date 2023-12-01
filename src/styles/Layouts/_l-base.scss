@@ -1,0 +1,72 @@
+@charset "utf-8";
+
+@use 'sass:map';
+@use 'sass:math';
+@use '../Foundation/variables' as *;
+@use '../Foundation/mixin' as *;
+@use '../Foundation/functions' as *;
+
+.l-main {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  visibility: hidden;
+  opacity: 0;
+
+  @include is-loaded {
+    visibility: visible;
+    opacity: 1;
+    transition:
+      opacity $com-ms $com-es,
+      visibility $com-ms $com-es;
+  }
+}
+
+.l-container {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.l-spacer {
+  padding-right: map.get($map: $space, $key: 'md');
+  padding-left: map.get($map: $space, $key: 'md');
+
+  @include mqw-up(xmd) {
+    padding-right: map.get($map: $space, $key: 'xmd');
+    padding-left: map.get($map: $space, $key: 'xmd');
+  }
+  @include mqw-down {
+    padding-right: map.get($map: $space, $key: 'sm');
+    padding-left: map.get($map: $space, $key: 'sm');
+  }
+  @include mqw-down(xs) {
+    padding-right: map.get($map: $space, $key: 'xs');
+    padding-left: map.get($map: $space, $key: 'xs');
+  }
+}
+
+.l-mqw-up-spacer {
+  @include mqw-up {
+    padding-right: map.get($map: $space, $key: 'md');
+    padding-left: map.get($map: $space, $key: 'md');
+  }
+
+  @include mqw-up(xmd) {
+    padding-right: map.get($map: $space, $key: 'xmd');
+    padding-left: map.get($map: $space, $key: 'xmd');
+  }
+}
+
+.l-mqw-down-spacer {
+  @include mqw-down {
+    padding-right: map.get($map: $space, $key: 'sm');
+    padding-left: map.get($map: $space, $key: 'sm');
+  }
+  @include mqw-down(xs) {
+    padding-right: map.get($map: $space, $key: 'xs');
+    padding-left: map.get($map: $space, $key: 'xs');
+  }
+}

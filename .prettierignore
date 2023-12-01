@@ -1,0 +1,7 @@
+node_modules
+*.html
+dist
+!dist/**/*.php
+docs
+public
+

@@ -115,7 +115,7 @@ add_filter( 'excerpt_length', 'change_excerpt_length', 999 );
  * @param string $more .
  * @return string
  */
-function change_excerpt_more( $more ) {
+function change_excerpt_more() {
 	return '...';
 }
 add_filter( 'excerpt_more', 'change_excerpt_more' );

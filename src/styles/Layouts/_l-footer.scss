@@ -1,0 +1,18 @@
+@charset "utf-8";
+
+@use 'sass:map';
+@use 'sass:math';
+@use '../Foundation/variables' as *;
+@use '../Foundation/mixin' as *;
+@use '../Foundation/functions' as *;
+
+.l-footer {
+  position: relative;
+  width: 100%;
+  margin-top: auto;
+
+  &__inner {
+    display: flex;
+    justify-content: center;
+  }
+}

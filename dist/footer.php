@@ -16,14 +16,8 @@
 	</div>
 </footer>
 
-</div>
-</div>
-<?php // @codingStandardsIgnoreStart?>
-<script src="<?php get_assetspath( '/assets/js/bundle.js' ); ?>" defer="defer"></script>
-<?php // @codingStandardsIgnoreEnd?>
-<?php
-require_once 'inc/analytics-footer.php';
-wp_footer();
-?>
+</main>
+<?php require_once 'inc/analytics-footer.php'; ?>
+<?php wp_footer(); ?>
 </body>
 </html>

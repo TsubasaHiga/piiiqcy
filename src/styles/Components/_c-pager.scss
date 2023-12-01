@@ -1,0 +1,108 @@
+@charset "utf-8";
+
+@use 'sass:map';
+@use 'sass:math';
+@use '../Foundation/variables' as *;
+@use '../Foundation/mixin' as *;
+@use '../Foundation/functions' as *;
+
+.c-pager {
+  $h: 30px;
+  $w: 28px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  .text {
+    @include fz(18, 18, 500);
+
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: $w;
+    min-width: $w;
+    height: $h;
+    color: #000;
+    transition: color $com-ms $com-es;
+
+    &::after {
+      @include icon-ini;
+
+      position: absolute;
+      bottom: 1px;
+      left: calc(50% - 6px);
+      width: 12px;
+      height: 1px;
+      background-color: #e13d12;
+      opacity: 0;
+    }
+
+    &.is-current::after {
+      opacity: 1;
+    }
+
+    @include mqw-up {
+      &:hover {
+        color: #e13d12;
+        opacity: 1;
+      }
+    }
+  }
+
+  .arrow {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: $w;
+    height: $h;
+
+    svg path {
+      transition: fill $com-ms $com-es;
+    }
+
+    @include mqw-up {
+      &:hover {
+        opacity: 1;
+
+        svg path {
+          fill: #000;
+        }
+      }
+    }
+
+    &.is-disabled {
+      pointer-events: none;
+    }
+
+    &.single svg {
+      width: 5.97px;
+      height: 10px;
+    }
+
+    &.double svg {
+      width: 9.97px;
+      height: 10px;
+    }
+
+    &.first {
+      svg {
+        transform: scale(-1, 1);
+      }
+    }
+
+    &.prev {
+      margin-right: 20px;
+
+      svg {
+        transform: scale(-1, 1);
+      }
+    }
+
+    &.next {
+      margin-left: 20px;
+    }
+  }
+}
