@@ -56,19 +56,6 @@ function add_module_type_attribute( $tag, $handle ) {
 }
 
 /**
- * wp_enqueue_scriptで読み込んだスクリプトにdeferを追加
- */
-add_filter( 'script_loader_tag', 'add_defer_attribute', 10, 3 );
-function add_defer_attribute( $tag, $handle ) {
-	// ここでモジュールタイプを追加したいスクリプトのハンドルをチェック
-	if ( 'main' === $handle ) {
-		// str_replaceを使用してtype属性を追加
-		$tag = str_replace( ' src=', ' defer src=', $tag );
-	}
-	return $tag;
-}
-
-/**
  * 管理画面にアイコンを追加
  */
 add_action( 'admin_head', 'load_icons' );
