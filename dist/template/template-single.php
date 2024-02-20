@@ -4,8 +4,7 @@
  *
  * 記事ループ用テンプレート
  *
- * @since 0.0.1
- * @package piiiQcy
+ * @since 1.0.0
  */
 
 ?>

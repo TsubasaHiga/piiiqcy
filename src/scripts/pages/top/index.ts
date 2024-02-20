@@ -1,1 +1,1 @@
-export const topScript = () => console.log('top')
+export default () => console.log('top')

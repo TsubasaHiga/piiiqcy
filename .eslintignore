@@ -1,6 +1,8 @@
 node_modules
 dist
+dist-stg
 public
 vendor
 wp-plugins
 wp-uploads
+tmp

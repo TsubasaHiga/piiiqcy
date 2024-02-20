@@ -4,15 +4,14 @@
  *
  * <footer>の中身
  *
- * @since 0.0.1
- * @package piiiQcy
+ * @since 1.0.0
  */
 
 ?>
 
 <footer class="l-footer">
 	<div class="l-footer__inner">
-		<p class="l-footer__copyright">©piiiQcy</p>
+		<p class="l-footer__copyright">Copyright</p>
 	</div>
 </footer>
 

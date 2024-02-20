@@ -4,8 +4,7 @@
  *
  * ループ処理や関数などを指定します
  *
- * @since 0.0.1
- * @package piiiQcy
+ * @since 1.0.0
  */
 
 /**
@@ -112,13 +111,13 @@ function get_pagination( $pages, $current_page, $range = 4, $show_only = false )
 		$prev_class = $current_page > 1 ? '' : 'is-disabled';
 		$next_class = $current_page < $pages ? '' : 'is-disabled';
 
-		$arrow        = '<svg xmlns="http://www.w3.org/2000/svg" width="5.97" height="10" viewBox="0 0 5.97 10"><path d="M5.98 4.99h-.01l.01.01-.75.72v-.01l-4.48 4.3-.74-.72L4.49 5 .01.7l.75-.71 4.47 4.29.01-.01z" fill="#b2b5b8" fill-rule="evenodd"></path></svg>';
-		$arrow_double = '<svg xmlns="http://www.w3.org/2000/svg" width="9.97" height="10" viewBox="0 0 9.97 10"><path d="M9.98 4.99h-.01l.01.01-.73.72-.01-.01-4.37 4.3-.73-.72L8.52 5 4.14.7l.73-.71 4.38 4.29.01-.01zm-4.85-.72l.73.72h-.01V5l-.73.72v-.01l-4.38 4.3-.73-.72L4.39 5 .01.7l.73-.71 4.38 4.29z" fill="#b2b5b8" fill-rule="evenodd"></path></svg>';
+		$arrow        = '<svg width="5.97" height="10" viewBox="0 0 5.97 10"><path d="M5.98 4.99h-.01l.01.01-.75.72v-.01l-4.48 4.3-.74-.72L4.49 5 .01.7l.75-.71 4.47 4.29.01-.01z" fill="currentcolor" fill-rule="evenodd"></path></svg>';
+		$arrow_double = '<svg width="9.97" height="10" viewBox="0 0 9.97 10"><path d="M9.98 4.99h-.01l.01.01-.73.72-.01-.01-4.37 4.3-.73-.72L8.52 5 4.14.7l.73-.71 4.38 4.29.01-.01zm-4.85-.72l.73.72h-.01V5l-.73.72v-.01l-4.38 4.3-.73-.72L4.39 5 .01.7l.73-.71 4.38 4.29z" fill="currentcolor" fill-rule="evenodd"></path></svg>';
 
 		// 「最初へ」 の表示
-		$html .= '<a href="' . get_pagenum_link( 1 ) . '" class="arrow first double ' . esc_html( $prev_class ) . '" title="一番最初へ">' . $arrow_double . '</a>';
+		$html .= '<a href="' . get_pagenum_link( 1 ) . '" class="arrow first double ' . esc_attr( $prev_class ) . '" title="一番最初へ">' . $arrow_double . '</a>';
 		// 「前へ」 の表示
-		$html .= '<a href="' . get_pagenum_link( $current_page - 1 ) . '" class="arrow prev single ' . esc_html( $prev_class ) . '" title="前へ">' . $arrow . '</a>';
+		$html .= '<a href="' . get_pagenum_link( $current_page - 1 ) . '" class="arrow prev single ' . esc_attr( $prev_class ) . '" title="前へ">' . $arrow . '</a>';
 
 		for ( $i = 1; $i <= $pages; $i++ ) {
 			if ( $i <= $current_page + $range && $i >= $current_page - $range ) {
@@ -126,7 +125,7 @@ function get_pagination( $pages, $current_page, $range = 4, $show_only = false )
 				if ( $current_page === $i ) {
 					$html .= '<span class="is-current text">' . esc_html( $i ) . '</span>';
 				} else {
-					$html .= '<a href="' . get_pagenum_link( $i ) . '" class="text">' . esc_html( $i ) . '</a>';
+					$html .= '<a href="' . get_pagenum_link( $i ) . '" class="text" title="' . esc_attr( $i ) . 'ページへ">' . esc_html( $i ) . '</a>';
 				}
 			} elseif ( $i === $pages - 1 ) {
 				$html .= '<span class="dotted">…</span>';
@@ -136,9 +135,9 @@ function get_pagination( $pages, $current_page, $range = 4, $show_only = false )
 		}
 
 		// 「次へ」 の表示
-		$html .= '<a href="' . get_pagenum_link( $current_page + 1 ) . '" class="arrow next single ' . esc_html( $next_class ) . '" title="次へ">' . $arrow . '</a>';
+		$html .= '<a href="' . get_pagenum_link( $current_page + 1 ) . '" class="arrow next single ' . esc_attr( $next_class ) . '" title="次へ">' . $arrow . '</a>';
 		// 「最後へ」 の表示
-		$html .= '<a href="' . get_pagenum_link( $pages ) . '" class="arrow last double ' . esc_html( $next_class ) . '" title="一番最後へ">' . $arrow_double . '</a>';
+		$html .= '<a href="' . get_pagenum_link( $pages ) . '" class="arrow last double ' . esc_attr( $next_class ) . '" title="一番最後へ">' . $arrow_double . '</a>';
 
 		$html .= '</div>';
 
@@ -165,7 +164,7 @@ function show_txt( $txt, $length ) {
 	}
 
 	// @codingStandardsIgnoreStart
-	echo $_txt;
+	echo esc_html($_txt);
 	// @codingStandardsIgnoreEnd
 }
 
@@ -206,4 +205,43 @@ function get_thumb( $id, $size, $is_noimage ) {
 	// @codingStandardsIgnoreStart
 	return $image;
 	// @codingStandardsIgnoreEnd
+}
+
+/**
+ * パンくず用にすべての親ページのタイトルとpage_nameを取得して配列にした変数を返します
+ */
+function get_page_relation_list() {
+	$post_data = get_post();
+
+	// 自身のタイトルとpage_nameを取得
+	$page_relation_list = array(
+		get_the_title() => $post_data ? get_post()->post_name : '',
+	);
+
+	// すべての親ページのIDを取得.
+	$parent_page_ids = get_post_ancestors( get_the_ID() );
+
+	// すべての親ページのタイトルとpage_nameを追加していく.
+	foreach ( $parent_page_ids as $parent_page_id ) {
+		$page_relation_list = array_merge(
+			array(
+				get_post( $parent_page_id )->post_title => get_post( $parent_page_id )->post_name,
+			),
+			$page_relation_list
+		);
+	}
+
+	return $page_relation_list;
+}
+
+/**
+ * 特定のmeta_keyを含んでいるかどうかを判定します
+ */
+function has_meta_key( $post_id, $meta_key ) {
+	$meta = get_post_meta( $post_id, $meta_key, true );
+	if ( $meta ) {
+		return true;
+	} else {
+		return false;
+	}
 }

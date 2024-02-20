@@ -117,3 +117,15 @@ sup {
 pre {
   white-space: pre-wrap;
 }
+
+button {
+  color: inherit;
+}
+
+[aria-hidden='true'] {
+  display: none;
+}
+
+[aria-hidden='false'] {
+  display: block;
+}

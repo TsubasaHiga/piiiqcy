@@ -1,21 +1,23 @@
 @charset "utf-8";
 
 // plugins
-@use 'ress/ress.css';
+@import 'ress/ress.css';
 
 // Foundation
-@use './Foundation/base';
+@import './Foundation/base';
 
 // Layouts
-@use './Layouts/l-base';
-@use './Layouts/l-footer';
-@use './Layouts/l-header';
+@import './Layouts/l-base';
+@import './Layouts/l-footer';
+@import './Layouts/l-header';
 
 // Components
-@use './Components/c-breadcrumbs';
-@use './Components/c-nav';
-@use './Components/c-pager';
+@import './Components/c-breadcrumbs';
+@import './Components/c-nav';
+@import './Components/c-pager';
 
 // Utilities
-@use './Utilities/u-plugins';
-@use './Utilities/u-mqw';
+@import './Utilities/u-animation';
+@import './Utilities/u-etc';
+@import './Utilities/u-mqw';
+@import './Utilities/u-plugins';

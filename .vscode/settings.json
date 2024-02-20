@@ -2,7 +2,7 @@
   "editor.defaultFormatter": "esbenp.prettier-vscode",
   "editor.formatOnSave": true,
   "editor.codeActionsOnSave": {
-    "source.fixAll.eslint": true
+    "source.fixAll.eslint": "explicit"
   },
   "[html]": {
     "editor.defaultFormatter": "vscode.html-language-features"
@@ -13,6 +13,10 @@
   "[php]": {
     "editor.defaultFormatter": "valeryanm.vscode-phpsab"
   },
+  "files.associations": {
+    "error_log*": "log",
+    "access_log*": "log"
+  },
   "phpsab.executablePathCS": "./vendor/bin/phpcs",
   "phpsab.executablePathCBF": "./vendor/bin/phpcbf",
   "phpsab.standard": "WordPress-Extra",
@@ -21,13 +25,13 @@
   "cSpell.words": [
     "classname",
     "cssnano",
+    "customizer",
     "gsap",
-    "HigaTsubasa",
     "mqpacker",
+    "nocheck",
     "phpcbf",
     "phpcs",
     "piii",
-    "piiiqcy",
     "ress",
     "smacss",
     "stylelint",

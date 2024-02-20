@@ -11,11 +11,14 @@
 @forward 'mixins/ellipsis';
 @forward 'mixins/first';
 @forward 'mixins/fz';
+@forward 'mixins/fzs';
 @forward 'mixins/hide-text';
 @forward 'mixins/hover-dark';
 @forward 'mixins/hover-opacity';
 @forward 'mixins/icon-ini';
 @forward 'mixins/is-loaded';
+@forward 'mixins/is-page';
+@forward 'mixins/is-not-page';
 @forward 'mixins/is-open-menu';
 @forward 'mixins/last';
 @forward 'mixins/letter-spacing';
@@ -24,6 +27,7 @@
 @forward 'mixins/mqh-up';
 @forward 'mixins/mqw-down';
 @forward 'mixins/mqw-up';
+@forward 'mixins/no-select';
 @forward 'mixins/notfirst';
 @forward 'mixins/notlast';
 @forward 'mixins/orientation';
@@ -32,6 +36,7 @@
 @forward 'mixins/os/is-ipados';
 @forward 'mixins/os/is-macos';
 @forward 'mixins/placeholder';
+@forward 'mixins/triangle';
 @forward 'mixins/touch-support';
 @forward 'mixins/type/is-type-mobile';
 @forward 'mixins/type/is-type-tablet';

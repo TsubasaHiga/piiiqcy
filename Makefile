@@ -15,39 +15,46 @@ ADMIN_EMAIL=info@example.com
 # Wordppress install plugins
 INSTALL_PLUGINS=admin-menu-editor \
         custom-post-type-ui \
-        wordpress-seo \
-        ./wp-content/plugins/advanced-custom-fields-pro.zip
-# Wordppress uninstall plugins
-UNINSTALL_PLUGINS=hello \
-                  akismet
+        wordpress-seo
+
+# search-replace
+DOMAIN_FROM=https://example.com
+DOMAIN_TO=http://192.168.1.109:8000
 # ------------------------------------------------------------------
 
 # docker compose first
 first:
-	docker network create --driver bridge network_$(PREFIX) && \
-  docker compose up -d --build
+	docker network create --driver bridge $(PREFIX)_network && \
+  export PREFIX="$(PREFIX)" && docker compose up -d --build
 
 # Wordpress Install
 wpinstall:
-	docker compose run --rm wpcli wp core install --url='$(URL)' --title='$(TITLE)' --admin_user='$(ADMIN_USER)' --admin_password='$(ADMIN_PASSWORD)' --admin_email='$(ADMIN_EMAIL)' --allow-root && \
-  docker compose run --rm wpcli wp language core install ja --activate --allow-root && \
-  docker compose run --rm wpcli plugin install $(INSTALL_PLUGINS) --activate --allow-root && \
-  docker compose run --rm wpcli plugin uninstall $(UNINSTALL_PLUGINS)
+	export PREFIX="$(PREFIX)" && docker compose run --rm wpcli wp core install --url='$(URL)' --title='$(TITLE)' --admin_user='$(ADMIN_USER)' --admin_password='$(ADMIN_PASSWORD)' --admin_email='$(ADMIN_EMAIL)' --allow-root && \
+  export PREFIX="$(PREFIX)" && docker compose run --rm wpcli wp language core install ja --activate --allow-root && \
+  export PREFIX="$(PREFIX)" && docker compose run --rm wpcli plugin install $(INSTALL_PLUGINS) --activate --allow-root
 
 # docker compose up
 up:
-	docker compose up -d
+	export PREFIX="$(PREFIX)" && docker compose up -d
 
 # docker compose stop
 stop:
-	docker compose stop
+	export PREFIX="$(PREFIX)" && docker compose stop
 
 # docker compose down (container remove and volumes delete)
 down:
-	docker compose stop && \
+	export PREFIX="$(PREFIX)" && docker compose stop && \
   docker compose down --volumes && \
-  docker network rm network_$(PREFIX)
+  docker network rm $(PREFIX)_network
 
 # mysqldump
 dbdump:
 	docker exec -it $(PREFIX)_db sh -c 'mysqldump wordpress -u wordpress -pwordpress 2> /dev/null' > dump.sql
+
+# search-replace --dry-run
+search-replace-dry-run:
+	docker compose run --rm wpcli search-replace ${DOMAIN_FROM} ${DOMAIN_TO} --all-tables --dry-run
+
+# search-replace
+search-replace-run:
+	docker compose run --rm wpcli search-replace ${DOMAIN_FROM} ${DOMAIN_TO} --all-tables

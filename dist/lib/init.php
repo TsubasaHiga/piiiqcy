@@ -4,8 +4,7 @@
  *
  * 初期設定に関する設定を行います
  *
- * @since 0.0.1
- * @package piiiQcy
+ * @since 1.0.0
  */
 
 /**

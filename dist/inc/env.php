@@ -4,8 +4,7 @@
  *
  * Env指定を行います。
  *
- * @since 0.0.1
- * @package piiiQcy
+ * @since 1.0.0
  */
 
 // @codingStandardsIgnoreStart
