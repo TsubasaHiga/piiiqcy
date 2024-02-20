@@ -2,17 +2,13 @@
 /**
  * Template Name: TOP
  *
- * Index.phpです
- *
- * @since 0.0.1
- * @package piiiQcy
+ * @since 1.0.0
  */
 
 $page_name = 'top';
-
 require_once 'inc/common.php';
 ?>
-
+<?php get_header(); ?>
 <div class="l-container l-spacer">
 	<div class="l-page">
 		<section class="bg-gray-200 rounded-lg p-10 my-10">

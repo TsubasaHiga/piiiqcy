@@ -13,17 +13,17 @@ piiiQcy（ピィキュー）はWordPressコーディング規約に則ったWord
 
 ## 環境について
 
-| 項目                       | 詳細                                                                                                                      |
-| -------------------------- | ------------------------------------------------------------------------------------------------------------------------- |
-| node.js                    | 16.5x required                                                                                                            |
-| JavaScript Package manager | yarn                                                                                                                      |
-| PHP Package manager        | composer                                                                                                                  |
-| Build system               | Vite                                                                                                                      |
-| ECMAScript                 | ES6                                                                                                                       |
-| CSS design                 | FLOCSS                                                                                                                    |
-| Lint                       | ESlint & Stylelint & phpcs                                                                                                |
-| CMS                        | WordPress latest / Docker                                                                                                 |
-| phpcs                      | [WordPress Coding Standards](https://make.wordpress.org/core/handbook/coding-standards/)（dist配下のphpファイルのみ適応） |
+| 項目                       | 詳細                                                                                     |
+| -------------------------- | ---------------------------------------------------------------------------------------- |
+| node.js                    | 16.5x required                                                                           |
+| JavaScript Package manager | yarn                                                                                     |
+| PHP Package manager        | composer                                                                                 |
+| Build system               | Vite                                                                                     |
+| ECMAScript                 | ES6                                                                                      |
+| CSS design                 | FLOCSS                                                                                   |
+| Lint                       | ESlint & Stylelint & phpcs                                                               |
+| CMS                        | WordPress latest / Docker                                                                |
+| phpcs                      | [WordPress Coding Standards](https://make.wordpress.org/core/handbook/coding-standards/) |
 
 ```console
 $ sw_vers
@@ -41,53 +41,6 @@ $ composer -V
 Composer version 1.10.7 2020-06-03 10:03:56
 ```
 
-## ディレクトリ構成について
-
-ルート配下2階層までのディレクトリ一覧を示します。
-
-```console
-.
-|-- app
-|   `-- WordPress
-|-- db-data
-|   `-- wordpress.sql.gz
-|-- dist
-|   |-- assets
-|   |-- inc
-|   |-- lib
-|   |-- pages
-|   |-- parts
-|   |-- template
-|   |-- archive.php
-|   |-- footer.php
-|   |-- functions.php
-|   |-- header.php
-|   |-- index.php
-|   |-- screenshot.png
-|   |-- single.php
-|   `-- style.css
-|-- docker
-|   |-- php
-|   `-- phpmyadmin
-|-- src
-|   `-- assets
-|-- utility
-|-- vendor
-|-- wp-uploads
-|   `-- 2020
-|-- Makefile
-|-- README.md
-|-- composer.json
-|-- composer.lock
-|-- docker-compose.yml
-|-- gulpfile.js
-|-- package.json
-|-- setting.json
-|-- webpack.config.js
-|-- webpack.production.config.js
-`-- yarn.lock
-```
-
 ## 環境構築について事前準備が必要な作業
 
 - Dockerのインストール
@@ -95,20 +48,45 @@ Composer version 1.10.7 2020-06-03 10:03:56
 - Dockerの`setting > Resources > FILE SHARING`よりプロジェクト配下のパスを登録
 - wp-uploads配下を`./wp-uploads`へ設置
 - DBを`./db-data/`へ設置
+- 置換
+  - `piiiqcy` → `プロジェクト名`
+  - `example.com` → `ドメイン名`
 
-## 始め方
+## Setup
 
-### phpcsとwp-coding-standardsのインストール
+### Init `.env` file
+
+`./.env`は以下のように設定を行います。
+
+```apache
+# Database
+MYSQL_RANDOM_ROOT_PASSWORD=yes
+MYSQL_DATABASE=wordpress
+MYSQL_USER=wordpress
+MYSQL_PASSWORD=wordpress
+
+# WordPress
+WORDPRESS_DB_HOST=db:3306
+WORDPRESS_DB_NAME=wordpress
+WORDPRESS_DB_USER=wordpress
+WORDPRESS_DB_PASSWORD=wordpress
+WORDPRESS_DEBUG="true"
+
+# Vite local server
+VITE_API_URL=192.168.1.109
+```
+
+### Install phpcs
 
 以下よりphpcsとWordPress用コーディング規約（wp-coding-standards）をインストールします。
 
-```console
+```bash
 composer install
 ```
 
 wp-coding-standardsをセットします。
 
-```console
+```bash
 ./vendor/bin/phpcs --config-set installed_paths "`pwd`/vendor/wp-coding-standards/wpcs"
 ```
 
@@ -116,55 +94,52 @@ wp-coding-standardsをセットします。
 
 その他のエディターを使われる場合はそれぞれに合わせた設定を行います。
 
-### Dockerコンテナーの立ち上げ
+### Init Docker
 
 初回時は以下よりDockerコンテナーを用意します。初回時以降は`make up`で始めます。
 
-```console
+```bash
 make first
 ```
 
 以下よりWordPressと必須プラグインのインストールを行います。
 
-```console
+```bash
 make wpinstall
+```
+
+次に以下を実行します。
+
+```bash
+make up
 ```
 
 この段階で`localhost:8000`にてページの表示が可能になります。
 
-#### インストールするプラグインのリスト
+### Settings WordPress
 
-なんらかの理由でwpcli経由でのインストールが出来ない場合は以下を手動でインストールします。
+開発環境の場合は`app/wp-config.php`にて以下の定数を追加することで、ViteのHMRを利用した開発が可能になります。
 
-- admin-menu-editor
-- advanced-custom-fields
-- classic-editor
-- custom-post-type-ui
-- all-in-one-seo-pack
-
-### 各種タスクの立ち上げ
-
-#### Install
-
-```bash
-yarn install
+```php
+// theme development
+define( 'IS_VITE_DEVELOPMENT', true );
 ```
 
-#### Dev
+## Scripts
+
+### Dev
 
 ```bash
 yarn dev
 ```
 
-#### Build
+### Build
 
 ```bash
-# production build
 yarn build
-
-# production build + zip archive
-yarn archive
 ```
+
+その他は`package.json`を参照してください。
 
 ## URL
 
@@ -185,7 +160,7 @@ DBクライアントにphpMyAdminがインストールされています。
 
 DBのDumpは以下より可能です。※`make run`済みである必要があります。
 
-```console
+```bash
 make dbdump
 ```
 
@@ -193,7 +168,7 @@ make dbdump
 
 Dockerコンテナーは以下で終了します。
 
-```console
+```bash
 make stop
 ```
 
@@ -201,44 +176,8 @@ make stop
 
 ## Dockerコンテナーとボリュームの削除
 
-```console
+```bash
 make down
-```
-
-## コマンド一覧
-
-`package.json`にて利用可能なscriptsの抜粋です。
-
-### 一般系
-
-```console
-# 各種コンパイルタスクを利用出来ます。通常はこちらで制作を行います
-yarn run serve
-
-# productionビルドを行います
-yarn run production
-
-# 画像再圧縮タスクです。`src`と`dist`で画像数が合わなくなった場合にリセット目的で使用します
-yarn run resetImg
-
-# 各種jsonファイルのチェックタスクです
-yarn run json-check
-```
-
-### Lint系
-
-```console
-# SCSSファイルのlintタスクです
-yarn run lint:css
-
-# SCSSファイルの自動修正タスクです
-yarn run fix:css
-
-# JSファイルのlintタスクです
-yarn run lint:js
-
-# JSファイルの自動修正タスクです
-yarn run fix:js
 ```
 
 ## コーディング規約について
@@ -247,9 +186,3 @@ yarn run fix:js
 - JavaScript：`.eslintrc.json`をご参照ください。
 - Sass：`.stylelintrc.json`をご参照ください。
 - PHP：[WordPress Coding Standards](https://make.wordpress.org/core/handbook/coding-standards/)（dist配下のphpファイルのみ適応）
-
-## その他
-
-### 注意事項
-
-コミット時には`pre-commit`にて事前チェックが行われます。チェックに通らない場合は各種コーディング規約をご確認ください。

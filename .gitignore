@@ -96,7 +96,7 @@ typings/
 .yarn-integrity
 
 # dotenv environment variables file
-# .env
+.env
 .env.test
 
 # parcel-bundler cache (https://parceljs.org/)
@@ -109,7 +109,7 @@ typings/
 .nuxt
 
 # react / gatsby
-public/
+# public/
 
 # vuepress build output
 .vuepress/dist
@@ -158,10 +158,20 @@ dist/assets/
 wp-uploads/
 wp-plugins/
 
-/vendor/
-/honban/
+dist-stg/
+vendor/
+honban/
+tmp/
 
 *.sql
 *.sql.gz
 
 *.dat
+
+# Editor directories and files
+.vscode/*
+!.vscode/extensions.json
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/README.md

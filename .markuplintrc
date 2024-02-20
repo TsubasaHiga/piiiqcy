@@ -1,0 +1,26 @@
+{
+  "extends": [
+    "markuplint:recommended"
+  ],
+  "parser": {
+    ".php$": "@markuplint/php-parser"
+  },
+  "rules": {
+    "character-reference": false,
+    "invalid-attr": false
+  },
+  "nodeRules": [
+    {
+      "selector": "img",
+      "rules": {
+        "required-attr": false
+      }
+    },
+    {
+      "selector": "video",
+      "rules": {
+        "required-element": false
+      }
+    }
+  ]
+}

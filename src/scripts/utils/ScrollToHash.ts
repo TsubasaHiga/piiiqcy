@@ -2,7 +2,7 @@
  * 特定のハッシュ先にスクロール（Promise対応版）
  */
 const ScrollToHash = async (hash: string, manualOffset?: number): Promise<boolean> => {
-  const targetElement = document.querySelector(hash)
+  const targetElement = document.getElementById(hash)
   if (!targetElement) return false
 
   const elementPosY = Math.floor(targetElement.getBoundingClientRect().top + window.scrollY)

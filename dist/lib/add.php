@@ -4,8 +4,7 @@
  *
  * WordPressのデフォルトに無い機能を追加する為の指定を行います。
  *
- * @since 0.0.1
- * @package piiiQcy
+ * @since 1.0.0
  */
 
 /**
@@ -16,6 +15,7 @@
  * @link https://github.com/Sydsvenskan/sds-md5-on-upload/blob/master/sds-md5-on-upload.php
  * @param string $file ファイル.
  */
+add_filter( 'wp_handle_upload_prefilter', 'rename_upload_file', 1, 1 );
 function rename_upload_file( $file ) {
 
 	$name = $file['name'];
@@ -36,29 +36,42 @@ function rename_upload_file( $file ) {
 
 	return $file;
 }
-add_filter( 'wp_handle_upload_prefilter', 'rename_upload_file', 1, 1 );
-
-
-/**
- * 再利用ブロックへのリンクを追加
- *
- * @link https://qiita.com/tbshiki/items/14e733e44f9266c8baf7
- */
-function add_reuse() {
-	add_menu_page( '再利用ブロック', '再利用ブロック', 'manage_options', 'edit.php?post_type=wp_block', '', 'dashicons-controls-repeat', '98.9' );
-}
-add_action( 'admin_menu', 'add_reuse' );
-
 
 /**
  * wp_enqueue_scriptで読み込んだスクリプトにtype="module"を追加
  */
+add_filter( 'script_loader_tag', 'add_module_type_attribute', 10, 3 );
 function add_module_type_attribute( $tag, $handle ) {
-	// ここでモジュールタイプを追加したいスクリプトのハンドルをチェック
-	if ( 'vite-script' === $handle ) {
-		// str_replaceを使用してtype属性を追加
+	// PAGE_SCRIPTS_STYLES_LISTからhandleのみの配列を作成
+	$allowed_scripts = array_column( PAGE_SCRIPTS_STYLES_LIST, 'handle' );
+
+	// 'main'を先頭に追加
+	array_unshift( $allowed_scripts, 'main' );
+
+	if ( in_array( $handle, $allowed_scripts, true ) ) {
+		// type属性を追加
 		$tag = str_replace( '<script ', '<script type="module" ', $tag );
 	}
 	return $tag;
 }
-add_filter( 'script_loader_tag', 'add_module_type_attribute', 10, 3 );
+
+/**
+ * wp_enqueue_scriptで読み込んだスクリプトにdeferを追加
+ */
+add_filter( 'script_loader_tag', 'add_defer_attribute', 10, 3 );
+function add_defer_attribute( $tag, $handle ) {
+	// ここでモジュールタイプを追加したいスクリプトのハンドルをチェック
+	if ( 'main' === $handle ) {
+		// str_replaceを使用してtype属性を追加
+		$tag = str_replace( ' src=', ' defer src=', $tag );
+	}
+	return $tag;
+}
+
+/**
+ * 管理画面にアイコンを追加
+ */
+add_action( 'admin_head', 'load_icons' );
+function load_icons() {
+	require_once __DIR__ . '/../parts/common/icons.php';
+}

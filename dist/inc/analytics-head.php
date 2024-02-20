@@ -4,8 +4,7 @@
  *
  * <head>内に入れるanalytics関連を記述します
  *
- * @since 0.0.1
- * @package piiiQcy
+ * @since 1.0.0
  */
 
 if ( APPLICATION_ENV === 'production' ) :

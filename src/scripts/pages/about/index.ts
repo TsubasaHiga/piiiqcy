@@ -1,1 +1,1 @@
-export const aboutScript = () => console.log('about')
+export default () => console.log('about')

@@ -2,21 +2,20 @@ version: '3.3'
 
 services:
   wordpress:
-    container_name: 'piiiqcy'
+    container_name: ${PREFIX}_container
     image: wordpress:latest
     depends_on:
       - db
     networks:
-      - network_piiiqcy
+      - ${PREFIX}_network
     ports:
       - '8000:80'
     volumes:
       - ./docker/php/php.conf.ini:/usr/local/etc/php/conf.d/conf.ini
       - ./app/WordPress:/var/www/html
-      - ./dist:/var/www/html/wp-content/themes/piiiqcy
+      - ./dist:/var/www/html/wp-content/themes/${PREFIX}
       - ./wp-uploads:/var/www/html/wp-content/uploads
       - ./wp-plugins:/var/www/html/wp-content/plugins
-    # restart: always
     env_file: .env
 
   wpcli:
@@ -29,18 +28,17 @@ services:
       - db
       - wordpress
     networks:
-      - network_piiiqcy
+      - ${PREFIX}_network
     user: xfs
 
   db:
-    container_name: 'piiiqcy_db'
+    container_name: ${PREFIX}_db
     image: mysql:8
     volumes:
       - db-data:/var/lib/mysql
       - ./db-data:/docker-entrypoint-initdb.d
     networks:
-      - network_piiiqcy
-    # restart: always
+      - ${PREFIX}_network
     env_file: .env
 
   phpmyadmin:
@@ -48,17 +46,16 @@ services:
     depends_on:
       - db
     networks:
-      - network_piiiqcy
+      - ${PREFIX}_network
     environment:
       PMA_HOST: db
-    # restart: always
     ports:
       - '8080:80'
     volumes:
       - ./docker/phpmyadmin/phpmyadmin-misc.ini:/usr/local/etc/php/conf.d/phpmyadmin-misc.ini
 
 networks:
-  network_piiiqcy:
+  piiiqcy_network:
     external: true
 
 volumes:

@@ -1,5 +1,7 @@
 @charset "utf-8";
 
+@use './functions' as *;
+
 // layout
 // ----------------------------------------------------------
 // break point - width
@@ -96,3 +98,6 @@ $ease-in-out-back: cubic-bezier(0.68, -0.55, 0.265, 1.55);
 // ----------------------------------------------------------
 $com-ms: 400ms;
 $com-es: ease;
+$com-each-delay: 60ms;
+$long-ms: 930ms;
+$long-es: $ease-out-cubic;

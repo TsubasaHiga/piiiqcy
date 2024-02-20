@@ -4,8 +4,7 @@
  *
  * アーカイブの表示を行います
  *
- * @since 0.0.1
- * @package piiiQcy
+ * @since 1.0.0
  */
 
 $page_name = 'archive';

@@ -4,8 +4,7 @@
  *
  * WordPressのデフォルトの機能を削除、またはクリーンアップする為の指定を行います。
  *
- * @since 0.0.1
- * @package piiiQcy
+ * @since 1.0.0
  */
 
 /**
@@ -40,12 +39,11 @@ add_filter( 'xmlrpc_enabled', '__return_false' );
  * @param object $headers headers.
  * @return $headers
  */
+add_filter( 'wp_headers', 'remove_x_pingback' );
 function remove_x_pingback( $headers ) {
 	unset( $headers['X - Pingback'] );
 	return $headers;
 }
-add_filter( 'wp_headers', 'remove_x_pingback' );
-
 
 /**
  * 自動ソースの吐き出しを抑制
@@ -100,12 +98,11 @@ function remove_dns_prefetch( $hints, $relation_type ) {
 /**
  * 管理画面の左メニューの一部を削除
  */
+add_action( 'admin_menu', 'remove_menus' );
 function remove_menus() {
 	/** コメント */
 	remove_menu_page( 'edit-comments.php' );
 }
-add_action( 'admin_menu', 'remove_menus' );
-
 
 /**
  * サムネイル自動生成停止.
@@ -113,14 +110,13 @@ add_action( 'admin_menu', 'remove_menus' );
  * @param string $sizes .
  * @return $sizes
  */
+update_option( 'medium_large_size_w', 0 );
 function remove_image_sizes( $sizes ) {
 	unset( $sizes['medium'] );
 	unset( $sizes['large'] );
 
 	return $sizes;
 }
-update_option( 'medium_large_size_w', 0 );
-
 
 /**
  * The_post_thumbnailのクラスを削除.
@@ -128,12 +124,11 @@ update_option( 'medium_large_size_w', 0 );
  * @param string $output .
  * @return $output
  */
+add_filter( 'post_thumbnail_html', 'wps_post_thumbnail_remove_class' );
 function wps_post_thumbnail_remove_class( $output ) {
 	$output = preg_replace( '/class=".*?"/', '', $output );
 	return $output;
 }
-add_filter( 'post_thumbnail_html', 'wps_post_thumbnail_remove_class' );
-
 
 /**
  * WpのURL自動補完機能を停止.
@@ -151,14 +146,12 @@ add_filter(
 /**
  * 投稿画面の不要な項目を非表示
  */
+add_action( 'init', 'remove_block_editor_options' );
 function remove_block_editor_options() {
 	remove_post_type_support( 'post', 'excerpt' );
 	remove_post_type_support( 'post', 'comments' );
 	remove_post_type_support( 'post', 'trackbacks' );
-	unregister_taxonomy_for_object_type( 'post_tag', 'post' );
 }
-add_action( 'init', 'remove_block_editor_options' );
-
 
 /**
  * Remove src wp ver
@@ -167,12 +160,11 @@ add_action( 'init', 'remove_block_editor_options' );
  * @param [type] $dep .
  * @return void
  */
+add_action( 'wp_default_scripts', 'remove_src_wp_ver' );
+add_action( 'wp_default_styles', 'remove_src_wp_ver' );
 function remove_src_wp_ver( $dep ) {
 	$dep->default_version = '';
 }
-add_action( 'wp_default_scripts', 'remove_src_wp_ver' );
-add_action( 'wp_default_styles', 'remove_src_wp_ver' );
-
 
 /**
  * Remove All Yoast HTML Comments

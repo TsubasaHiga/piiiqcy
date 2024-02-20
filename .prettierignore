@@ -2,6 +2,7 @@ node_modules
 *.html
 dist
 !dist/**/*.php
+dist-stg
 docs
 public
 

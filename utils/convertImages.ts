@@ -3,6 +3,7 @@ import fs from 'fs'
 import { glob } from 'glob'
 import path from 'path'
 import sharp from 'sharp'
+import type { Config } from 'svgo'
 import { optimize } from 'svgo'
 
 const inputDir: string = 'src/images'
@@ -10,13 +11,41 @@ const outputDir: string = 'dist/assets/images'
 
 // 画像の品質を設定
 const sharpOptions = {
-  quality: 80 // 画像の品質（0-100）
+  quality: 70 // 画像の品質（0-100）
 }
 
 // SVGOの設定
-const svgoOptions = {
-  // ここにSVGOの設定を追加
+const svgoOptions: Config = {
+  plugins: [
+    // ここにSVGOのプラグインを追加
+    {
+      name: 'cleanupIds',
+      params: {
+        force: true
+      }
+    },
+    'collapseGroups',
+    'convertShapeToPath',
+    'convertStyleToAttrs',
+    'mergePaths',
+    'removeDoctype',
+    'removeTitle',
+    'removeDesc',
+    'removeUselessDefs',
+    'removeEditorsNSData',
+    'removeEmptyAttrs',
+    'removeComments',
+    'removeDimensions',
+    'removeEmptyAttrs',
+    'removeMetadata',
+    'removeXMLProcInst',
+    'removeUnusedNS',
+    'sortAttrs'
+  ]
 }
+
+// 変換をSkipするファイルのPATHリスト
+const skipFiles = ['']
 
 // ログメッセージを出力する関数
 const logSuccess = (message: string) => console.log(`\x1b[32m${message}\x1b[0m`) // 緑色のテキスト
@@ -76,18 +105,44 @@ const processSVG = (filePath: string, outputFilePath: string): void => {
 }
 
 /**
+ * copy file
+ */
+const copyFile = (filePath: string, outputFilePath: string): void => {
+  fs.copyFileSync(filePath, outputFilePath)
+  logInfo(`Copied file: ${outputFilePath}`)
+}
+
+/**
  * Processes the given file based on its extension.
  * @param filePath - The path of the file to be processed.
  * @returns void
  */
 const processFile = (filePath: string): void => {
+  // dot files are ignored
+  if (path.basename(filePath).startsWith('.')) {
+    return
+  }
+
+  // Skipするファイルかどうかを判定
+  const isSkip = skipFiles.some((skipFile) => filePath.includes(skipFile))
+
   const ext: string = path.extname(filePath).toLowerCase()
   const outputFilePath: string = getOutputFilePath(
     filePath,
-    ['.jpg', '.png'].includes(ext) ? 'webp' : ext.replace('.', '') // 拡張子が.jpgまたは.pngの場合は.webpに変換
+    ['.jpg', '.png'].includes(ext) && !isSkip
+      ? // 拡張子が.jpgまたは.pngの場合は.webpに変換
+        'webp'
+      : ext.replace('.', '')
   )
 
+  // ディレクトリを作成
   fs.mkdirSync(path.dirname(outputFilePath), { recursive: true })
+
+  // Skipするファイルの場合はコピー
+  if (isSkip) {
+    copyFile(filePath, outputFilePath)
+    return
+  }
 
   switch (ext) {
     case '.jpg':
@@ -98,8 +153,7 @@ const processFile = (filePath: string): void => {
       processSVG(filePath, outputFilePath)
       break
     default:
-      fs.copyFileSync(filePath, outputFilePath)
-      logInfo(`Copied file: ${outputFilePath}`)
+      copyFile(filePath, outputFilePath)
       break
   }
 }

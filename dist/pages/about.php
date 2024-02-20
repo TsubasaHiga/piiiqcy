@@ -2,22 +2,16 @@
 /**
  * Template Name: about
  *
- * 固定ページ「about」です
- *
- * @since 0.0.1
- * @package piiiQcy
+ * @since 1.0.0
  */
 
 $page_name = 'about';
-
 require_once __DIR__ . '/../inc/common.php';
 
 // パンくず.
-$page_relation_list = array(
-	'about' => $page_name,
-);
+$page_relation_list = get_page_relation_list();
 ?>
-
+<?php get_header(); ?>
 <div class="l-container l-spacer">
 	<div class="l-page">
 		<?php get_breadcrumbs( $page_relation_list ); ?>
