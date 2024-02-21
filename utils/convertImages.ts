@@ -45,7 +45,7 @@ const svgoOptions: Config = {
 }
 
 // 変換をSkipするファイルのPATHリスト
-const skipFiles = ['']
+const skipFiles: [] = []
 
 // ログメッセージを出力する関数
 const logSuccess = (message: string) => console.log(`\x1b[32m${message}\x1b[0m`) // 緑色のテキスト
