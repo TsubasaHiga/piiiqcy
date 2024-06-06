@@ -1,188 +1,110 @@
 # piiiQcy
 
-boilerplate for WP theme
+Boilerplate for WP theme
 
 ![logo](docs/assets/images/logo.png)
 
 piiiQcy（ピィキュー）はWordPressコーディング規約に則ったWordPress用ボイラープレートです。Theme内で完結する簡素な作りでありつつ、モダンな構築を素早く可能にする目的で開発を行っています。
 
-姉妹ボイラープレート
-
-- [Quicint（クイント）](https://github.com/TsubasaHiga/Quicint)：EJSを用いた静的開発用ボイラープレート
-- [Percolator（パーコレーター）](https://github.com/TsubasaHiga/Percolator)：PHPを用いた静的開発用ボイラープレート
-
-## 環境について
-
-| 項目                       | 詳細                                                                                     |
-| -------------------------- | ---------------------------------------------------------------------------------------- |
-| node.js                    | 16.5x required                                                                           |
-| JavaScript Package manager | yarn                                                                                     |
-| PHP Package manager        | composer                                                                                 |
-| Build system               | Vite                                                                                     |
-| ECMAScript                 | ES6                                                                                      |
-| CSS design                 | FLOCSS                                                                                   |
-| Lint                       | ESlint & Stylelint & phpcs                                                               |
-| CMS                        | WordPress latest / Docker                                                                |
-| phpcs                      | [WordPress Coding Standards](https://make.wordpress.org/core/handbook/coding-standards/) |
-
-```console
-$ sw_vers
-ProductName:    Mac OS X
-ProductVersion: 10.15.7
-BuildVersion:   19H2
-
-$ node -v
-v12.18.4
-
-$ yarn -v
-1.22.0
-
-$ composer -V
-Composer version 1.10.7 2020-06-03 10:03:56
-```
-
-## 環境構築について事前準備が必要な作業
-
-- Dockerのインストール
-- Composerのインストール
-- Dockerの`setting > Resources > FILE SHARING`よりプロジェクト配下のパスを登録
-- wp-uploads配下を`./wp-uploads`へ設置
-- DBを`./db-data/`へ設置
-- 置換
-  - `piiiqcy` → `プロジェクト名`
-  - `example.com` → `ドメイン名`
-
 ## Setup
 
-### Init `.env` file
-
-`./.env`は以下のように設定を行います。
+### 1. Put the `.env` file in the root
 
 ```apache
-# Database
 MYSQL_RANDOM_ROOT_PASSWORD=yes
 MYSQL_DATABASE=wordpress
 MYSQL_USER=wordpress
 MYSQL_PASSWORD=wordpress
 
-# WordPress
 WORDPRESS_DB_HOST=db:3306
 WORDPRESS_DB_NAME=wordpress
 WORDPRESS_DB_USER=wordpress
 WORDPRESS_DB_PASSWORD=wordpress
 WORDPRESS_DEBUG="true"
 
-# Vite local server
-VITE_API_URL=192.168.1.109
+VITE_API_URL=192.168.1.110
 ```
 
-### Install phpcs
-
-以下よりphpcsとWordPress用コーディング規約（wp-coding-standards）をインストールします。
-
-```bash
-composer install
-```
-
-wp-coding-standardsをセットします。
-
-```bash
-./vendor/bin/phpcs --config-set installed_paths "`pwd`/vendor/wp-coding-standards/wpcs"
-```
-
-この時点でエディターにvscodeを使用している場合は、`./.vscode/settings.json`にて`phpcs`と`phpcbf`のPATHがデフォルトで指定されているため、エディター上でのリアルタイムチェックが行われるようになります。（行われない場合は`command + shift + p`より`Reload Window`を選択し再読み込みを実施）
-
-その他のエディターを使われる場合はそれぞれに合わせた設定を行います。
-
-### Init Docker
-
-初回時は以下よりDockerコンテナーを用意します。初回時以降は`make up`で始めます。
+### 2. Install Docker
 
 ```bash
 make first
 ```
 
-以下よりWordPressと必須プラグインのインストールを行います。
+### 3. Edit `app/WordPress/wp-config.php`
+
+1. Edit the DB connection information based on the `/.env` file.
+2. In the development environment, you can develop using Vite's HMR by adding the following constants.
+
+```diff
+/ **
+   * For developers: WordPress debugging mode.
+   *
+   * Change this to true to enable the display of notices during development.
+   * It is strongly recommended that plugin and theme developers use WP_DEBUG
+   * in their development environments.
+   *
+   * For information on other constants that can be used for debugging,
+   * visit the documentation.
+   *
+   * @link https://developer.wordpress.org/advanced-administration/debug/debug-wordpress/
+   */
+  define( 'WP_DEBUG', !!getenv_docker('WORDPRESS_DEBUG', '') );
++ define( 'IS_VITE_DEVELOPMENT', true );
+```
+
+### 4. Install WordPress
 
 ```bash
 make wpinstall
 ```
 
-次に以下を実行します。
+#### Tips
+
+- How to Change Theme: Visit your admin page, go to `Appearance` > `Themes` and enable the theme named _piiiQcy_.
+
+### 5. Install composer
+
+```bash
+composer install
+```
+
+### 6. Install wp-coding-standards
+
+```bash
+./vendor/bin/phpcs --config-set installed_paths "\
+../../cakephp/cakephp-codesniffer,\
+../../phpcsstandards/phpcsextra,\
+../../phpcsstandards/phpcsutils,\
+../../slevomat/coding-standard,\
+../../wp-coding-standards/wpcs"
+```
+
+### 7. Start Docker
 
 ```bash
 make up
 ```
 
-この段階で`localhost:8000`にてページの表示が可能になります。
+- WordPress URL：<http://localhost:8000>
+- WordPress Admin URL：<http://localhost:8000/wp-admin/>
+- phpMyAdmin URL：<http://localhost:8080>
 
-### Settings WordPress
+### 8. Install Development
 
-開発環境の場合は`app/wp-config.php`にて以下の定数を追加することで、ViteのHMRを利用した開発が可能になります。
-
-```php
-// theme development
-define( 'IS_VITE_DEVELOPMENT', true );
+```bash
+yarn install
 ```
 
-## Scripts
-
-### Dev
+### 9. Start Development
 
 ```bash
 yarn dev
 ```
 
-### Build
+## About coding standards
 
-```bash
-yarn build
-```
-
-その他は`package.json`を参照してください。
-
-## URL
-
-### WordPress
-
-- URL：<http://localhost:8000/wp-admin/>
-
-※プラグインのインストールやWP本体の更新でFTP接続が求められる場合、[こちら](https://gist.github.com/dianjuar/1b2c43d38d76e68cf21971fc86eaac8e)が参考になります。本番環境ではコメントアウトが必要です。
-
-### phpMyAdmin
-
-DBクライアントにphpMyAdminがインストールされています。
-
-- URL：<http://localhost:8080>
-- ログイン情報：`./env`
-
-## DB Dump
-
-DBのDumpは以下より可能です。※`make run`済みである必要があります。
-
-```bash
-make dbdump
-```
-
-## 終了の仕方
-
-Dockerコンテナーは以下で終了します。
-
-```bash
-make stop
-```
-
-続いて各種タスクは`Ctrl + C`で終了します。
-
-## Dockerコンテナーとボリュームの削除
-
-```bash
-make down
-```
-
-## コーディング規約について
-
-- 全体：`.editorconfig`をご参照ください。
-- JavaScript：`.eslintrc.json`をご参照ください。
-- Sass：`.stylelintrc.json`をご参照ください。
-- PHP：[WordPress Coding Standards](https://make.wordpress.org/core/handbook/coding-standards/)（dist配下のphpファイルのみ適応）
+- Projects: Please see `.editorconfig`
+- JavaScript: Please see `.eslintrc.cjs`
+- Style Sheet: Please see `.stylelintrc.cjs`
+- PHP: [WordPress Coding Standards](https://make.wordpress.org/core/handbook/coding-standards/)
