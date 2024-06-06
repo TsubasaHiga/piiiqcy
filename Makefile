@@ -19,7 +19,7 @@ INSTALL_PLUGINS=admin-menu-editor \
 
 # search-replace
 DOMAIN_FROM=https://example.com
-DOMAIN_TO=http://192.168.1.109:8000
+DOMAIN_TO=http://192.168.1.110:8000
 # ------------------------------------------------------------------
 
 # docker compose first
