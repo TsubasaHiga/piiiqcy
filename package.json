@@ -122,5 +122,6 @@
   "bugs": {
     "url": "https://github.com/TsubasaHiga/piiiqcy/issues"
   },
-  "homepage": "https://github.com/TsubasaHiga/piiiqcy#readme"
+  "homepage": "https://github.com/TsubasaHiga/piiiqcy#readme",
+  "packageManager": "yarn@4.1.1"
 }
