@@ -1146,7 +1146,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/node@npm:*, @types/node@npm:^20.11.10":
+"@types/node@npm:*, @types/node@npm:^20.11.30":
   version: 20.14.2
   resolution: "@types/node@npm:20.14.2"
   dependencies:
@@ -1495,7 +1495,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"archiver@npm:^6.0.1":
+"archiver@npm:^6.0.2":
   version: 6.0.2
   resolution: "archiver@npm:6.0.2"
   dependencies:
@@ -1582,7 +1582,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"autoprefixer@npm:^10.4.17":
+"autoprefixer@npm:^10.4.19":
   version: 10.4.19
   resolution: "autoprefixer@npm:10.4.19"
   dependencies:
@@ -2227,7 +2227,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"cssnano@npm:^6.0.3":
+"cssnano@npm:^6.0.5":
   version: 6.1.2
   resolution: "cssnano@npm:6.1.2"
   dependencies:
@@ -2277,7 +2277,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"dayjs@npm:^1.10.0, dayjs@npm:^1.11.10":
+"dayjs@npm:^1.10.0, dayjs@npm:^1.11.11":
   version: 1.11.11
   resolution: "dayjs@npm:1.11.11"
   checksum: 10c0/0131d10516b9945f05a57e13f4af49a6814de5573a494824e103131a3bbe4cc470b1aefe8e17e51f9a478a22cd116084be1ee5725cedb66ec4c3f9091202dc4b
@@ -2720,7 +2720,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint-plugin-tailwindcss@npm:^3.14.2":
+"eslint-plugin-tailwindcss@npm:^3.14.3":
   version: 3.17.2
   resolution: "eslint-plugin-tailwindcss@npm:3.17.2"
   dependencies:
@@ -3240,7 +3240,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"glob@npm:^10.2.2, glob@npm:^10.3.10":
+"glob@npm:^10.2.2, glob@npm:^10.3.10, glob@npm:^10.3.16":
   version: 10.4.1
   resolution: "glob@npm:10.4.1"
   dependencies:
@@ -4104,7 +4104,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"lint-staged@npm:^15.2.0":
+"lint-staged@npm:^15.2.5":
   version: 15.2.5
   resolution: "lint-staged@npm:15.2.5"
   dependencies:
@@ -5096,56 +5096,56 @@ __metadata:
     "@types/chokidar": "npm:^2.1.3"
     "@types/glob": "npm:^8.1.0"
     "@types/is-touch-device": "npm:^1.0.2"
-    "@types/node": "npm:^20.11.10"
+    "@types/node": "npm:^20.11.30"
     "@types/throttle-debounce": "npm:^5.0.2"
     "@types/ua-parser-js": "npm:^0.7.39"
     "@typescript-eslint/eslint-plugin": "npm:^6.19.1"
     "@typescript-eslint/parser": "npm:^6.19.1"
-    archiver: "npm:^6.0.1"
+    archiver: "npm:^6.0.2"
     auto-bind: "npm:^5.0.1"
-    autoprefixer: "npm:^10.4.17"
+    autoprefixer: "npm:^10.4.19"
     chokidar: "npm:^3.5.3"
     css-declaration-sorter: "npm:^7.1.1"
     css-mqpacker: "npm:^7.0.0"
-    cssnano: "npm:^6.0.3"
-    dayjs: "npm:^1.11.10"
+    cssnano: "npm:^6.0.5"
+    dayjs: "npm:^1.11.11"
     eslint: "npm:^8.56.0"
     eslint-config-prettier: "npm:^9.1.0"
     eslint-plugin-prettier: "npm:^5.1.3"
     eslint-plugin-simple-import-sort: "npm:^10.0.0"
-    eslint-plugin-tailwindcss: "npm:^3.14.2"
+    eslint-plugin-tailwindcss: "npm:^3.14.3"
     focus-visible: "npm:^5.2.0"
     fs: "npm:^0.0.2"
-    glob: "npm:^10.3.10"
+    glob: "npm:^10.3.16"
     gsap: "npm:^3.12.5"
     husky: "npm:8.0.3"
     instant.page: "npm:^5.2.0"
     is-touch-device: "npm:^1.0.1"
     isomorphic-dompurify: "npm:^1.9.0"
-    lint-staged: "npm:^15.2.0"
+    lint-staged: "npm:^15.2.5"
     markuplint: "npm:^3.15.0"
     path: "npm:^0.12.7"
-    postcss: "npm:^8.4.33"
-    prettier: "npm:^3.2.4"
+    postcss: "npm:^8.4.38"
+    prettier: "npm:^3.2.5"
     ress: "npm:^5.0.2"
     rollup-plugin-visualizer: "npm:^5.12.0"
     sass: "npm:^1.70.0"
-    sharp: "npm:^0.33.2"
-    stylelint: "npm:16.0.0"
+    sharp: "npm:^0.33.4"
+    stylelint: "npm:16.0.2"
     stylelint-config-html: "npm:^1.1.0"
     stylelint-config-prettier-scss: "npm:^1.0.0"
     stylelint-config-recess-order: "npm:^4.4.0"
     stylelint-config-standard-scss: "npm:^12.0.0"
     svgo: "npm:^3.2.0"
-    tailwindcss: "npm:^3.3.5"
+    tailwindcss: "npm:^3.3.7"
     throttle-debounce: "npm:^5.0.0"
     ts-node: "npm:^10.9.2"
     typescript: "npm:^5.3.3"
-    ua-parser-js: "npm:^1.0.37"
+    ua-parser-js: "npm:^1.0.38"
     utility-types: "npm:^3.11.0"
-    vite: "npm:^5.0.12"
+    vite: "npm:^5.0.13"
     vite-plugin-full-reload: "npm:^1.1.0"
-    vite-tsconfig-paths: "npm:^4.3.1"
+    vite-tsconfig-paths: "npm:^4.3.2"
   languageName: unknown
   linkType: soft
 
@@ -5581,7 +5581,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"postcss@npm:^8.4.23, postcss@npm:^8.4.32, postcss@npm:^8.4.33, postcss@npm:^8.4.38, postcss@npm:^8.4.4":
+"postcss@npm:^8.4.23, postcss@npm:^8.4.32, postcss@npm:^8.4.38, postcss@npm:^8.4.4":
   version: 8.4.38
   resolution: "postcss@npm:8.4.38"
   dependencies:
@@ -5617,7 +5617,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"prettier@npm:^3.2.4":
+"prettier@npm:^3.2.5":
   version: 3.3.1
   resolution: "prettier@npm:3.3.1"
   bin:
@@ -6091,7 +6091,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"sharp@npm:^0.33.2":
+"sharp@npm:^0.33.4":
   version: 0.33.4
   resolution: "sharp@npm:0.33.4"
   dependencies:
@@ -6579,9 +6579,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"stylelint@npm:16.0.0":
-  version: 16.0.0
-  resolution: "stylelint@npm:16.0.0"
+"stylelint@npm:16.0.2":
+  version: 16.0.2
+  resolution: "stylelint@npm:16.0.2"
   dependencies:
     "@csstools/css-parser-algorithms": "npm:^2.3.2"
     "@csstools/css-tokenizer": "npm:^2.2.1"
@@ -6623,7 +6623,7 @@ __metadata:
     write-file-atomic: "npm:^5.0.1"
   bin:
     stylelint: bin/stylelint.mjs
-  checksum: 10c0/fae437452ec794eb1173b5b6f37d2bb1812986f7059c5d0ad54a3fb962ed2c4e483b8a7ce5d80e1e284bc5b9f3ccf38a7b869065ab25c8614b26071ee9677bd9
+  checksum: 10c0/5ec755e209beb1877ff40d50f18c1ebb05bf251925da1f98f28fb3911e4031195eb86adaf641ac5cdb01ba973f4c999bc0c6b0270d08c1d5c070adbdd9e734cf
   languageName: node
   linkType: hard
 
@@ -6734,7 +6734,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"tailwindcss@npm:^3.3.5":
+"tailwindcss@npm:^3.3.7":
   version: 3.4.4
   resolution: "tailwindcss@npm:3.4.4"
   dependencies:
@@ -7033,7 +7033,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ua-parser-js@npm:^1.0.37":
+"ua-parser-js@npm:^1.0.38":
   version: 1.0.38
   resolution: "ua-parser-js@npm:1.0.38"
   checksum: 10c0/b1dd11b87e1784c79f7129e9aec679753fccf8a9b22f5202b79b19492635b5b46b779607a3cfae0270999a0d48da223bf94015642d2abee69d83c9069ab37bd0
@@ -7164,7 +7164,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"vite-tsconfig-paths@npm:^4.3.1":
+"vite-tsconfig-paths@npm:^4.3.2":
   version: 4.3.2
   resolution: "vite-tsconfig-paths@npm:4.3.2"
   dependencies:
@@ -7180,7 +7180,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"vite@npm:^5.0.12":
+"vite@npm:^5.0.13":
   version: 5.2.12
   resolution: "vite@npm:5.2.12"
   dependencies:
