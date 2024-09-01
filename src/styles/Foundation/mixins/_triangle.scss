@@ -10,7 +10,7 @@
   border-style: solid;
 
   @if $rotate == 'top' {
-    border-color: transparent transparent $color transparent;
+    border-color: transparent transparent $color;
     border-width: 0 #{math.div($width, 2)}px #{$height}px #{math.div($width, 2)}px;
   } @else if $rotate == 'right' {
     border-color: transparent transparent transparent $color;

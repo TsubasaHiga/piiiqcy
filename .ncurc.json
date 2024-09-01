@@ -1,0 +1,3 @@
+{
+  "reject": ["eslint", "eslint-config-prettier", "eslint-plugin-simple-import-sort", "eslint-plugin-tailwindcss"]
+}

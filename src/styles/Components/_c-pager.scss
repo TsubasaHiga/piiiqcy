@@ -24,7 +24,7 @@
     width: $w;
     min-width: $w;
     height: $h;
-    color: #000;
+    color: var(--color-black);
     transition: color $com-ms $com-es;
 
     &::after {
@@ -35,7 +35,7 @@
       left: calc(50% - 6px);
       width: 12px;
       height: 1px;
-      background-color: #e13d12;
+      background-color: var(--color-white);
       opacity: 0;
     }
 
@@ -45,7 +45,7 @@
 
     @include mqw-up {
       &:hover {
-        color: #e13d12;
+        color: var(--color-white);
         opacity: 1;
       }
     }
@@ -68,7 +68,7 @@
         opacity: 1;
 
         svg path {
-          fill: #000;
+          fill: var(--color-black);
         }
       }
     }

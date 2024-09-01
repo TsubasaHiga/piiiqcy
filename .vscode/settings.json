@@ -23,6 +23,7 @@
   "cSpell.ignoreRegExpList": ["[０-９Ａ-Ｚａ-ｚぁ-んァ-ヶ亜-熙纊-黑]+"],
   "cSpell.enabledLanguageIds": ["javascript", "javascriptreact", "typescript", "typescriptreact"],
   "cSpell.words": [
+    "blockless",
     "classname",
     "cssnano",
     "customizer",
@@ -32,6 +33,7 @@
     "phpcbf",
     "phpcs",
     "piii",
+    "piiiqcy",
     "ress",
     "smacss",
     "stylelint",

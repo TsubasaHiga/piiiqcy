@@ -33,12 +33,18 @@ const onScroll = () => {
   const y = Math.round(window.scrollY)
 
   // add className is-scroll
-  y > 0 ? document.documentElement.classList.add('is-scroll') : document.documentElement.classList.remove('is-scroll')
+  if (y > 0) {
+    document.documentElement.classList.add('is-scroll')
+  } else {
+    document.documentElement.classList.remove('is-scroll')
+  }
 
   // add className is-footer
-  GetDocumentH() <= y
-    ? document.documentElement.classList.add('is-footer')
-    : document.documentElement.classList.remove('is-footer')
+  if (GetDocumentH() <= y) {
+    document.documentElement.classList.add('is-footer')
+  } else {
+    document.documentElement.classList.remove('is-footer')
+  }
 }
 
 let oldInnerWidth = window.innerWidth

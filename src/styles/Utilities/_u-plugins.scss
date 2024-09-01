@@ -9,10 +9,23 @@
 // focus-visible
 
 .focus-visible:not([not-focus-visible]) {
-  outline: 1px solid rgba(#000, 0.3);
+  outline: 1px solid rgb(var(--color-primary-rgb) / 50%) !important;
   outline-width: 5px !important;
 }
 
 [data-js-focus-visible] :focus:not([data-focus-visible-added]) {
   outline: none;
+}
+
+// その他
+.u-sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
 }

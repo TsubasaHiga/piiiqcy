@@ -19,6 +19,18 @@ const specificPageInputList = specificPageList.reduce((acc: SpecificPageInputLis
   return acc
 }, {})
 
+// scss logger
+const SCSS_Logger = {
+  warn(message: any, options: any) {
+    // Mute "Mixed Declarations" warning
+    if (options.deprecation && message.includes('mixed-decls')) {
+      return
+    }
+    // List all other warnings
+    console.warn(`▲ [WARNING]: ${message}`)
+  }
+}
+
 // https://vitejs.dev/config/
 const config = (mode: string): UserConfig => {
   const distPath = mode === 'stg' ? './dist-stg' : './dist'
@@ -60,15 +72,16 @@ const config = (mode: string): UserConfig => {
           includePaths: [path.resolve(__dirname, 'src/styles')],
           additionalData:
             `
-          @use "sass:map";
-          @use "sass:math";
-          @use "./src/styles/Foundation/_variables.scss" as *;
-          @use "./src/styles/Foundation/_mixin.scss" as *;
-          @use "./src/styles/Foundation/_functions.scss" as *;
+            @use "sass:map";
+            @use "sass:math";
+            @use "./src/styles/Foundation/_variables.scss" as *;
+            @use "./src/styles/Foundation/_mixin.scss" as *;
+            @use "./src/styles/Foundation/_functions.scss" as *;
             $base-dir: '` +
             themePath +
             `';
-        `
+          `,
+          logger: SCSS_Logger
         }
       }
     },

@@ -47,6 +47,7 @@
         background-color: var(--bg-primary-color);
       }
     }
+
     @include mqw-down {
       @include fz(14);
 
@@ -54,7 +55,7 @@
     }
 
     &.is-active {
-      color: #fff;
+      color: var(--color-white);
       background-color: var(--primary-color);
     }
 

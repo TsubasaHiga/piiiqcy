@@ -20,15 +20,11 @@
     "fix:scripts": "yarn lint:scripts --fix",
     "fix:styles": "yarn lint:styles --fix",
     "format": "prettier --write . --ignore-unknown",
-    "prepare": "husky install"
+    "prepare": "husky"
   },
   "engines": {
-    "node": ">=16.15.0"
+    "node": ">=18.17.1"
   },
-  "browserslist": [
-    "> 0.5% in JP",
-    "not IE 11"
-  ],
   "husky": {
     "hooks": {
       "pre-commit": "lint-staged"

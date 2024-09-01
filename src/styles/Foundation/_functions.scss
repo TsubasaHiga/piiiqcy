@@ -4,8 +4,8 @@
 @use 'sass:math';
 
 // rem
-@function rem($num, $size: lg) {
-  @if $size == lg {
+@function rem($num, $size: md) {
+  @if $size == md {
     @return #{math.div($num, 16)}rem;
   } @else if $size == sm {
     @return #{math.div(math.div($num, 2), 16)}rem;
@@ -13,8 +13,8 @@
 }
 
 // vw
-@function vw($num, $size: lg) {
-  @if $size == lg {
+@function vw($num, $size: md) {
+  @if $size == md {
     @return (math.div($num, 1600)) * 100vw;
   } @else if $size == sm {
     @return (math.div($num, 375)) * 100vw;
@@ -22,8 +22,8 @@
 }
 
 // vh
-@function vh($num, $size: lg) {
-  @if $size == lg {
+@function vh($num, $size: md) {
+  @if $size == md {
     @return (math.div($num, 948)) * 100vh;
   } @else if $size == sm {
     @return (math.div($num, 844)) * 100vh;
@@ -32,5 +32,15 @@
 
 // convert-rgb
 @function convert-rgb($color) {
+  /* stylelint-disable-next-line scss/no-global-function-names */
   @return red($color) green($color) blue($color);
+}
+
+// gcd
+@function gcd($a, $b) {
+  @if $b == 0 {
+    @return $a;
+  } @else {
+    @return gcd($b, $a % $b);
+  }
 }
