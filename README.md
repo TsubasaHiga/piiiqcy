@@ -102,6 +102,12 @@ yarn install
 yarn dev
 ```
 
+## Q&A
+
+### How do I get the about page link in the header to work?
+
+For the about page link to work, you must register the about page as a static page.
+
 ## About coding standards
 
 - Projects: Please see `.editorconfig`
