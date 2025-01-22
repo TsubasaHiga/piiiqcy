@@ -53,8 +53,8 @@ dbdump:
 
 # search-replace --dry-run
 search-replace-dry-run:
-	docker compose run --rm wpcli search-replace ${DOMAIN_FROM} ${DOMAIN_TO} --all-tables --dry-run
+	export PREFIX="$(PREFIX)" && docker compose run --rm wpcli search-replace ${DOMAIN_FROM} ${DOMAIN_TO} --all-tables --dry-run
 
 # search-replace
 search-replace-run:
-	docker compose run --rm wpcli search-replace ${DOMAIN_FROM} ${DOMAIN_TO} --all-tables
+	export PREFIX="$(PREFIX)" && docker compose run --rm wpcli search-replace ${DOMAIN_FROM} ${DOMAIN_TO} --all-tables
