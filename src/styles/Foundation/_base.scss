@@ -6,21 +6,7 @@
 @use './mixin' as *;
 @use './functions' as *;
 
-:root {
-  // primary color
-  --color-primary: #000;
-  --color-primary-rgb: #{convert-rgb(#000)};
-
-  // secondary color
-  --color-secondary: #999;
-  --color-secondary-rgb: #{convert-rgb(#999)};
-
-  // basis color
-  --color-black: #000;
-  --color-black-rgb: #{convert-rgb(#000)};
-  --color-white: #fff;
-  --color-white-rgb: #{convert-rgb(#fff)};
-}
+@import './root';
 
 * {
   @include add-selection-color(var(--color-primary-rgb), 20%);
@@ -45,7 +31,14 @@ html {
   background-color: var(--color-white);
   -webkit-font-smoothing: antialiased;
   -webkit-tap-highlight-color: rgb(#000, 0);
-  scroll-behavior: smooth;
+
+  &.is-loaded {
+    scroll-behavior: smooth;
+  }
+
+  &.no-smooth-scroll {
+    scroll-behavior: auto;
+  }
 
   @include mqw-up {
     &[data-type='tablet'][data-orientation='portrait'] {
@@ -68,7 +61,11 @@ html {
   }
 
   @include mqw-down(sm) {
-    @include responsive-font-size(14, 16, map.get($breakpoint-w, xs), map.get($breakpoint-w, sm));
+    @include responsive-font-size(16, 16, map.get($breakpoint-w, xs), map.get($breakpoint-w, sm));
+  }
+
+  @include mqw-down(xs) {
+    @include responsive-font-size(13, 16, map.get($breakpoint-w, xxs), map.get($breakpoint-w, xs) - 1);
   }
 }
 

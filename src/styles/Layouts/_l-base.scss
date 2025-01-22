@@ -16,9 +16,6 @@
   @include is-loaded {
     visibility: visible;
     opacity: 1;
-    transition:
-      opacity $com-ms $com-es,
-      visibility $com-ms $com-es;
   }
 }
 

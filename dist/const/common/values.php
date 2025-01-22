@@ -33,7 +33,7 @@ define( 'EXCERPT_LENGTH', 50 );
 define( 'EXCERPT_LENGTH_EVENT', 80 );
 
 // ブレイクポイント
-define( 'BREAKPOINT', 834 );
+define( 'BREAKPOINT', 980 );
 
 // テーマディレクトリpath.
 define( 'THEMEROOTPATH', get_template_directory_uri() );
@@ -49,3 +49,6 @@ define( 'ASSETS_PATH', 'assets/' );
 // Vite.
 define( 'VITE_SERVER', 'http://192.168.1.110:3000' );
 define( 'VITE_ENTRY_POINT', '/src/scripts/' );
+
+// タイトルが空の場合のデフォルトタイトル.
+define( 'DEFAULT_TITLE', 'タイトルなし' );

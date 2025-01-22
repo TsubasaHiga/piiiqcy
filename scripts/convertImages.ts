@@ -6,18 +6,21 @@ import sharp from 'sharp'
 import type { Config } from 'svgo'
 import { optimize } from 'svgo'
 
+import { logError, logInfo, logSuccess } from '../helpers/logging.js'
+
+const name = '[convertImages]'
 const inputDir: string = 'src/images'
 const outputDir: string = 'dist/assets/images'
 
 // 画像の品質を設定
 const sharpOptions = {
-  quality: 70 // 画像の品質（0-100）
+  quality: 70 // Image quality (0-100)
 }
 
 // SVGOの設定
 const svgoOptions: Config = {
   plugins: [
-    // ここにSVGOのプラグインを追加
+    // Add SVGO plugins here to optimize SVG files, such as removing unnecessary elements or attributes
     {
       name: 'cleanupIds',
       params: {
@@ -36,7 +39,6 @@ const svgoOptions: Config = {
     'removeEmptyAttrs',
     'removeComments',
     'removeDimensions',
-    'removeEmptyAttrs',
     'removeMetadata',
     'removeXMLProcInst',
     'removeUnusedNS',
@@ -44,13 +46,18 @@ const svgoOptions: Config = {
   ]
 }
 
-// 変換をSkipするファイルのPATHリスト
-const skipFiles: [] = []
+// List of file paths to skip conversion
+const skipFiles: string[] = []
 
-// ログメッセージを出力する関数
-const logSuccess = (message: string) => console.log(`\x1b[32m${message}\x1b[0m`) // 緑色のテキスト
-const logError = (message: string) => console.error(`\x1b[31m${message}\x1b[0m`) // 赤色のテキスト
-const logInfo = (message: string) => console.info(`\x1b[34m${message}\x1b[0m`) // 青色のテキスト
+// List of files to format
+type SharpFormatKey = keyof typeof sharp.format
+const formatFiles: { [key: string]: SharpFormatKey } = {
+  'src/images/top/company/img-1@2x.png': 'jpg',
+  'src/images/top/company/img-2@2x.png': 'jpg',
+  'src/images/top/company/img-3@2x.png': 'jpg',
+  'src/images/top/company/img-4@2x.png': 'jpg',
+  'src/images/top/company/img-5@2x.png': 'jpg'
+}
 
 /**
  * Cleans the output directory by removing all files and directories within it, and then recreating it.
@@ -58,10 +65,10 @@ const logInfo = (message: string) => console.info(`\x1b[34m${message}\x1b[0m`) /
  */
 const cleanOutputDir = (): void => {
   if (fs.existsSync(outputDir)) {
-    fs.rmdirSync(outputDir, { recursive: true })
+    fs.rmSync(outputDir, { recursive: true })
   }
   fs.mkdirSync(outputDir, { recursive: true })
-  logInfo('Output directory cleaned.')
+  logInfo({ message: `${name} Output directory cleaned.` })
 }
 
 /**
@@ -76,17 +83,18 @@ const getOutputFilePath = (filePath: string, ext: string): string => {
 }
 
 /**
- * Processes a JPG or PNG image file and converts it to WebP format.
+ * Processes a JPG or PNG image file and converts it to the specified format.
  * @param filePath - The path to the input image file.
- * @param outputFilePath - The path to the output WebP file.
+ * @param outputFilePath - The path to the output file.
+ * @param format - The format to convert the image to.
  * @returns void
  */
-const processJPGorPNG = (filePath: string, outputFilePath: string): void => {
+const processImage = (filePath: string, outputFilePath: string, format: SharpFormatKey): void => {
   sharp(filePath)
-    .toFormat('webp', sharpOptions)
+    .toFormat(format, sharpOptions)
     .toFile(outputFilePath)
-    .then(() => logSuccess(`Processed: ${outputFilePath}`))
-    .catch((err: Error) => logError(`Error processing ${filePath}: ${err}`))
+    .then(() => logSuccess({ message: `${name} Processed: ${outputFilePath}` }))
+    .catch((err: Error) => logError({ message: `${name} [processImage] Error processing ${filePath}: ${err}` }))
 }
 
 /**
@@ -100,7 +108,7 @@ const processSVG = (filePath: string, outputFilePath: string): void => {
   const result = optimize(data, svgoOptions)
   if (result.data) {
     fs.writeFileSync(outputFilePath, result.data)
-    logSuccess(`Compressed and saved SVG: ${outputFilePath}`)
+    logSuccess({ message: `${name} Compressed and saved SVG: ${outputFilePath}` })
   }
 }
 
@@ -109,7 +117,7 @@ const processSVG = (filePath: string, outputFilePath: string): void => {
  */
 const copyFile = (filePath: string, outputFilePath: string): void => {
   fs.copyFileSync(filePath, outputFilePath)
-  logInfo(`Copied file: ${outputFilePath}`)
+  logInfo({ message: `${name} Copied file: ${outputFilePath}` })
 }
 
 /**
@@ -123,31 +131,28 @@ const processFile = (filePath: string): void => {
     return
   }
 
-  // Skipするファイルかどうかを判定
-  const isSkip = skipFiles.some((skipFile) => filePath.includes(skipFile))
+  // Determine if the file should be skipped
+  const shouldSkip = skipFiles.some((skipFile) => filePath.includes(skipFile))
 
-  const ext: string = path.extname(filePath).toLowerCase()
-  const outputFilePath: string = getOutputFilePath(
-    filePath,
-    ['.jpg', '.png'].includes(ext) && !isSkip
-      ? // 拡張子が.jpgまたは.pngの場合は.webpに変換
-        'webp'
-      : ext.replace('.', '')
-  )
+  const fileExtension: string = path.extname(filePath).toLowerCase()
+  const format =
+    formatFiles[filePath] ||
+    (['.jpg', '.png'].includes(fileExtension) && !shouldSkip ? 'webp' : fileExtension.replace('.', ''))
+  const outputFilePath: string = getOutputFilePath(filePath, format)
 
-  // ディレクトリを作成
+  // Create directory
   fs.mkdirSync(path.dirname(outputFilePath), { recursive: true })
 
-  // Skipするファイルの場合はコピー
-  if (isSkip) {
+  // If the file should be skipped, copy it
+  if (shouldSkip) {
     copyFile(filePath, outputFilePath)
     return
   }
 
-  switch (ext) {
+  switch (fileExtension) {
     case '.jpg':
     case '.png':
-      processJPGorPNG(filePath, outputFilePath)
+      processImage(filePath, outputFilePath, format as SharpFormatKey)
       break
     case '.svg':
       processSVG(filePath, outputFilePath)
@@ -168,20 +173,21 @@ const deleteFile = (inputFilePath: string): void => {
   const relativePath = path.relative(inputDir, inputFilePath)
   const outputFilePathWithoutExt = path.join(outputDir, relativePath.replace(/\..+$/, ''))
 
-  // 削除するファイルの拡張子を決定
+  // Determine the extension of the file to be deleted
   let outputFilePath = ''
+  const format = formatFiles[inputFilePath] || path.extname(inputFilePath).toLowerCase().replace('.', '')
   if (['.jpg', '.jpeg', '.png'].includes(path.extname(inputFilePath).toLowerCase())) {
-    outputFilePath = `${outputFilePathWithoutExt}.webp`
+    outputFilePath = `${outputFilePathWithoutExt}.${format}`
   } else if (path.extname(inputFilePath).toLowerCase() === '.svg') {
     outputFilePath = `${outputFilePathWithoutExt}.svg`
   } else {
     outputFilePath = `${outputFilePathWithoutExt}${path.extname(inputFilePath)}`
   }
 
-  // ファイルが存在する場合は削除
+  // If the file exists, delete it
   if (fs.existsSync(outputFilePath)) {
     fs.unlinkSync(outputFilePath)
-    logSuccess(`Deleted: ${outputFilePath}`)
+    logSuccess({ message: `${name} Deleted: ${outputFilePath}`, color: 'red' })
   }
 }
 
@@ -199,18 +205,18 @@ const processAllFiles = async (): Promise<void> => {
       }
     }
   } catch (err) {
-    logError(`Error finding files: ${err}`)
+    logError({ message: `${name} Error finding files: ${err}` })
   }
 }
 
-// --watchオプションが指定されているかどうかを判定
-const shouldWatch = process.argv.includes('--watch')
+// Determine if the --watch option is specified
+const isWatchMode = process.argv.includes('--watch')
 
-// 出力ディレクトリをクリーン
+// Clean the output directory
 cleanOutputDir()
 
-// --watchオプションが指定されている場合はファイルの変更を監視
-if (shouldWatch) {
+// If the --watch option is specified, watch for file changes
+if (isWatchMode) {
   const watcher = chokidar.watch(`${inputDir}/**/*`, {
     persistent: true,
     ignoreInitial: false
@@ -218,8 +224,8 @@ if (shouldWatch) {
 
   watcher.on('add', processFile).on('unlink', deleteFile).on('change', processFile)
 
-  logInfo('Watching for file changes...')
+  logInfo({ message: `${name} Watching for file changes...` })
 } else {
-  // --watchオプションが指定されていない場合は一度だけファイルを処理
+  // If the --watch option is not specified, process the files once
   processAllFiles()
 }

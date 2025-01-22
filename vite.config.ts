@@ -1,11 +1,11 @@
 import path from 'path'
 import { visualizer } from 'rollup-plugin-visualizer'
-import { defineConfig, loadEnv, UserConfig } from 'vite'
+import { createLogger, defineConfig, loadEnv, UserConfig } from 'vite'
 import FullReload from 'vite-plugin-full-reload'
 import tsconfigPaths from 'vite-tsconfig-paths'
 
-// isProduction
-const isProduction = process.env.NODE_ENV === 'production'
+import imagesOptimize from './integrations/imagesOptimize'
+import isProduction from './src/scripts/utils/isProduction'
 
 process.env = { ...process.env, ...loadEnv('', process.cwd()) }
 
@@ -20,24 +20,63 @@ const specificPageInputList = specificPageList.reduce((acc: SpecificPageInputLis
 }, {})
 
 // scss logger
+const muteScssWarningList = [
+  'mixed-decls',
+  'legacy-js-api',
+  'Sass @import rules are deprecated and will be removed in Dart Sass 3.0.0.'
+]
 const SCSS_Logger = {
   warn(message: any, options: any) {
-    // Mute "Mixed Declarations" warning
-    if (options.deprecation && message.includes('mixed-decls')) {
-      return
-    }
+    // Mute warning for muteScssWarningList
+    if (options.deprecation && muteScssWarningList.some((mute) => message.includes(mute))) return
+
     // List all other warnings
-    console.warn(`▲ [WARNING]: ${message}`)
+    // console.warn(`▲ [WARNING]: ${message}`)
   }
+}
+
+// VITE_Logger
+const VITE_Logger = createLogger()
+
+const muteWarnOnceList = ['it will remain unchanged to be resolved at runtime']
+VITE_Logger.warnOnce = (msg, options) => {
+  if (muteWarnOnceList.some((mute) => msg.includes(mute))) return
+  return VITE_Logger.warnOnce(msg, options)
+}
+
+type PathType = {
+  mode: string
+  distPath: string
+  themePath: string
+}
+
+// Path List
+const PathList: PathType[] = [
+  {
+    mode: 'stg',
+    distPath: './dist-stg',
+    themePath: '/stg/wp-content/themes/piiiqcy/'
+  },
+  {
+    mode: 'prod',
+    distPath: './dist',
+    themePath: '/wp-content/themes/piiiqcy/'
+  }
+] as const
+
+// get path
+const getPaths = (mode: string): PathType => {
+  const path =
+    PathList.find((path) => path.mode === mode) || (PathList.find((path) => path.mode === 'prod') as PathType)
+  return path
 }
 
 // https://vitejs.dev/config/
 const config = (mode: string): UserConfig => {
-  const distPath = mode === 'stg' ? './dist-stg' : './dist'
-  const themePath = mode === 'stg' ? '/stg/wp-content/themes/piiiqcy/' : '/wp-content/themes/piiiqcy/'
+  const { distPath, themePath } = getPaths(mode)
 
   return {
-    base: isProduction ? '' : '/',
+    base: isProduction() ? '' : '/',
     root: '',
     server: {
       host: true,
@@ -59,27 +98,25 @@ const config = (mode: string): UserConfig => {
       host: true,
       port: 3000
     },
-    esbuild: isProduction
+    esbuild: isProduction()
       ? {
           drop: ['debugger'],
           pure: ['console.log', 'console.info', 'console.table', 'console.time', 'console.timeEnd', 'console.trace']
         }
       : {},
+    customLogger: VITE_Logger,
     css: {
-      devSourcemap: !isProduction,
+      devSourcemap: !isProduction(),
       preprocessorOptions: {
         scss: {
           includePaths: [path.resolve(__dirname, 'src/styles')],
-          additionalData:
-            `
+          additionalData: `
             @use "sass:map";
             @use "sass:math";
             @use "./src/styles/Foundation/_variables.scss" as *;
             @use "./src/styles/Foundation/_mixin.scss" as *;
             @use "./src/styles/Foundation/_functions.scss" as *;
-            $base-dir: '` +
-            themePath +
-            `';
+            $base-dir: '${themePath}';
           `,
           logger: SCSS_Logger
         }
@@ -105,7 +142,7 @@ const config = (mode: string): UserConfig => {
         ]
       }
     },
-    plugins: [tsconfigPaths(), FullReload([distPath + '/**/*.php'], { root: __dirname })]
+    plugins: [tsconfigPaths(), FullReload([distPath + '/**/*.php'], { root: __dirname }), imagesOptimize()]
   }
 }
 

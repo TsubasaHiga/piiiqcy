@@ -79,6 +79,7 @@ add_filter( 'big_image_size_threshold', '__return_false' );
  *
  * @param object $query Description.
  */
+add_action( 'pre_get_posts', 'change_posts_per_page' );
 function change_posts_per_page( $query ) {
 	if ( is_admin() || ! $query->is_main_query() ) {
 		return;
@@ -88,7 +89,6 @@ function change_posts_per_page( $query ) {
 		$query->set( 'posts_per_page', POST_PER_PAGE );
 	}
 }
-add_action( 'pre_get_posts', 'change_posts_per_page' );
 
 
 /**
@@ -97,6 +97,7 @@ add_action( 'pre_get_posts', 'change_posts_per_page' );
  * @param number $length .
  * @return number
  */
+add_filter( 'excerpt_length', 'change_excerpt_length', 999 );
 function change_excerpt_length( $length ) {
 	if ( 'event' === get_post_type() ) {
 		$length = EXCERPT_LENGTH_EVENT;
@@ -105,7 +106,6 @@ function change_excerpt_length( $length ) {
 	}
 	return $length;
 }
-add_filter( 'excerpt_length', 'change_excerpt_length', 999 );
 
 
 /**
@@ -114,7 +114,7 @@ add_filter( 'excerpt_length', 'change_excerpt_length', 999 );
  * @param string $more .
  * @return string
  */
+add_filter( 'excerpt_more', 'change_excerpt_more' );
 function change_excerpt_more() {
 	return '...';
 }
-add_filter( 'excerpt_more', 'change_excerpt_more' );

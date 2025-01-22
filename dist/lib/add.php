@@ -62,3 +62,15 @@ add_action( 'admin_head', 'load_icons' );
 function load_icons() {
 	require_once __DIR__ . '/../parts/common/icons.php';
 }
+
+/**
+ * get_the_title()で取得したタイトルをフックして空白の場合はデフォルトタイトルを返す
+ */
+add_filter( 'the_title', 'get_title' );
+function get_title( $title ) {
+	if ( $title ) {
+		return $title;
+	} else {
+		return DEFAULT_TITLE;
+	}
+}

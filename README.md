@@ -6,6 +6,59 @@ Boilerplate for WP theme
 
 piiiQcy（ピィキュー）はWordPressコーディング規約に則ったWordPress用ボイラープレートです。Theme内で完結する簡素な作りでありつつ、モダンな構築を素早く可能にする目的で開発を行っています。
 
+## Required Environment
+
+- Node.js `v23.4.0`
+- Yarn `v4.1.1`
+
+```bash
+# macOS
+$ sw_vers
+ProductName:    macOS
+ProductVersion: 14.4.1
+BuildVersion:   23E224
+
+$ node -v
+23.4.0
+
+$ yarn -v
+4.1.1
+
+$ docker -v
+Docker version 27.4.0, build bde2b89
+
+$ composer -v
+   ______
+  / ____/___  ____ ___  ____  ____  ________  _____
+ / /   / __ \/ __ `__ \/ __ \/ __ \/ ___/ _ \/ ___/
+/ /___/ /_/ / / / / / / /_/ / /_/ (__  )  __/ /
+\____/\____/_/ /_/ /_/ .___/\____/____/\___/_/
+                    /_/
+Composer version 2.8.4 2024-12-11 11:57:47
+
+# Windows OS
+$ ver
+Microsoft Windows [Version 10.0.22631.4602]
+
+$ node -v
+23.4.0
+
+$ yarn -v
+4.1.1
+
+$ docker -v
+Docker version 27.4.0, build bde2b89
+
+$ composer -v
+   ______
+  / ____/___  ____ ___  ____  ____  ________  _____
+ / /   / __ \/ __ `__ \/ __ \/ __ \/ ___/ _ \/ ___/
+/ /___/ /_/ / / / / / / /_/ / /_/ (__  )  __/ /
+\____/\____/_/ /_/ /_/ .___/\____/____/\___/_/
+                    /_/
+Composer version 2.8.4 2024-12-11 11:57:47
+```
+
 ## Setup
 
 ### 1. Put the `.env` file in the root

@@ -7,7 +7,7 @@
     }
   },
   "require-dev": {
-    "wp-coding-standards/wpcs": "^3.0",
-    "cakephp/cakephp-codesniffer": "^5.1"
+    "wp-coding-standards/wpcs": "^3.1",
+    "cakephp/cakephp-codesniffer": "^5.1.4"
   }
 }

@@ -31,6 +31,6 @@
       "@utils/*": ["src/scripts/utils/*"]
     }
   },
-  "include": ["src", "utils/**/*.ts", "vite.config.ts", ".eslintrc.cjs", "postcss.config.cjs", "tailwind.config.cjs"],
+  "include": ["src", "scripts/**/*.ts", "vite.config.ts", ".eslintrc.cjs", "postcss.config.cjs", "tailwind.config.cjs"],
   "exclude": ["node_modules", "vendor", "wp-plugins", "wp-uploads"]
 }

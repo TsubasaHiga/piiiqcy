@@ -7,11 +7,12 @@
 // break point - width
 $breakpoint-w: (
   xlg: 1920px,
-  lg: 1440px,
-  xmd: 1100px,
-  md: 768px,
-  sm: 375px,
-  xs: 321px
+  lg: 1600px,
+  xmd: 1280px,
+  md: 980px,
+  sm: 640px,
+  xs: 375px,
+  xxs: 320px
 ) !default;
 
 // break point - height
