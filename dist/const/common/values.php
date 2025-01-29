@@ -47,7 +47,7 @@ define( 'DIST_PATH', get_template_directory() . '/' );
 define( 'ASSETS_PATH', 'assets/' );
 
 // Vite.
-define( 'VITE_SERVER', 'http://192.168.1.110:3000' );
+define( 'VITE_SERVER', 'http://' . getenv( 'VITE_API_URL' ) . ':3000' );
 define( 'VITE_ENTRY_POINT', '/src/scripts/' );
 
 // タイトルが空の場合のデフォルトタイトル.
