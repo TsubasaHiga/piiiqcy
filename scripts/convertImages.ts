@@ -51,13 +51,7 @@ const skipFiles: string[] = []
 
 // List of files to format
 type SharpFormatKey = keyof typeof sharp.format
-const formatFiles: { [key: string]: SharpFormatKey } = {
-  'src/images/top/company/img-1@2x.png': 'jpg',
-  'src/images/top/company/img-2@2x.png': 'jpg',
-  'src/images/top/company/img-3@2x.png': 'jpg',
-  'src/images/top/company/img-4@2x.png': 'jpg',
-  'src/images/top/company/img-5@2x.png': 'jpg'
-}
+const formatFiles: { [key: string]: SharpFormatKey } = {}
 
 /**
  * Cleans the output directory by removing all files and directories within it, and then recreating it.
