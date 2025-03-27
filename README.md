@@ -78,13 +78,20 @@ WORDPRESS_DEBUG="true"
 VITE_API_URL=192.168.1.110
 ```
 
-### 2. Install Docker
+### 2. Replace the `piiiqcy` value to {{Project Name}} in the some files
+
+```bash
+# e.g.
+grep -rl piiiqcy . | xargs sed -i '' -e 's/piiiqcy/foo/g'
+```
+
+### 3. Install Docker
 
 ```bash
 make first
 ```
 
-### 3. Edit `app/WordPress/wp-config.php`
+### 4. Edit `app/WordPress/wp-config.php`
 
 1. Edit the DB connection information based on the `/.env` file.
 2. In the development environment, you can develop using Vite's HMR by adding the following constants.
@@ -106,7 +113,7 @@ make first
 + define( 'IS_VITE_DEVELOPMENT', true );
 ```
 
-### 4. Install WordPress
+### 5. Install WordPress
 
 ```bash
 make wpinstall
@@ -116,13 +123,13 @@ make wpinstall
 
 - How to Change Theme: Visit your admin page, go to `Appearance` > `Themes` and enable the theme named _piiiQcy_.
 
-### 5. Install composer
+### 6. Install composer
 
 ```bash
 composer install
 ```
 
-### 6. Install wp-coding-standards
+### 7. Install wp-coding-standards
 
 ```bash
 ./vendor/bin/phpcs --config-set installed_paths "\
@@ -133,7 +140,7 @@ composer install
 ../../wp-coding-standards/wpcs"
 ```
 
-### 7. Start Docker
+### 8. Start Docker
 
 ```bash
 make up
@@ -143,13 +150,13 @@ make up
 - WordPress Admin URL：<http://localhost:8000/wp-admin/>
 - phpMyAdmin URL：<http://localhost:8080>
 
-### 8. Install Development
+### 9. Install Development
 
 ```bash
 yarn install
 ```
 
-### 9. Start Development
+### 10. Start Development
 
 ```bash
 yarn dev
@@ -166,4 +173,4 @@ For the about page link to work, you must register the about page as a static pa
 - Projects: Please see `.editorconfig`
 - JavaScript: Please see `.eslintrc.cjs`
 - Style Sheet: Please see `.stylelintrc.cjs`
-- PHP: [WordPress Coding Standards](https://make.wordpress.org/core/handbook/coding-standards/)
+- PHP: [WordPress Coding Standards](https://make.wordpress.org/core/handbook/coding-standards/), [phpstan-wordpress](https://github.com/szepeviktor/phpstan-wordpress)
