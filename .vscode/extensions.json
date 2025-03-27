@@ -1,0 +1,14 @@
+{
+  "recommendations": [
+    "sanderronde.phpstan-vscode",
+    "esbenp.prettier-vscode",
+    "valeryanm.vscode-phpsab",
+    "bmewburn.vscode-intelephense-client",
+    "neilbrayfield.php-docblocker",
+    "zobo.php-intellisense",
+    "mrmlnc.vscode-apache",
+    "streetsidesoftware.code-spell-checker",
+    "ms-azuretools.vscode-docker",
+    "stylelint.vscode-stylelint"
+  ]
+}
