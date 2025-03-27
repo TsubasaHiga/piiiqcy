@@ -28,45 +28,141 @@
 }
 
 .l-spacer {
-  padding-right: map.get($map: $space, $key: md);
-  padding-left: map.get($map: $space, $key: md);
-
-  @include mqw-up(xmd) {
-    padding-right: map.get($map: $space, $key: xmd);
-    padding-left: map.get($map: $space, $key: xmd);
-  }
-
-  @include mqw-down {
-    padding-right: map.get($map: $space, $key: sm);
-    padding-left: map.get($map: $space, $key: sm);
-  }
-
-  @include mqw-down(xs) {
-    padding-right: map.get($map: $space, $key: xs);
-    padding-left: map.get($map: $space, $key: xs);
-  }
-}
-
-.l-mqw-up-spacer {
   @include mqw-up {
-    padding-right: map.get($map: $space, $key: md);
-    padding-left: map.get($map: $space, $key: md);
+    padding-right: var(--space-md);
+    padding-left: var(--space-md);
+
+    @include mqw-up(xmd) {
+      padding-right: var(--space-xmd);
+      padding-left: var(--space-xmd);
+    }
+
+    @include mqw-up(lg) {
+      padding-right: var(--space-lg);
+      padding-left: var(--space-lg);
+    }
   }
 
-  @include mqw-up(xmd) {
-    padding-right: map.get($map: $space, $key: xmd);
-    padding-left: map.get($map: $space, $key: xmd);
-  }
-}
-
-.l-mqw-down-spacer {
   @include mqw-down {
-    padding-right: map.get($map: $space, $key: sm);
-    padding-left: map.get($map: $space, $key: sm);
+    padding-right: var(--space-sm);
+    padding-left: var(--space-sm);
   }
 
   @include mqw-down(xs) {
-    padding-right: map.get($map: $space, $key: xs);
-    padding-left: map.get($map: $space, $key: xs);
+    padding-right: var(--space-xs);
+    padding-left: var(--space-xs);
+  }
+}
+
+.l-spacer-up-md {
+  @include mqw-up {
+    padding-right: var(--space-md);
+    padding-left: var(--space-md);
+
+    @include mqw-up(xmd) {
+      padding-right: var(--space-xmd);
+      padding-left: var(--space-xmd);
+    }
+
+    @include mqw-up(lg) {
+      padding-right: var(--space-lg);
+      padding-left: var(--space-lg);
+    }
+  }
+}
+
+.l-inherit-spacer {
+  @include mqw-up {
+    margin-right: calc(var(--space-md) * -1);
+    margin-left: calc(var(--space-md) * -1);
+
+    @include mqw-up(xmd) {
+      margin-right: calc(var(--space-xmd) * -1);
+      margin-left: calc(var(--space-xmd) * -1);
+    }
+
+    @include mqw-up(lg) {
+      margin-right: calc(var(--space-lg) * -1);
+      margin-left: calc(var(--space-lg) * -1);
+    }
+  }
+
+  @include mqw-down {
+    margin-right: calc(var(--space-sm) * -1);
+    margin-left: calc(var(--space-sm) * -1);
+  }
+
+  @include mqw-down(xs) {
+    margin-right: calc(var(--space-xs) * -1);
+    margin-left: calc(var(--space-xs) * -1);
+  }
+}
+
+.l-inherit-left-spacer {
+  @include mqw-up {
+    margin-left: calc(var(--space-md) * -1);
+
+    @include mqw-up(xmd) {
+      margin-left: calc(var(--space-xmd) * -1);
+    }
+
+    @include mqw-up(lg) {
+      margin-left: calc(var(--space-lg) * -1);
+    }
+  }
+
+  @include mqw-down {
+    margin-left: calc(var(--space-sm) * -1);
+  }
+
+  @include mqw-down(xs) {
+    margin-left: calc(var(--space-xs) * -1);
+  }
+}
+
+.l-inherit-right-spacer {
+  @include mqw-up {
+    margin-right: calc(var(--space-md) * -1);
+
+    @include mqw-up(xmd) {
+      margin-right: calc(var(--space-xmd) * -1);
+    }
+
+    @include mqw-up(lg) {
+      margin-right: calc(var(--space-lg) * -1);
+    }
+  }
+
+  @include mqw-down {
+    margin-right: calc(var(--space-sm) * -1);
+  }
+
+  @include mqw-down(xs) {
+    margin-right: calc(var(--space-xs) * -1);
+  }
+}
+
+.l-short-spacer {
+  padding-right: var(--short-space-md);
+  padding-left: var(--short-space-md);
+
+  @include mqw-up(xmd) {
+    padding-right: var(--short-space-xmd);
+    padding-left: var(--short-space-xmd);
+  }
+
+  @include mqw-up(lg) {
+    padding-right: var(--short-space-lg);
+    padding-left: var(--short-space-lg);
+  }
+
+  @include mqw-down {
+    padding-right: var(--short-space-sm);
+    padding-left: var(--short-space-sm);
+  }
+
+  @include mqw-down(xs) {
+    padding-right: var(--short-space-xs);
+    padding-left: var(--short-space-xs);
   }
 }

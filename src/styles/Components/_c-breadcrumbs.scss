@@ -13,18 +13,21 @@
 
   &__list {
     display: flex;
-    gap: 20px;
+    flex-wrap: wrap;
+    gap: rem(5) rem(10);
     align-items: center;
   }
 
   &__item {
     display: flex;
-    gap: 20px;
+    gap: rem(5) rem(10);
     align-items: center;
 
-    @include notfirst {
-      &::before {
-        @include arrow(8, 1, currentColor, right);
+    @include notlast {
+      &::after {
+        @include arrow(8, 1.5, currentColor, right);
+
+        flex-shrink: 0;
       }
     }
   }

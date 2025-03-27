@@ -6,7 +6,7 @@ import 'instant.page'
 import AddUaData from '@modules/AddUaData'
 import InView from '@modules/InView'
 import SetOrientation from '@modules/SetOrientation'
-import { getDocumentHeight, throttle } from 'umaki'
+import { debounce, getDocumentHeight, throttle } from 'umaki'
 
 const onDOMContentLoaded = () => {
   // AddUaData
@@ -18,12 +18,16 @@ const onLoad = () => {
   new SetOrientation()
 
   // 'u-inview'クラスが付与された要素を監視して、画面内に入った時に'is-inview'クラスを付与する
-  const inViewAnimationElement = document.querySelectorAll('.u-inview') as NodeListOf<HTMLElement>
-  inViewAnimationElement.forEach((element) => {
+  const inViewElements = document.querySelectorAll('.u-inview') as NodeListOf<HTMLElement>
+  inViewElements.forEach((element) => {
     new InView(
       element,
       () => element.classList.add('is-inview'),
-      () => element.classList.remove('is-inview')
+      () => element.classList.remove('is-inview'),
+      () => {},
+      {
+        isOnce: true
+      }
     )
   })
 
@@ -55,3 +59,4 @@ const onScroll = () => {
 window.addEventListener('DOMContentLoaded', onDOMContentLoaded)
 window.addEventListener('load', onLoad)
 window.addEventListener('scroll', throttle(onScroll, 30), false)
+window.addEventListener('scroll', debounce(onScroll, 100), false)

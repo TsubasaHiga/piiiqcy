@@ -7,10 +7,13 @@
 @use '../Foundation/functions' as *;
 
 .c-pager {
-  $h: 30px;
-  $w: 28px;
+  $h-md: rem(35);
+  $w-md: rem(35);
+  $h-sm: rem(35);
+  $w-sm: rem(35);
 
   display: flex;
+  gap: rem(5);
   align-items: center;
   justify-content: center;
 
@@ -21,70 +24,68 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    width: $w;
-    min-width: $w;
-    height: $h;
+    width: $w-md;
+    min-width: $w-md;
+    height: $h-md;
     color: var(--color-black);
-    transition: color $com-ms $com-es;
+    border: 1px solid currentcolor;
 
-    &::after {
-      @include icon-ini;
+    @include mqw-down {
+      @include fz(16);
 
-      position: absolute;
-      bottom: 1px;
-      left: calc(50% - 6px);
-      width: 12px;
-      height: 1px;
-      background-color: var(--color-white);
-      opacity: 0;
+      width: $w-sm;
+      min-width: $w-sm;
+      height: $h-sm;
     }
 
-    &.is-current::after {
-      opacity: 1;
+    &.is-current {
+      color: var(--color-white);
+      background-color: var(--color-primary);
+      border-color: var(--color-primary);
     }
 
-    @include mqw-up {
-      &:hover {
-        color: var(--color-white);
-        opacity: 1;
+    @include canhover {
+      transition: color $com-ms $com-es;
+
+      &:hover:not(.is-current) {
+        color: var(--color-primary);
       }
     }
   }
 
   .arrow {
+    @include hover-opacity;
+
     position: relative;
     display: flex;
+    flex-shrink: 0;
     align-items: center;
     justify-content: center;
-    width: $w;
-    height: $h;
+    width: $w-md;
+    height: $h-md;
+
+    @include mqw-down {
+      width: $w-sm;
+      height: $h-sm;
+    }
 
     svg path {
       transition: fill $com-ms $com-es;
     }
 
-    @include mqw-up {
-      &:hover {
-        opacity: 1;
-
-        svg path {
-          fill: var(--color-black);
-        }
-      }
-    }
-
     &.is-disabled {
       pointer-events: none;
+      visibility: hidden;
     }
 
     &.single svg {
-      width: 5.97px;
-      height: 10px;
+      width: rem(5.97);
+      height: rem(10);
     }
 
     &.double svg {
-      width: 9.97px;
-      height: 10px;
+      width: rem(9.97);
+      height: rem(10);
     }
 
     &.first {
@@ -94,7 +95,7 @@
     }
 
     &.prev {
-      margin-right: 20px;
+      margin-right: rem(20);
 
       svg {
         transform: scale(-1, 1);
@@ -102,7 +103,7 @@
     }
 
     &.next {
-      margin-left: 20px;
+      margin-left: rem(20);
     }
   }
 }

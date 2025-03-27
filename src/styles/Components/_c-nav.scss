@@ -17,7 +17,7 @@
 
   &__list {
     display: flex;
-    gap: 10px;
+    gap: rem(10);
     align-items: center;
   }
 
@@ -33,7 +33,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 12px 20px 13px;
+    padding: rem(12) rem(20) rem(13);
     white-space: nowrap;
     background: transparent;
     border-radius: 6px;
@@ -51,7 +51,7 @@
     @include mqw-down {
       @include fz(14);
 
-      padding: 11px 20px 12px;
+      padding: rem(11) rem(20) rem(12);
     }
 
     &.is-active {
@@ -60,18 +60,18 @@
     }
 
     svg {
-      width: 18px;
-      min-width: 18px;
-      height: 18px;
-      margin-left: 10px;
+      width: rem(18);
+      min-width: rem(18);
+      height: rem(18);
+      margin-left: rem(10);
       fill: currentcolor;
       transition: fill $com-ms $com-es;
 
       @include mqw-down {
-        width: 16px;
-        min-width: 16px;
-        height: 16px;
-        margin-left: 8px;
+        width: rem(16);
+        min-width: rem(16);
+        height: rem(16);
+        margin-left: rem(8);
       }
     }
   }

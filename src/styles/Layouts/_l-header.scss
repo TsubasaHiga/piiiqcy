@@ -9,9 +9,13 @@
 .l-header {
   position: relative;
   width: 100%;
-  height: map.get($header-h, md);
+  height: var(--header-h-md);
   color: var(--color-white);
   background-color: var(--color-black);
+
+  @include mqw-down {
+    height: var(--header-h-sm);
+  }
 
   &__inner {
     display: flex;
