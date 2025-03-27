@@ -82,7 +82,7 @@ VITE_API_URL=192.168.1.110
 
 ```bash
 # e.g.
-grep -rl piiiqcy . | xargs sed -i '' -e 's/piiiqcy/foo/g'
+grep -rl piiiqcy . --exclude-dir=".git" --exclude-dir="node_modules" --exclude-dir="vendor" --exclude-dir="wp-plugins" --exclude-dir="wp-uploads" | xargs sed -i '' -e 's/piiiqcy/foo/g'
 ```
 
 ### 3. Install Docker
