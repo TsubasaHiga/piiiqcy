@@ -16,6 +16,7 @@
     "lint:scripts": "eslint --ext .ts",
     "lint:styles": "stylelint \"src/**/*.{css,scss}\"",
     "lint:php": "./vendor/bin/phpcs --standard=WordPress-Extra --colors ./dist/**/*.php",
+    "phpstan": "./vendor/bin/phpstan analyse --memory-limit=1G",
     "format": "prettier --write . --ignore-unknown",
     "prepare": "husky"
   },
@@ -28,9 +29,12 @@
     }
   },
   "lint-staged": {
-    "*.{ts}": "yarn lint:scripts",
-    "*.{scss}": "yarn lint:styles",
-    "dist/**/*.php": "./vendor/bin/phpcs --standard=WordPress-Extra --colors",
+    "*.ts": "yarn lint:scripts",
+    "*.scss": "yarn lint:styles",
+    "dist/**/*.php": [
+      "./vendor/bin/phpcs --standard=WordPress-Extra --colors",
+      "yarn phpstan"
+    ],
     "*": "yarn format"
   },
   "dependencies": {

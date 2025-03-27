@@ -8,6 +8,7 @@
   },
   "require-dev": {
     "wp-coding-standards/wpcs": "^3.1",
-    "cakephp/cakephp-codesniffer": "^5.1.4"
+    "cakephp/cakephp-codesniffer": "^5.1.4",
+    "szepeviktor/phpstan-wordpress": "^2.0"
   }
 }
