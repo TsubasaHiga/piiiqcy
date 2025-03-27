@@ -1,8 +1,9 @@
 <?php
 /**
- * Common.php
+ * Includes a file loaded across all pages.
  *
- * 全ページで共通して読み込むファイルを記述します
+ * This file contains common utilities, configurations, and functions that
+ * ensure consistent behavior and shared functionality across the entire site.
  *
  * @since 1.0.0
  */

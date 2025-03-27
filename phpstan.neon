@@ -3,7 +3,7 @@ includes:
 parameters:
     level: 5
     bootstrapFiles:
-        - dist/inc/const.php
+        - dist/inc/consts.php
     paths:
         - dist/
     ignoreErrors:

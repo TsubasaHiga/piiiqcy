@@ -1,8 +1,10 @@
 <?php
 /**
- * Init.php
+ * Initializes the essential configurations for WordPress.
  *
- * 初期設定に関する設定を行います
+ * This file is responsible for setting up the core parameters required to
+ * properly initialize and run the WordPress environment. Adjust these
+ * configurations as needed when updating or customizing the startup process.
  *
  * @since 1.0.0
  */

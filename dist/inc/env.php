@@ -1,8 +1,9 @@
 <?php
 /**
- * Env.php
+ * Configures environment-specific settings.
  *
- * Env指定を行います。
+ * This file sets up the necessary parameters and settings to ensure the application operates
+ * correctly in its designated runtime environment.
  *
  * @since 1.0.0
  */

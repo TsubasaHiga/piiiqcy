@@ -1,8 +1,9 @@
 <?php
 /**
- * Header.php
+ * Contains the content for the <header> section.
  *
- * <header>の中身です
+ * This file serves as the template for the header area of the site,
+ * providing the initial structure and necessary elements for the webpage header.
  *
  * @since 1.0.0
  */

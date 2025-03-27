@@ -1,8 +1,8 @@
 <?php
 /**
- * Footer.php
+ * Contains the content for the <footer> element.
  *
- * <footer>の中身
+ * This file provides the footer section, which is used consistently across the application.
  *
  * @since 1.0.0
  */
@@ -16,7 +16,7 @@
 </footer>
 
 </main>
-<?php require_once 'inc/analytics-footer.php'; ?>
+<?php require_once __DIR__ . '/../inc/analytics-footer.php'; ?>
 <?php wp_footer(); ?>
 </body>
 </html>

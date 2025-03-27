@@ -1,8 +1,8 @@
 <?php
 /**
- * Cleanup.php
+ * Configures the removal or cleanup of WordPress default functionalities.
  *
- * WordPressのデフォルトの機能を削除、またはクリーンアップする為の指定を行います。
+ * This file specifies settings to disable or streamline features provided by WordPress out-of-the-box.
  *
  * @since 1.0.0
  */
@@ -21,7 +21,6 @@ function remove_dashboard_widget() {
 	remove_meta_box( 'dashboard_primary', 'dashboard', 'side' );
 }
 
-
 /**
  * WordPressデフォルト機能をOFF
  */
@@ -31,7 +30,6 @@ add_filter( 'comments_open', '__return_false' );
 add_filter( 'show_admin_bar', '__return_false' );
 /** Xmlrpc.phpの無効化 */
 add_filter( 'xmlrpc_enabled', '__return_false' );
-
 
 /**
  * Remove x-pingback
@@ -65,7 +63,7 @@ remove_action( 'wp_head', 'wlwmanifest_link' );
 /** WordPressバージョン出力metaタグ非表示 */
 remove_action( 'wp_head', 'wp_generator' );
 /** Rel linkの削除 */
-remove_action( 'wp_head', 'adjacent_posts_rel_link_wp_head', 10, 0 );
+remove_action( 'wp_head', 'adjacent_posts_rel_link_wp_head', 10 );
 /** Canonical */
 remove_action( 'wp_head', 'rel_canonical' );
 remove_action( 'wp_head', 'wp_shortlink_wp_head' );
@@ -79,13 +77,12 @@ function remove_block_library_style() {
 	wp_dequeue_style( 'wp-block-library-theme' );
 }
 
-
 /**
  * アクティビティ、クイックドラフト、WordPressニュースの削除
  *
  * @param array  $hints Description.
  * @param string $relation_type Description.
- * @return $hints
+ * @return array $hints
  */
 function remove_dns_prefetch( $hints, $relation_type ) {
 	if ( 'dns-prefetch' === $relation_type ) {
@@ -93,7 +90,6 @@ function remove_dns_prefetch( $hints, $relation_type ) {
 	}
 	return $hints;
 }
-
 
 /**
  * 管理画面の左メニューの一部を削除
@@ -141,7 +137,6 @@ add_filter(
 		return false;
 	}
 );
-
 
 /**
  * 投稿画面の不要な項目を非表示

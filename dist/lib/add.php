@@ -1,8 +1,6 @@
 <?php
 /**
- * Add.php
- *
- * WordPressのデフォルトに無い機能を追加する為の指定を行います。
+ * Registers additional features not available in the default WordPress installation.
  *
  * @since 1.0.0
  */
@@ -39,6 +37,7 @@ function rename_upload_file( $file ) {
 
 /**
  * wp_enqueue_scriptで読み込んだスクリプトにtype="module"を追加
+ * @phpstan-ignore arguments.count
  */
 add_filter( 'script_loader_tag', 'add_module_type_attribute', 10, 3 );
 function add_module_type_attribute( $tag, $handle ) {

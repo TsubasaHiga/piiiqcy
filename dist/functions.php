@@ -1,8 +1,8 @@
 <?php
 /**
- * Functions.php
+ * Contains core WordPress functions for the project.
  *
- * Functionsの中身です
+ * This file implements essential functionality and customizations integrated within WordPress.
  *
  * @since 1.0.0
  */
@@ -11,7 +11,7 @@
 require_once 'inc/init-vite.php';
 
 // 定数読み込み.
-require_once 'inc/const.php';
+require_once 'inc/consts.php';
 
 // 初期設定.
 require_once 'lib/init.php';

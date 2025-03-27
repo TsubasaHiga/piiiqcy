@@ -1,6 +1,10 @@
 <?php
 /**
- * Side-nav-list.php
+ * Configuration for loading page-specific scripts and styles.
+ *
+ * This file establishes settings to include necessary scripts and styles
+ * tailored to each page's requirements.
+ *
  * @since 1.0.0
  */
 

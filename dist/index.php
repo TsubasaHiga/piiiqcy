@@ -8,7 +8,8 @@
 $page_name = 'top';
 require_once 'inc/common.php';
 ?>
-<?php get_header(); ?>
+<?php get_template_part( 'template-parts/header' ); ?>
+
 <div class="l-container l-spacer">
 	<div class="l-page">
 		<section class="bg-gray-200 rounded-lg p-10 my-10">
@@ -19,10 +20,10 @@ require_once 'inc/common.php';
 				if ( $query->have_posts() ) {
 					while ( $query->have_posts() ) {
 						$query->the_post();
-						get_template_part( 'template/template-title' );
+						get_template_part( 'template-parts/template-title' );
 					}
 				} else {
-					get_template_part( 'inc/parts-nopost' );
+					get_template_part( 'template-parts/no-posts' );
 				}
 				wp_reset_postdata();
 				?>
@@ -48,4 +49,4 @@ require_once 'inc/common.php';
 	</div>
 </div>
 
-<?php get_footer(); ?>
+<?php get_template_part( 'template-parts/footer' ); ?>

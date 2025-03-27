@@ -1,8 +1,9 @@
 <?php
 /**
- * Analytics-head.php
+ * Inserts analytics tracking code into the <head> section.
  *
- * <head>内に入れるanalytics関連を記述します
+ * This file contains analytics integration code, ensuring that tracking scripts
+ * are embedded appropriately within the head for optimal performance.
  *
  * @since 1.0.0
  */

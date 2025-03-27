@@ -1,5 +1,9 @@
 <?php
 /**
+ * Outputs the common icons used throughout the project.
+ *
+ * This function or file defines and renders scalable vector icons that are utilized in various UI components.
+ *
  * @since 1.0.0
  */
 

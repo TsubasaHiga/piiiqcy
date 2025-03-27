@@ -1,6 +1,10 @@
 <?php
 /**
- * Values.php
+ * Constant Definitions
+ *
+ * This file contains global constant declarations used throughout the application.
+ * Modify and extend these definitions as needed to suit the application's configuration and requirements.
+ *
  * @since 1.0.0
  */
 

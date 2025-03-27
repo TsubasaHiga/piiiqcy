@@ -1,8 +1,8 @@
 <?php
 /**
- * Template-title
+ * Title Loop Template Sample
  *
- * タイトルループ用テンプレート
+ * This file provides an example implementation for iterating and displaying titles dynamically.
  *
  * @since 1.0.0
  */

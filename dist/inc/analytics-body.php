@@ -1,8 +1,9 @@
 <?php
 /**
- * Analytics-body.php
+ * Inserts analytics-related code into the <body> tag.
  *
- * <body>内に入れるanalytics関連を記述します
+ * This file comprises the necessary scripts and HTML elements for analytics tracking,
+ * ensuring they are properly embedded within the page's body.
  *
  * @since 1.0.0
  */

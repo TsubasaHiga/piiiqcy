@@ -1,8 +1,6 @@
 <?php
 /**
- * Head.php
- *
- * <head>内関連をまとめて記述します
+ * Consolidates all elements related to the <head> section.
  *
  * @since 1.0.0
  */

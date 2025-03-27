@@ -1,8 +1,9 @@
 <?php
 /**
- * Custom.php
+ * Contains custom functions and utilities designed specifically for WordPress usage.
  *
- * ループ処理や関数などを指定します
+ * This file provides WordPress-specific features, encapsulating various enhancements and
+ * custom behaviors to extend the core functionality of the platform.
  *
  * @since 1.0.0
  */
@@ -14,10 +15,10 @@
  * @param string $post_type 取得したいpost_typeを指定します.
  * @param int    $posts_per_page 取得する件数を指定します.
  * @param number $_paged 取得する投稿のページ送り.
- * @param number $year 取得する投稿年月日で絞ります.
+ * @param number|false $year 取得する投稿年月日で絞ります.
  * @param string $orderby orderby.
  * @param string $order order.
- * @param string $meta_key meta_key.
+ * @param string|false $meta_key meta_key.
  * @return array $args
  */
 function get_query_args(
@@ -39,7 +40,7 @@ function get_query_args(
 		'post__not_in'   => get_option( 'sticky_posts' ),
 	);
 
-	if ( $year && is_numeric( $year ) ) {
+	if ( $year ) {
 		$args['year'] = $year;
 	}
 	if ( $meta_key ) {
@@ -47,7 +48,6 @@ function get_query_args(
 	}
 	return $args;
 }
-
 
 /**
  * アーカイブページで$term取得
@@ -58,7 +58,6 @@ function get_query_args(
  * @return object $args
  */
 function get_current_term() {
-
 	$id       = null;
 	$tax_slug = null;
 
@@ -78,6 +77,15 @@ function get_current_term() {
 	return get_term( $id, $tax_slug );
 }
 
+/**
+ * 特定のタクソノミー一覧を取得
+ */
+function get_taxsonomy_list( $name ) {
+	$terms = get_terms(
+		$name,
+	);
+	return $terms;
+}
 
 /**
  * ページネーション出力関数.
@@ -105,7 +113,7 @@ function get_pagination( $pages, $current_page, $range = 4, $show_only = false )
 		return;    // １ページのみで表示設定もない場合.
 	}
 
-	if ( 1 !== $pages ) {
+	if ( $pages > 1 ) {
 		$html = '<div class="c-pager">';
 
 		$prev_class = $current_page > 1 ? '' : 'is-disabled';
@@ -147,7 +155,6 @@ function get_pagination( $pages, $current_page, $range = 4, $show_only = false )
 	}
 }
 
-
 /**
  * Show txt
  * Esc_htmlを通して文字列を出力します
@@ -168,13 +175,12 @@ function show_txt( $txt, $length ) {
 	// @codingStandardsIgnoreEnd
 }
 
-
 /**
  * Get txt
  *
  * @param string $txt .
  * @param number $length .
- * @return $_txt
+ * @return string $_txt
  */
 function get_txt( $txt, $length ) {
 	if ( mb_strlen( $txt, 'utf-8' ) > $length ) {
@@ -185,7 +191,6 @@ function get_txt( $txt, $length ) {
 
 	return $_txt;
 }
-
 
 /**
  * 投稿サムネイルを取得します

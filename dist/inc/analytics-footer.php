@@ -1,8 +1,9 @@
 <?php
 /**
- * Analytics-footer.php
+ * Embeds analytics tracking functionality within the <footer> element.
  *
- * <footer>内に入れるanalytics関連を記述します
+ * This file contains code for integrating analytics in the footer section,
+ * ensuring that tracking scripts are loaded appropriately.
  *
  * @since 1.0.0
  */

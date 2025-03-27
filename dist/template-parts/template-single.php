@@ -1,8 +1,9 @@
 <?php
 /**
- * Template-single.php
+ * Article Loop Template Sample
  *
- * 記事ループ用テンプレート
+ * This template demonstrates how to structure and display content within an article loop.
+ * It serves as a reference for iterating over and presenting individual articles.
  *
  * @since 1.0.0
  */

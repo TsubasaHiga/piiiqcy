@@ -1,8 +1,10 @@
 <?php
 /**
- * Tools.php
+ * Provides utility functions for standalone usage without relying on WordPress.
  *
- * WP経由しない場合でも用いるfunction類を記述します
+ * This file includes helper functions that can be employed in environments
+ * where the WordPress framework is not available, enabling flexibility for
+ * various application contexts.
  *
  * @since 1.0.0
  */
@@ -27,7 +29,7 @@ EOM;
 
 	$i     = 2;
 	$html  = "<div class='c-breadcrumbs' typeof='BreadcrumbList' vocab='https://schema.org/'>";
-	$html .= "<div class='c-breadcrumbs__inner l-spacer'>";
+	$html .= "<div class='c-breadcrumbs__inner'>";
 	$html .= "<div class='c-breadcrumbs__list'>";
 
 	$html .= $html_first;

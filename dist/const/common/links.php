@@ -1,6 +1,7 @@
 <?php
 /**
- * 各種リンクの定義
+ * Definition of various links
+ *
  * @since 1.0.0
  */
 
