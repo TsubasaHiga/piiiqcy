@@ -1,26 +1,44 @@
 # ------------------------------------------------------------------
-# prefix
+# PREFIX
+# ------------------------------------------------------------------
 PREFIX=piiiqcy
 
-# Wordppress url
-URL=http://localhost:8000
-# Wordppress title
-TITLE=test
-# Wordppress admin user
-ADMIN_USER=test
-# Wordppress admin password
-ADMIN_PASSWORD=test
-# Wordppress admin email
-ADMIN_EMAIL=info@example.com
-# Wordppress install plugins
-INSTALL_PLUGINS=admin-menu-editor \
+# ------------------------------------------------------------------
+# WORDPRESS SETTINGS
+# ------------------------------------------------------------------
+WP_URL=http://localhost:8000
+WP_TITLE=test
+WP_ADMIN_USER=test
+WP_ADMIN_PASSWORD=test
+WP_ADMIN_EMAIL=info@example.com
+WP_INSTALL_PLUGINS=admin-menu-editor \
         custom-post-type-ui \
         wordpress-seo
 
-# search-replace
-DOMAIN_FROM=https://example.com
-DOMAIN_TO=http://192.168.1.110:8000
 # ------------------------------------------------------------------
+# SEARCH REPLACE
+# Select the source and destination and uncomment.
+# ------------------------------------------------------------------
+# [Prod] → [STG]
+# REPLACE_DOMAIN_FROM=https://example.com
+# REPLACE_DOMAIN_TO=https://stg.example.com
+# [Prod] → [Local]
+REPLACE_DOMAIN_FROM=https://example.com
+REPLACE_DOMAIN_TO=http://192.168.1.110:8000
+
+# [STG] → [Prod]
+# REPLACE_DOMAIN_FROM=https://stg.example.com
+# REPLACE_DOMAIN_TO=https://example.com
+# [STG] → [Local]
+# REPLACE_DOMAIN_FROM=https://stg.example.com
+# REPLACE_DOMAIN_TO=http://192.168.1.110:8000
+
+# [Local] → [Prod]
+# REPLACE_DOMAIN_FROM=http://192.168.1.110:8000
+# REPLACE_DOMAIN_TO=https://example.com
+# [Local] → [STG]
+# REPLACE_DOMAIN_FROM=http://192.168.1.110:8000
+# REPLACE_DOMAIN_TO=https://stg.example.com
 
 # docker compose first
 first:
@@ -29,9 +47,9 @@ first:
 
 # Wordpress Install
 wpinstall:
-	export PREFIX="$(PREFIX)" && docker compose run --rm wpcli wp core install --url='$(URL)' --title='$(TITLE)' --admin_user='$(ADMIN_USER)' --admin_password='$(ADMIN_PASSWORD)' --admin_email='$(ADMIN_EMAIL)' --allow-root && \
+	export PREFIX="$(PREFIX)" && docker compose run --rm wpcli wp core install --url='$(WP_URL)' --title='$(WP_TITLE)' --admin_user='$(WP_ADMIN_USER)' --admin_password='$(WP_ADMIN_PASSWORD)' --admin_email='$(WP_ADMIN_EMAIL)' --allow-root && \
   export PREFIX="$(PREFIX)" && docker compose run --rm wpcli wp language core install ja --activate --allow-root && \
-  export PREFIX="$(PREFIX)" && docker compose run --rm wpcli plugin install $(INSTALL_PLUGINS) --activate --allow-root
+  export PREFIX="$(PREFIX)" && docker compose run --rm wpcli plugin install $(WP_INSTALL_PLUGINS) --activate --allow-root
 
 # docker compose up
 up:
@@ -53,8 +71,8 @@ dbdump:
 
 # search-replace --dry-run
 search-replace-dry-run:
-	export PREFIX="$(PREFIX)" && docker compose run --rm wpcli search-replace ${DOMAIN_FROM} ${DOMAIN_TO} --all-tables --dry-run
+	export PREFIX="$(PREFIX)" && docker compose run --rm wpcli search-replace ${REPLACE_DOMAIN_FROM} ${REPLACE_DOMAIN_TO} --all-tables --dry-run
 
 # search-replace
 search-replace-run:
-	export PREFIX="$(PREFIX)" && docker compose run --rm wpcli search-replace ${DOMAIN_FROM} ${DOMAIN_TO} --all-tables
+	export PREFIX="$(PREFIX)" && docker compose run --rm wpcli search-replace ${REPLACE_DOMAIN_FROM} ${REPLACE_DOMAIN_TO} --all-tables
