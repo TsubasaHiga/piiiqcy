@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-piiiQcy is a WordPress theme boilerplate that follows WordPress coding standards. It uses Vite for modern frontend development with HMR support, Docker for local development environment, and integrates TypeScript, SCSS, Tailwind CSS, and PHP.
+piiiQcy is a WordPress theme boilerplate that follows WordPress coding standards. It uses Vite for modern frontend development with HMR support, Docker for local development environment, and integrates TypeScript, SCSS, and PHP.
 
 ## Development Commands
 
@@ -77,10 +77,11 @@ Defined in `tsconfig.json`:
 
 SCSS follows FLOCSS-like organization with global imports via `vite.config.ts`:
 
-- `Foundation/` - Variables, mixins, functions, base styles
-- `Components/` - Reusable UI components
+- `abstracts/` - Variables, mixins, functions, design tokens
+- `Components/` - Reusable UI components (c-button, c-post-item, etc.)
 - `Layouts/` - Layout structures
-- `Pages/` - Page-specific styles
+- `Pages/` - Page-specific styles (loaded via entry points, not globally)
+- `Projects/` - Shared project styles (loaded globally)
 - `Utilities/` - Utility classes
 
 ### PHP Theme Structure (in `dist/`)
@@ -92,7 +93,7 @@ SCSS follows FLOCSS-like organization with global imports via `vite.config.ts`:
 
 ## Key Technologies
 
-- **Frontend**: TypeScript, SCSS, Tailwind CSS v4, Vite
+- **Frontend**: TypeScript, SCSS, Vite
 - **Backend**: PHP with WordPress Coding Standards
 - **Utilities**: GSAP, umaki, dayjs
 - **Environment**: Node.js v23.4.0, Yarn v4.1.1, Docker, Composer
@@ -125,14 +126,13 @@ Follows [Semantic Versioning](https://semver.org/):
 
 ### TypeScript/JavaScript
 
-- ESLint with TypeScript and Tailwind plugins
+- ESLint with TypeScript plugins
 - Import sorting via eslint-plugin-simple-import-sort
 - Strict TypeScript configuration
 
 ### SCSS
 
 - Stylelint with standard-scss, recess-order, and Prettier configs
-- Tailwind directives supported
 
 ## URLs
 
