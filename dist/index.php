@@ -12,7 +12,7 @@ require_once 'inc/common.php';
 
 <div class="l-container l-spacer">
 	<div class="l-page">
-		<section class="bg-gray-200 rounded-lg p-10 my-10">
+		<section class="p-content-section">
 			<h2>post_type=post取得例（4件取得 ※先頭固定表示は例外）</h2>
 			<ul>
 				<?php
@@ -30,7 +30,7 @@ require_once 'inc/common.php';
 			</ul>
 		</section>
 
-		<section class="bg-gray-200 rounded-lg p-10 my-10">
+		<section class="p-content-section">
 			<h2>post_type=post / タクソノミー名=categoryのターム取得例</h2>
 			<ul style="display: flex; flex-wrap: wrap; gap: 10px">
 				<?php
@@ -39,7 +39,7 @@ require_once 'inc/common.php';
 				foreach ( $terms as $value ) {
 					echo '<li>';
 					$term_link = get_term_link( $value->slug, $taxonomies );
-					echo '<a class="underline hover:no-underline" href="' . esc_html( $term_link ) . '">' . esc_html( $value->name ) . '</a>';
+					echo '<a class="p-text-link" href="' . esc_html( $term_link ) . '">' . esc_html( $value->name ) . '</a>';
 					echo esc_html( $value->count );
 					echo '</li>';
 				}

@@ -23,6 +23,10 @@
 @use './Components/c-nav';
 @use './Components/c-pager';
 
+// Pages
+// ページ固有スタイル
+@use './Pages';
+
 // Extends
 // プレースホルダーセレクタ（必要に応じてコンポーネントで @extend）
 @use './extends';

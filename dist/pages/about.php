@@ -16,7 +16,7 @@ $page_relation_list = get_page_relation_list();
 <div class="l-container l-spacer">
 	<div class="l-page">
 		<?php get_breadcrumbs( $page_relation_list ); ?>
-		<section class="bg-gray-200 rounded-lg p-10 my-10">
+		<section class="p-content-section">
 			<!-- contents -->
 			about
 		</section>

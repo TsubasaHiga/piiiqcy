@@ -1,0 +1,32 @@
+@charset "utf-8";
+
+@use 'sass:map';
+@use 'sass:math';
+@use '../abstracts' as *;
+
+// ============================================
+// Common Page Styles
+// 共通ページスタイル
+// ============================================
+
+// コンテンツセクション（デモ用）
+.p-content-section {
+  padding: rem(40);
+  margin: rem(40) 0;
+  background-color: #e5e7eb;
+  border-radius: rem(8);
+
+  @include mqw-down {
+    padding: rem(24);
+    margin: rem(24) 0;
+  }
+}
+
+// テキストリンク
+.p-text-link {
+  text-decoration: underline;
+
+  @include canhover {
+    text-decoration: none;
+  }
+}

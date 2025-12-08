@@ -20,7 +20,7 @@ $page_relation_list = get_page_relation_list();
 	<div class="l-page">
 		<?php get_breadcrumbs( $page_relation_list ); ?>
 		<small>post_type=postのsingleページ</small>
-		<article class="bg-gray-200 rounded-lg p-10 my-10">
+		<article class="p-content-section">
 			<?php
 			if ( have_posts() ) {
 				while ( have_posts() ) {

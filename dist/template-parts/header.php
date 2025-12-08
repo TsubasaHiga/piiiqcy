@@ -14,9 +14,9 @@
 	<div class="l-header__inner l-spacer">
 		<a href="<?php echo esc_url( home_url( '/' ) ); ?>">
 			<?php if ( is_home() ) { ?>
-				<h1 class="text-2xl font-bold">LOGO</h1>
+				<h1 class="l-header__logo">LOGO</h1>
 			<?php } else { ?>
-				<p class="text-2xl font-bold">LOGO</p>
+				<p class="l-header__logo">LOGO</p>
 			<?php } ?>
 		</a>
 		<nav class="c-nav">
