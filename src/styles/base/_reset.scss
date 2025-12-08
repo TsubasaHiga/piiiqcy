@@ -24,7 +24,7 @@ html {
   @include responsive-font-size(14, 16, map.get($breakpoint-w, 'md'), map.get($breakpoint-w, 'lg'));
 
   height: 100%;
-  font-family: $font-family;
+  font-family: var(--font-family);
   font-feature-settings: 'palt' on;
   line-height: math.div(33, 14);
   color: var(--color-black);

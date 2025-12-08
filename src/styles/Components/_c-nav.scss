@@ -36,8 +36,8 @@
     background: transparent;
     border-radius: 6px;
     transition:
-      background-color $com-ms $com-es,
-      color $com-ms $com-es;
+      background-color var(--com-ms) var(--com-es),
+      color var(--com-ms) var(--com-es);
 
     @include canhover {
       &:not(.is-active):hover {
@@ -63,7 +63,7 @@
       height: rem(18);
       margin-left: rem(10);
       fill: currentcolor;
-      transition: fill $com-ms $com-es;
+      transition: fill var(--com-ms) var(--com-es);
 
       @include mqw-down {
         width: rem(16);

@@ -43,7 +43,7 @@
     }
 
     @include canhover {
-      transition: color $com-ms $com-es;
+      transition: color var(--com-ms) var(--com-es);
 
       &:hover:not(.is-current) {
         color: var(--color-primary);
@@ -68,7 +68,7 @@
     }
 
     svg path {
-      transition: fill $com-ms $com-es;
+      transition: fill var(--com-ms) var(--com-es);
     }
 
     &.is-disabled {
