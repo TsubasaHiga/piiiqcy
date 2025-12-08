@@ -1,0 +1,32 @@
+@charset "utf-8";
+
+@use 'sass:map';
+@use 'sass:math';
+@use '../abstracts' as *;
+
+// ============================================
+// Grid Component
+// グリッドコンポーネント
+// カードなどを並べるためのグリッドレイアウト
+// ============================================
+
+.c-grid {
+  display: grid;
+  gap: rem(16);
+
+  &--col2 {
+    grid-template-columns: repeat(2, 1fr);
+
+    @include mqw-down {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  &--col3 {
+    grid-template-columns: repeat(3, 1fr);
+
+    @include mqw-down {
+      grid-template-columns: 1fr;
+    }
+  }
+}

@@ -7,74 +7,102 @@
 // ============================================
 // Button Component
 // ボタンコンポーネント
+// モノトーンで洗練されたボタンスタイル
 // ============================================
 
 .c-button {
+  @include fz(14, 14, 600);
+
   $this: &;
 
   display: inline-flex;
   gap: rem(8);
   align-items: center;
   justify-content: center;
-  padding: rem(12) rem(24);
-  font-weight: 600;
-  color: var(--color-white);
+  padding: rem(14) rem(28);
+  color: #fff;
   cursor: pointer;
-  background-color: var(--color-primary);
-  border: 1px solid var(--color-primary);
-  border-radius: rem(6);
+  background-color: #1a1a1a;
+  border: 1px solid #1a1a1a;
+  border-radius: rem(8);
+  box-shadow: 0 1px 2px rgb(0 0 0 / 5%);
+  transition: all 0.2s ease;
 
   @include mqw-down {
-    padding: rem(10) rem(20);
+    padding: rem(12) rem(24);
   }
 
   @include canhover {
-    transition:
-      background-color 0.2s ease,
-      border-color 0.2s ease,
-      opacity 0.2s ease;
-
     &:hover {
-      opacity: 0.8;
+      background-color: #333;
+      border-color: #333;
+      box-shadow: 0 4px 12px rgb(0 0 0 / 15%);
+      transform: translateY(-1px);
+    }
+
+    &:active {
+      box-shadow: 0 1px 2px rgb(0 0 0 / 5%);
+      transform: translateY(0);
     }
   }
 
-  // Secondary style
+  // Secondary style - アウトラインボタン
   &--secondary {
-    color: var(--color-primary);
-    background-color: transparent;
-    border-color: var(--color-primary);
+    color: #1a1a1a;
+    background-color: #fff;
+    border-color: #e5e5e5;
 
     @include canhover {
       &:hover {
-        color: var(--color-white);
-        background-color: var(--color-primary);
-        opacity: 1;
+        color: #1a1a1a;
+        background-color: #fafafa;
+        border-color: #d0d0d0;
+        box-shadow: 0 4px 12px rgb(0 0 0 / 8%);
+      }
+    }
+  }
+
+  // Ghost style - 背景なし
+  &--ghost {
+    color: #666;
+    background-color: transparent;
+    border-color: transparent;
+    box-shadow: none;
+
+    @include canhover {
+      &:hover {
+        color: #1a1a1a;
+        background-color: #f5f5f5;
+        box-shadow: none;
       }
     }
   }
 
   // Small size
   &--sm {
-    padding: rem(8) rem(16);
-    font-size: rem(14);
+    @include fz(13, 13, 600);
+
+    padding: rem(10) rem(18);
   }
 
   // Large size
   &--lg {
-    padding: rem(16) rem(32);
-    font-size: rem(18);
+    @include fz(15, 15, 600);
+
+    padding: rem(18) rem(36);
   }
 
   // Disabled state
   &:disabled,
   &.is-disabled {
     cursor: not-allowed;
-    opacity: 0.5;
+    opacity: 0.4;
 
     @include canhover {
       &:hover {
-        opacity: 0.5;
+        box-shadow: 0 1px 2px rgb(0 0 0 / 5%);
+        opacity: 0.4;
+        transform: none;
       }
     }
   }

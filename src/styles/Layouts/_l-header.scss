@@ -5,14 +5,12 @@
 @use '../abstracts' as *;
 
 .l-header {
-  position: relative;
   width: 100%;
-  height: var(--header-h-md);
-  color: var(--color-white);
-  background-color: var(--color-black);
+  height: rem(64);
+  border-bottom: 1px solid var(--color-border);
 
   @include mqw-down {
-    height: var(--header-h-sm);
+    height: rem(56);
   }
 
   &__inner {
@@ -23,8 +21,10 @@
   }
 
   &__logo {
-    font-size: 1.5rem;
-    font-weight: 700;
-    line-height: 2rem;
+    @include fz(18, 18, 700);
+
+    @include mqw-down {
+      @include fz(16, 16, 700);
+    }
   }
 }

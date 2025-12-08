@@ -1,0 +1,43 @@
+@charset "utf-8";
+
+@use 'sass:map';
+@use 'sass:math';
+@use '../abstracts' as *;
+
+// ============================================
+// List Component
+// リストコンポーネント
+// タクソノミーや汎用リストに使用
+// ============================================
+
+.c-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: rem(8);
+
+  li {
+    @include fz(14, 22);
+  }
+
+  a {
+    transition: opacity var(--com-ms) var(--com-es);
+
+    @include canhover {
+      &:hover {
+        opacity: 0.6;
+      }
+    }
+  }
+
+  &__count {
+    @include fz(12, 12);
+
+    color: var(--color-gray);
+  }
+
+  &__empty {
+    @include fz(14, 22);
+
+    color: var(--color-gray);
+  }
+}

@@ -5,71 +5,21 @@
 @use '../abstracts' as *;
 
 .c-nav {
-  &__inner {
-    display: flex;
-    align-items: center;
-    width: 100%;
-    height: 100%;
-    margin: 0 auto;
-  }
-
   &__list {
     display: flex;
-    gap: rem(10);
+    gap: rem(24);
     align-items: center;
-  }
-
-  &__item {
-    position: relative;
-    height: 100%;
   }
 
   &__link {
-    @include fz(16, 16, 700);
+    @include fz(14, 14, 500);
 
-    position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: rem(12) rem(20) rem(13);
-    white-space: nowrap;
-    background: transparent;
-    border-radius: 6px;
-    transition:
-      background-color var(--com-ms) var(--com-es),
-      color var(--com-ms) var(--com-es);
+    color: inherit;
+    transition: opacity var(--com-ms) var(--com-es);
 
     @include canhover {
-      &:not(.is-active):hover {
-        color: var(--primary-color);
-        background-color: var(--bg-primary-color);
-      }
-    }
-
-    @include mqw-down {
-      @include fz(14);
-
-      padding: rem(11) rem(20) rem(12);
-    }
-
-    &.is-active {
-      color: var(--color-white);
-      background-color: var(--primary-color);
-    }
-
-    svg {
-      width: rem(18);
-      min-width: rem(18);
-      height: rem(18);
-      margin-left: rem(10);
-      fill: currentcolor;
-      transition: fill var(--com-ms) var(--com-es);
-
-      @include mqw-down {
-        width: rem(16);
-        min-width: rem(16);
-        height: rem(16);
-        margin-left: rem(8);
+      &:hover {
+        opacity: 0.6;
       }
     }
   }

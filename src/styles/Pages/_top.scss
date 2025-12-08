@@ -5,89 +5,128 @@
 // ============================================
 // Top Page Styles
 // トップページ固有スタイル
+// モノトーンで洗練されたHeroデザイン
 // ============================================
 
 .top-hero {
   display: flex;
   flex-direction: column;
-  gap: rem(16);
+  gap: rem(20);
   align-items: center;
-  justify-content: center;
-  padding: rem(60) rem(20);
+  padding: rem(100) rem(24);
   margin-top: rem(24);
-  color: var(--color-white);
   text-align: center;
-  background-color: rgb(var(--color-primary-rgb) / 80%);
-  border-radius: rem(8);
+  background: linear-gradient(180deg, #f0f0f0 0%, #fafafa 50%, #fff 100%);
+  border-radius: rem(16);
 
   @include mqw-down {
-    padding: rem(40) rem(16);
+    gap: rem(16);
+    padding: rem(64) rem(20);
+    border-radius: rem(12);
+  }
+
+  &__badge {
+    @include fz(11, 11, 600);
+
+    padding: rem(8) rem(16);
+    color: #666;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    background-color: #fff;
+    border: 1px solid #e5e5e5;
+    border-radius: rem(100);
+    box-shadow: 0 1px 2px rgb(0 0 0 / 4%);
   }
 
   &__title {
-    @include fz(32, 48, 700);
+    @include fz(80, 88, 800);
+
+    margin-top: rem(8);
+    line-height: unset;
+    letter-spacing: -0.03em;
+    background: linear-gradient(180deg, #1a1a1a 0%, #4a4a4a 100%);
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
 
     @include mqw-down {
-      @include fz(24, 36, 700);
+      @include fz(52, 60, 800);
+    }
+  }
+
+  &__tagline {
+    @include fz(18, 28, 500);
+
+    color: #666;
+    letter-spacing: 0.02em;
+
+    @include mqw-down {
+      @include fz(15, 24, 500);
     }
   }
 
   &__description {
-    @include fz(16, 28);
+    @include fz(15, 26);
 
-    max-width: rem(800);
+    max-width: rem(440);
+    margin-top: rem(4);
+    color: #888;
 
     @include mqw-down {
       @include fz(14, 24);
     }
   }
-}
 
-.top-posts {
-  display: flex;
-  flex-direction: column;
-  gap: rem(16);
-  margin-top: rem(40);
-
-  @include mqw-down {
-    margin-top: rem(24);
-  }
-
-  &__title {
-    @include fz(20, 32, 700);
-
-    @include mqw-down {
-      @include fz(18, 28, 700);
-    }
-  }
-
-  &__list {
-    display: flex;
-    flex-direction: column;
-  }
-}
-
-.top-categories {
-  display: flex;
-  flex-direction: column;
-  gap: rem(16);
-  margin-top: rem(40);
-
-  @include mqw-down {
-    margin-top: rem(24);
-  }
-
-  &__title {
-    @include fz(20, 32, 700);
-
-    @include mqw-down {
-      @include fz(18, 28, 700);
-    }
-  }
-
-  &__list {
+  &__actions {
     display: flex;
     flex-wrap: wrap;
-    gap: rem(10);
+    gap: rem(12);
+    justify-content: center;
+    margin-top: rem(16);
+
+    @include mqw-down {
+      margin-top: rem(8);
+    }
+  }
+
+  &__tech {
+    display: flex;
+    flex-wrap: wrap;
+    gap: rem(12);
+    justify-content: center;
+    max-width: rem(600);
+    padding-top: rem(24);
+    margin-top: rem(24);
+    border-top: 1px solid #eee;
+
+    @include mqw-down {
+      gap: rem(8);
+      padding-top: rem(16);
+      margin-top: rem(16);
+    }
+
+    li {
+      @include fz(12, 12, 500);
+
+      padding: rem(6) rem(12);
+      color: #777;
+      background-color: #fff;
+      border: 1px solid #eaeaea;
+      border-radius: rem(6);
+      transition: all var(--com-ms) var(--com-es);
+
+      @include canhover {
+        &:hover {
+          color: #333;
+          background-color: #fafafa;
+          border-color: #ddd;
+        }
+      }
+
+      @include mqw-down {
+        @include fz(11, 11, 500);
+
+        padding: rem(5) rem(10);
+      }
+    }
   }
 }

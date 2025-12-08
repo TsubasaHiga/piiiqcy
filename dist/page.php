@@ -1,17 +1,19 @@
 <?php
 /**
- * Displays detailed information for an article.
+ * The template for displaying all pages.
  *
- * This page renders the complete details of a single article, including its content,
- * metadata, and any associated components.
+ * This is the template that displays all pages by default.
+ * Please note that this is the WordPress construct of pages
+ * and that other 'pages' on your WordPress site may use a
+ * different template.
  *
  * @since 1.0.0
  */
 
-$page_name = 'single';
+$page_name = 'page';
 require_once 'inc/common.php';
 
-// パンくず.
+// Get page relation list for breadcrumbs.
 $page_relation_list = get_page_relation_list();
 ?>
 <?php get_header(); ?>
@@ -20,12 +22,18 @@ $page_relation_list = get_page_relation_list();
 	<div class="l-page">
 		<?php get_breadcrumbs( $page_relation_list ); ?>
 		<article class="p-content-section">
-			<!-- 共通プロジェクトスタイル: p-content-section -->
 			<?php
 			if ( have_posts() ) {
 				while ( have_posts() ) {
 					the_post();
-					get_template_part( 'template/post-single' );
+					?>
+					<header class="c-section">
+						<h1 class="c-section__title"><?php the_title(); ?></h1>
+					</header>
+					<div class="c-section__content">
+						<?php the_content(); ?>
+					</div>
+					<?php
 				}
 			} else {
 				get_template_part( 'template/no-content' );

@@ -25,6 +25,23 @@
   margin: 0 auto;
 }
 
+.l-page {
+  display: flex;
+  flex-direction: column;
+  gap: rem(48);
+  width: 100%;
+  max-width: rem(960);
+  padding-top: rem(48);
+  padding-bottom: rem(80);
+  margin: 0 auto;
+
+  @include mqw-down {
+    gap: rem(32);
+    padding-top: rem(32);
+    padding-bottom: rem(48);
+  }
+}
+
 .l-spacer {
   @include mqw-up {
     padding-right: var(--space-md);

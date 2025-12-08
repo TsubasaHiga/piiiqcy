@@ -5,30 +5,26 @@
 // ============================================
 // About Page Styles
 // アバウトページ固有スタイル
+// ページ固有のスタイルのみを定義し、共通部分はコンポーネントを使用
 // ============================================
 
 .about-hero {
   display: flex;
   flex-direction: column;
-  gap: rem(16);
-  padding: rem(40);
-  background-color: #f3f4f6;
-  border-radius: rem(8);
-
-  @include mqw-down {
-    padding: rem(24);
-  }
+  gap: rem(8);
 
   &__title {
-    @include fz(28, 40, 700);
+    @include fz(32, 44, 700);
 
     @include mqw-down {
-      @include fz(22, 32, 700);
+      @include fz(24, 36, 700);
     }
   }
 
   &__description {
     @include fz(16, 28);
+
+    color: var(--color-gray);
 
     @include mqw-down {
       @include fz(14, 24);
@@ -36,35 +32,24 @@
   }
 }
 
-.about-content {
-  display: flex;
-  flex-direction: column;
-  gap: rem(24);
-  margin-top: rem(40);
+.about-text {
+  @include fz(14, 24);
 
-  @include mqw-down {
-    margin-top: rem(24);
-  }
+  color: var(--color-gray);
+}
 
-  &__section {
-    display: flex;
-    flex-direction: column;
-    gap: rem(12);
-  }
+.about-image {
+  overflow: hidden;
+  border-radius: rem(4);
 
-  &__heading {
-    @include fz(20, 32, 700);
+  &__picture {
+    display: block;
 
-    @include mqw-down {
-      @include fz(18, 28, 700);
-    }
-  }
-
-  &__text {
-    @include fz(16, 28);
-
-    @include mqw-down {
-      @include fz(14, 24);
+    img {
+      display: block;
+      width: rem(300);
+      height: rem(250);
+      object-fit: cover;
     }
   }
 }

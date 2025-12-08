@@ -1,0 +1,30 @@
+@charset "utf-8";
+
+@use 'sass:map';
+@use 'sass:math';
+@use '../abstracts' as *;
+
+// ============================================
+// Card Component
+// カードコンポーネント
+// 情報をまとめて表示するためのカード
+// ============================================
+
+.c-card {
+  display: flex;
+  flex-direction: column;
+  gap: rem(4);
+  padding: rem(20);
+  background-color: #f8f9fa;
+  border-radius: rem(4);
+
+  &__title {
+    @include fz(16, 24, 600);
+  }
+
+  &__text {
+    @include fz(14, 22);
+
+    color: var(--color-gray);
+  }
+}

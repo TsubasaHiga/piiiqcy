@@ -13,8 +13,7 @@
 // デモ用のセクションスタイル。実プロジェクトでは用途に合わせてカスタマイズ
 .p-content-section {
   padding: rem(40);
-  margin: rem(40) 0;
-  background-color: #e5e7eb;
+  background-color: #f7f8f9;
   border-radius: rem(8);
 
   @include mqw-down {

@@ -1,0 +1,41 @@
+@charset "utf-8";
+
+@use 'sass:map';
+@use 'sass:math';
+@use '../abstracts' as *;
+
+// ============================================
+// Section Group Component
+// セクショングループコンポーネント
+// 関連するセクションをまとめるコンテナ
+// ============================================
+
+.c-section-group {
+  display: flex;
+  flex-direction: column;
+  gap: rem(32);
+
+  &__header {
+    display: flex;
+    flex-direction: column;
+    gap: rem(4);
+  }
+
+  &__title {
+    @include fz(11, 16, 600);
+
+    color: #999;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+  }
+
+  &__content {
+    display: flex;
+    flex-direction: column;
+    gap: rem(40);
+
+    @include mqw-down {
+      gap: rem(32);
+    }
+  }
+}

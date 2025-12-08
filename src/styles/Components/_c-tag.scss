@@ -1,0 +1,31 @@
+@charset "utf-8";
+
+@use 'sass:map';
+@use 'sass:math';
+@use '../abstracts' as *;
+
+// ============================================
+// Tag Component
+// タグコンポーネント
+// ============================================
+
+.c-tag {
+  @include fz(12, 12, 500);
+
+  display: inline-block;
+  padding: rem(6) rem(12);
+  color: var(--color-gray);
+  text-decoration: none;
+  background-color: #f1f3f4;
+  border-radius: rem(4);
+  transition:
+    background-color var(--com-ms) var(--com-es),
+    color var(--com-ms) var(--com-es);
+
+  @include canhover {
+    &:hover {
+      color: var(--color-text);
+      background-color: #e8eaed;
+    }
+  }
+}

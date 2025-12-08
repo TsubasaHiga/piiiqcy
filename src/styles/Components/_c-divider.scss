@@ -1,0 +1,23 @@
+@charset "utf-8";
+
+@use 'sass:map';
+@use 'sass:math';
+@use '../abstracts' as *;
+
+// ============================================
+// Divider Component
+// 区切り線コンポーネント
+// セクション間の視覚的な区切りに使用
+// ============================================
+
+.c-divider {
+  width: 100%;
+  height: 1px;
+  margin: rem(8) 0;
+  background: linear-gradient(90deg, transparent, #e5e5e5 20%, #e5e5e5 80%, transparent);
+  border: none;
+
+  &--space {
+    margin: rem(24) 0;
+  }
+}
