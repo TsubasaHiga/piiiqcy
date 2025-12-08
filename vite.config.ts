@@ -1,4 +1,3 @@
-import path from 'path'
 import { visualizer } from 'rollup-plugin-visualizer'
 import { createLogger, defineConfig, loadEnv, UserConfig } from 'vite'
 import FullReload from 'vite-plugin-full-reload'
@@ -109,15 +108,15 @@ const config = (mode: string): UserConfig => {
       devSourcemap: !isProduction(),
       preprocessorOptions: {
         scss: {
-          includePaths: [path.resolve(__dirname, 'src/styles')],
+          api: 'modern-compiler',
+          loadPaths: [process.cwd()],
           additionalData: `
             @use "sass:map";
             @use "sass:math";
-            @use "./src/styles/Foundation/_variables.scss" as *;
-            @use "./src/styles/Foundation/_mixin.scss" as *;
-            @use "./src/styles/Foundation/_functions.scss" as *;
+            @use "src/styles/abstracts" as *;
             $base-dir: '${themePath}';
           `,
+          silenceDeprecations: ['import', 'global-builtin'],
           logger: SCSS_Logger
         }
       }
