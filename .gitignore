@@ -175,3 +175,8 @@ tmp/
 !.vscode/tasks.json
 !.vscode/launch.json
 !.vscode/README.md
+
+# AI tools (user-specific settings)
+.mcp.json
+.serena/
+.claude/settings.local.json
