@@ -4,15 +4,15 @@
   "description": "boilerplate for WP theme",
   "type": "module",
   "scripts": {
-    "dev": "vite & yarn convertImages --watch",
-    "build": "tsc && vite build && yarn convertImages",
-    "build-stg": "yarn copyDistDir && tsc && vite build --mode stg && yarn copyDistDir dist/assets/images dist-stg/assets/images",
-    "build-all": "yarn build && yarn build-stg",
+    "dev": "vite & pnpm convertImages --watch",
+    "build": "tsc && vite build && pnpm convertImages",
+    "build-stg": "pnpm copyDistDir && tsc && vite build --mode stg && pnpm copyDistDir dist/assets/images dist-stg/assets/images",
+    "build-all": "pnpm build && pnpm build-stg",
     "analyze": "tsc && vite build --mode analyze",
-    "preview": "yarn build && vite preview",
-    "archive": "yarn build && yarn node --no-warnings=ExperimentalWarning --loader ts-node/esm scripts/genDistArchive.ts",
-    "copyDistDir": "yarn node --no-warnings=ExperimentalWarning --loader ts-node/esm scripts/copyDistDirectory.ts",
-    "convertImages": "yarn node --no-warnings=ExperimentalWarning --loader ts-node/esm scripts/convertImages.ts",
+    "preview": "pnpm build && vite preview",
+    "archive": "pnpm build && node --no-warnings=ExperimentalWarning --loader ts-node/esm scripts/genDistArchive.ts",
+    "copyDistDir": "node --no-warnings=ExperimentalWarning --loader ts-node/esm scripts/copyDistDirectory.ts",
+    "convertImages": "node --no-warnings=ExperimentalWarning --loader ts-node/esm scripts/convertImages.ts",
     "lint:scripts": "eslint --ext .ts",
     "lint:styles": "stylelint \"src/**/*.{css,scss}\"",
     "lint:php": "./vendor/bin/phpcs --standard=WordPress-Extra --colors ./dist/**/*.php",
@@ -29,13 +29,13 @@
     }
   },
   "lint-staged": {
-    "*.ts": "yarn lint:scripts",
-    "*.scss": "yarn lint:styles",
+    "*.ts": "pnpm lint:scripts",
+    "*.scss": "pnpm lint:styles",
     "dist/**/*.php": [
       "./vendor/bin/phpcs --standard=WordPress-Extra --colors",
-      "yarn phpstan"
+      "pnpm phpstan"
     ],
-    "*": "yarn format"
+    "*": "pnpm format"
   },
   "dependencies": {
     "auto-bind": "^5.0.1",
@@ -88,5 +88,5 @@
     "vite-plugin-full-reload": "^1.2.0",
     "vite-tsconfig-paths": "^5.1.4"
   },
-  "packageManager": "yarn@4.1.1"
+  "packageManager": "pnpm@9.15.4"
 }

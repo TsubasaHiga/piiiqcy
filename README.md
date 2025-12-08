@@ -9,7 +9,7 @@ piiiQcy（ピィキュー）はWordPressコーディング規約に則ったWord
 ## Required Environment
 
 - Node.js `v23.4.0`
-- Yarn `v4.1.1`
+- pnpm `v9.15.4`
 
 ```bash
 # macOS
@@ -21,8 +21,8 @@ BuildVersion:   23E224
 $ node -v
 23.4.0
 
-$ yarn -v
-4.1.1
+$ pnpm -v
+9.15.4
 
 $ docker -v
 Docker version 27.4.0, build bde2b89
@@ -43,8 +43,8 @@ Microsoft Windows [Version 10.0.22631.4602]
 $ node -v
 23.4.0
 
-$ yarn -v
-4.1.1
+$ pnpm -v
+9.15.4
 
 $ docker -v
 Docker version 27.4.0, build bde2b89
@@ -153,13 +153,13 @@ make up
 ### 9. Install Development
 
 ```bash
-yarn install
+pnpm install
 ```
 
 ### 10. Start Development
 
 ```bash
-yarn dev
+pnpm dev
 ```
 
 ## Q&A

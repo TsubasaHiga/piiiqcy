@@ -11,20 +11,20 @@ piiiQcy is a WordPress theme boilerplate that follows WordPress coding standards
 ### Frontend Development
 
 ```bash
-yarn dev          # Start Vite dev server with HMR and image conversion watch
-yarn build        # TypeScript check + Vite production build + image conversion
-yarn build-stg    # Build for staging environment (outputs to dist-stg/)
-yarn analyze      # Build with bundle analysis visualization
+pnpm dev          # Start Vite dev server with HMR and image conversion watch
+pnpm build        # TypeScript check + Vite production build + image conversion
+pnpm build-stg    # Build for staging environment (outputs to dist-stg/)
+pnpm analyze      # Build with bundle analysis visualization
 ```
 
 ### Linting & Formatting
 
 ```bash
-yarn lint:scripts               # ESLint for TypeScript files
-yarn lint:styles                # Stylelint for CSS/SCSS files
-yarn lint:php                   # PHP_CodeSniffer with WordPress-Extra standard
-yarn phpstan                    # PHPStan static analysis (level 5)
-yarn format                     # Prettier formatting
+pnpm lint:scripts               # ESLint for TypeScript files
+pnpm lint:styles                # Stylelint for CSS/SCSS files
+pnpm lint:php                   # PHP_CodeSniffer with WordPress-Extra standard
+pnpm phpstan                    # PHPStan static analysis (level 5)
+pnpm format                     # Prettier formatting
 ```
 
 ### Docker Environment
@@ -41,8 +41,8 @@ make dbdump       # Export database to dump.sql
 ### Other Commands
 
 ```bash
-yarn archive      # Build and create distribution archive
-yarn preview      # Build and preview production build
+pnpm archive      # Build and create distribution archive
+pnpm preview      # Build and preview production build
 ```
 
 ## Architecture
@@ -96,7 +96,7 @@ SCSS follows FLOCSS-like organization with global imports via `vite.config.ts`:
 - **Frontend**: TypeScript, SCSS, Vite
 - **Backend**: PHP with WordPress Coding Standards
 - **Utilities**: umaki, dayjs
-- **Environment**: Node.js v23.4.0, Yarn v4.1.1, Docker, Composer
+- **Environment**: Node.js v23.4.0, pnpm v9.15.4, Docker, Composer
 
 ## Coding Standards
 
