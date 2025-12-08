@@ -3610,13 +3610,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"gsap@npm:^3.13.0":
-  version: 3.13.0
-  resolution: "gsap@npm:3.13.0"
-  checksum: 10c0/a42dd2e02467a4abe96409aaf6cd0e5d697c72e05ec13c18c2271330493983aa63cc717c9dd0740fda2f884d0f56c7b98fc18b13500f0c1da94864985840da7c
-  languageName: node
-  linkType: hard
-
 "has-flag@npm:^3.0.0":
   version: 3.0.0
   resolution: "has-flag@npm:3.0.0"
@@ -5078,7 +5071,6 @@ __metadata:
     focus-visible: "npm:^5.2.1"
     fs: "npm:^0.0.2"
     glob: "npm:^13.0.0"
-    gsap: "npm:^3.13.0"
     husky: "npm:9.1.7"
     instant.page: "npm:^5.2.0"
     lint-staged: "npm:^16.2.7"

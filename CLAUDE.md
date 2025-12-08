@@ -95,7 +95,7 @@ SCSS follows FLOCSS-like organization with global imports via `vite.config.ts`:
 
 - **Frontend**: TypeScript, SCSS, Vite
 - **Backend**: PHP with WordPress Coding Standards
-- **Utilities**: GSAP, umaki, dayjs
+- **Utilities**: umaki, dayjs
 - **Environment**: Node.js v23.4.0, Yarn v4.1.1, Docker, Composer
 
 ## Coding Standards
