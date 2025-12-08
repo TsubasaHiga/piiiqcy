@@ -21,6 +21,7 @@ $page_relation_list = get_page_relation_list();
 		<?php get_breadcrumbs( $page_relation_list ); ?>
 		<small>post_type=postのsingleページ</small>
 		<article class="p-content-section">
+			<!-- 共通プロジェクトスタイル: p-content-section -->
 			<?php
 			if ( have_posts() ) {
 				while ( have_posts() ) {

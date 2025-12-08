@@ -5,11 +5,12 @@
 @use '../abstracts' as *;
 
 // ============================================
-// Common Page Styles
-// 共通ページスタイル
+// Common Project Styles
+// 共通プロジェクトスタイル（グローバルに読み込み）
 // ============================================
 
-// コンテンツセクション（デモ用）
+// コンテンツセクション
+// デモ用のセクションスタイル。実プロジェクトでは用途に合わせてカスタマイズ
 .p-content-section {
   padding: rem(40);
   margin: rem(40) 0;
@@ -22,11 +23,9 @@
   }
 }
 
-// テキストリンク
-.p-text-link {
-  text-decoration: underline;
-
-  @include canhover {
-    text-decoration: none;
-  }
+// アーカイブリスト
+.p-archive-list {
+  display: flex;
+  flex-direction: column;
+  margin-top: rem(20);
 }

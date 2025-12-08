@@ -22,18 +22,19 @@ $page_relation_list = get_page_relation_list();
 	<div class="l-page">
 		<?php get_breadcrumbs( $page_relation_list ); ?>
 		<section class="p-content-section">
+			<!-- 共通プロジェクトスタイル: p-content-section -->
 			<?php
 			$getterm = get_current_term();
 
 			echo '<h1>「' . esc_html( $getterm->name ) . '」のアーカイブ</h1>';
 
 			if ( have_posts() ) {
-				echo '<ul>';
+				echo '<div class="p-archive-list">';
 				while ( have_posts() ) {
 					the_post();
-					get_template_part( 'template-parts/template-title' );
+					get_template_part( 'template-parts/post-item' );
 				}
-				echo '</ul>';
+				echo '</div>';
 			} else {
 				get_template_part( 'template-parts/no-posts' );
 			}

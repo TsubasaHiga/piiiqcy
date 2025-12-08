@@ -1,0 +1,18 @@
+@charset "utf-8";
+
+@use 'sass:map';
+@use 'sass:math';
+@use '../abstracts' as *;
+
+// ============================================
+// Text Link Component
+// テキストリンクコンポーネント
+// ============================================
+
+.c-text-link {
+  text-decoration: underline;
+
+  @include canhover {
+    text-decoration: none;
+  }
+}

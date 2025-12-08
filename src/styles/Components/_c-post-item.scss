@@ -1,0 +1,58 @@
+@charset "utf-8";
+
+@use 'sass:map';
+@use 'sass:math';
+@use '../abstracts' as *;
+
+// ============================================
+// Post Item Component
+// 投稿アイテムコンポーネント
+// ============================================
+
+.c-post-item {
+  display: flex;
+  gap: rem(16);
+  align-items: center;
+  padding: rem(14) 0;
+  border-color: var(--color-border);
+  border-style: solid;
+  border-width: 1px 0 0;
+
+  @include mqw-down {
+    flex-direction: column;
+    gap: rem(4);
+    align-items: flex-start;
+    padding: rem(12) 0;
+  }
+
+  @include last {
+    border-width: 1px 0;
+  }
+
+  @include canhover {
+    transition: opacity 0.2s ease;
+
+    &:hover {
+      opacity: 0.7;
+    }
+  }
+
+  &__date {
+    @include fz(14, 20, 400);
+
+    flex-shrink: 0;
+    min-width: rem(80);
+    font-variant-numeric: tabular-nums;
+    color: var(--color-gray);
+  }
+
+  &__title {
+    @include fz(16, 24, 500);
+
+    color: var(--color-black);
+
+    @include mqw-down {
+      @include fz(14, 20, 500);
+    }
+  }
+}

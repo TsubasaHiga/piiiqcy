@@ -20,12 +20,15 @@
 
 // Components
 @use './Components/c-breadcrumbs';
+@use './Components/c-button';
 @use './Components/c-nav';
 @use './Components/c-pager';
+@use './Components/c-post-item';
+@use './Components/c-text-link';
 
-// Pages
-// ページ固有スタイル
-@use './Pages';
+// Projects
+// 共通プロジェクトスタイル（グローバルに読み込み）
+@use './Projects/p-common';
 
 // Extends
 // プレースホルダーセレクタ（必要に応じてコンポーネントで @extend）

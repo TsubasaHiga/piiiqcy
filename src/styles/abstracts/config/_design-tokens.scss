@@ -21,6 +21,13 @@
   --color-white: #fff;
   --color-white-rgb: #{convert-rgb(#fff)};
 
+  // gray color
+  --color-gray: #6b7280;
+  --color-gray-rgb: #{convert-rgb(#6b7280)};
+
+  // border color
+  --color-border: #e5e7eb;
+
   // SPACE
   --space-lg: #{rem(100)};
   --space-xmd: #{rem(60)};

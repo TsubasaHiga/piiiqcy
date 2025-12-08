@@ -1,0 +1,88 @@
+@charset "utf-8";
+
+@use 'sass:map';
+@use 'sass:math';
+@use '../abstracts' as *;
+
+// ============================================
+// Button Component
+// ボタンコンポーネント
+// ============================================
+
+.c-button {
+  $this: &;
+
+  display: inline-flex;
+  gap: rem(8);
+  align-items: center;
+  justify-content: center;
+  padding: rem(12) rem(24);
+  font-weight: 600;
+  color: var(--color-white);
+  cursor: pointer;
+  background-color: var(--color-primary);
+  border: 1px solid var(--color-primary);
+  border-radius: rem(6);
+
+  @include mqw-down {
+    padding: rem(10) rem(20);
+  }
+
+  @include canhover {
+    transition:
+      background-color 0.2s ease,
+      border-color 0.2s ease,
+      opacity 0.2s ease;
+
+    &:hover {
+      opacity: 0.8;
+    }
+  }
+
+  // Secondary style
+  &--secondary {
+    color: var(--color-primary);
+    background-color: transparent;
+    border-color: var(--color-primary);
+
+    @include canhover {
+      &:hover {
+        color: var(--color-white);
+        background-color: var(--color-primary);
+        opacity: 1;
+      }
+    }
+  }
+
+  // Small size
+  &--sm {
+    padding: rem(8) rem(16);
+    font-size: rem(14);
+  }
+
+  // Large size
+  &--lg {
+    padding: rem(16) rem(32);
+    font-size: rem(18);
+  }
+
+  // Disabled state
+  &:disabled,
+  &.is-disabled {
+    cursor: not-allowed;
+    opacity: 0.5;
+
+    @include canhover {
+      &:hover {
+        opacity: 0.5;
+      }
+    }
+  }
+
+  // Icon
+  &__icon {
+    display: flex;
+    width: rem(16);
+    height: rem(16);
+  }
+}
