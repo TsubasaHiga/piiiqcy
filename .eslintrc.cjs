@@ -1,10 +1,5 @@
 module.exports = {
-  extends: [
-    'eslint:recommended',
-    'plugin:@typescript-eslint/recommended',
-    'plugin:tailwindcss/recommended',
-    'prettier'
-  ],
+  extends: ['eslint:recommended', 'plugin:@typescript-eslint/recommended', 'prettier'],
   plugins: ['simple-import-sort'],
   env: {
     browser: true,
@@ -15,9 +10,6 @@ module.exports = {
     project: './tsconfig.json'
   },
   rules: {
-    // tailwindcss
-    'tailwindcss/no-custom-classname': 'off',
-
     // simple-import-sort
     'simple-import-sort/imports': 'error',
 

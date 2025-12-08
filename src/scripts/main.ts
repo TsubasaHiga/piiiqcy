@@ -1,4 +1,3 @@
-import '@styles/tailwind-config.css'
 import '@styles/main.scss'
 import 'focus-visible'
 import 'instant.page'
