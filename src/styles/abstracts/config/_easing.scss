@@ -1,34 +1,12 @@
 @charset "utf-8";
 
-@use './functions' as *;
-
-// layout
-// ----------------------------------------------------------
-// break point - width
-$breakpoint-w: (
-  xlg: 1920px,
-  lg: 1440px,
-  xmd: 1180px,
-  md: 980px,
-  sm: 640px,
-  xs: 375px,
-  xxs: 320px
-) !default;
-
-// break point - height
-$breakpoint-h: (
-  xmd: 845px,
-  md: 668px,
-  sm: 635px,
-  xs: 549px
-) !default;
+// ============================================
+// Easing
+// ============================================
 
 // font
-// ----------------------------------------------------------
 $font-family: 'Noto Sans JP', sans-serif;
 
-// 基本easing
-// ----------------------------------------------------------
 // sine
 $ease-in-sine: cubic-bezier(0.47, 0, 0.745, 0.715);
 $ease-out-sine: cubic-bezier(0.39, 0.575, 0.565, 1);
@@ -69,13 +47,11 @@ $ease-in-back: cubic-bezier(0.6, -0.28, 0.735, 0.045);
 $ease-out-back: cubic-bezier(0.175, 0.885, 0.32, 1.275);
 $ease-in-out-back: cubic-bezier(0.68, -0.55, 0.265, 1.55);
 
-// 汎用easing変数
-// ----------------------------------------------------------
+// Common easing
 $com-ms: 400ms;
 $com-es: ease;
 
-// 長めのeasing変数
-// ----------------------------------------------------------
+// Long easing
 $long-ms: 1200ms;
 $long-es: ease;
 $long-each-ms: 80ms;

@@ -2,11 +2,11 @@
 
 @use 'sass:map';
 @use 'sass:math';
-@use './variables' as *;
-@use './mixin' as *;
-@use './functions' as *;
+@use '../abstracts' as *;
 
-@import './root';
+// ============================================
+// Base Reset Styles
+// ============================================
 
 * {
   @include add-selection-color(var(--color-primary-rgb), 10%);
@@ -71,7 +71,7 @@ body {
   position: relative;
   width: 100%;
   min-height: 100%;
-  word-wrap: break-word;
+  overflow-wrap: break-word;
   text-size-adjust: none;
 
   @include mq(retina2x) {
@@ -157,11 +157,3 @@ pre {
 button {
   color: inherit;
 }
-
-// [aria-hidden='true'] {
-//   display: none;
-// }
-
-// [aria-hidden='false'] {
-//   display: block;
-// }

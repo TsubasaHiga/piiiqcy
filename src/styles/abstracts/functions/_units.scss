@@ -1,8 +1,10 @@
 @charset "utf-8";
 
-@use 'sass:map';
 @use 'sass:math';
-@use 'sass:color';
+
+// ============================================
+// Units Functions
+// ============================================
 
 // rem
 @function rem($num, $size: md) {
@@ -28,19 +30,5 @@
     @return (math.div($num, 948)) * 100vh;
   } @else if $size == sm {
     @return (math.div($num, 844)) * 100vh;
-  }
-}
-
-// convert-rgb
-@function convert-rgb($color) {
-  @return color.channel($color, 'red') color.channel($color, 'green') color.channel($color, 'blue');
-}
-
-// gcd
-@function gcd($a, $b) {
-  @if $b == 0 {
-    @return $a;
-  } @else {
-    @return gcd($b, $a % $b);
   }
 }

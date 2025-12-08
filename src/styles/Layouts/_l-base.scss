@@ -2,15 +2,13 @@
 
 @use 'sass:map';
 @use 'sass:math';
-@use '../Foundation/variables' as *;
-@use '../Foundation/mixin' as *;
-@use '../Foundation/functions' as *;
+@use '../abstracts' as *;
 
 .l-main {
   display: flex;
+  visibility: hidden;
   flex-direction: column;
   min-height: 100vh;
-  visibility: hidden;
   opacity: 0;
 
   @include is-loaded {

@@ -1,7 +1,7 @@
 @charset "utf-8";
 
 @use 'sass:map';
-@use '../variables' as *;
+@use '../config' as *;
 @use './mqw-up' as *;
 
 @mixin custom-scrollbar($isOverflowX: true) {

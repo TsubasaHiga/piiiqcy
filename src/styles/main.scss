@@ -1,23 +1,32 @@
 @charset "utf-8";
 
-// plugins
-@import 'ress/ress.css';
+// ============================================
+// Main Entry Point
+// グローバルスタイルのメインエントリーポイント
+// ============================================
 
-// Foundation
-@import './Foundation/base';
+// External Dependencies
+// 外部CSSリセット
+@use 'ress/ress.css';
+
+// Base Styles
+// ベーススタイル（デザイントークン、リセット）
+@use './base';
 
 // Layouts
-@import './Layouts/l-base';
-@import './Layouts/l-footer';
-@import './Layouts/l-header';
+@use './Layouts/l-base';
+@use './Layouts/l-footer';
+@use './Layouts/l-header';
 
 // Components
-@import './Components/c-breadcrumbs';
-@import './Components/c-nav';
-@import './Components/c-pager';
+@use './Components/c-breadcrumbs';
+@use './Components/c-nav';
+@use './Components/c-pager';
+
+// Extends
+// プレースホルダーセレクタ（必要に応じてコンポーネントで @extend）
+@use './extends';
 
 // Utilities
-@import './Utilities/u-animation';
-@import './Utilities/u-etc';
-@import './Utilities/u-mqw';
-@import './Utilities/u-plugins';
+// ユーティリティクラス
+@use './utilities';

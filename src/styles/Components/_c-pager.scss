@@ -2,9 +2,7 @@
 
 @use 'sass:map';
 @use 'sass:math';
-@use '../Foundation/variables' as *;
-@use '../Foundation/mixin' as *;
-@use '../Foundation/functions' as *;
+@use '../abstracts' as *;
 
 .c-pager {
   $h-md: rem(35);
@@ -74,8 +72,8 @@
     }
 
     &.is-disabled {
-      pointer-events: none;
       visibility: hidden;
+      pointer-events: none;
     }
 
     &.single svg {

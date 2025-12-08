@@ -2,9 +2,7 @@
 
 @use 'sass:map';
 @use 'sass:math';
-@use '../Foundation/variables' as *;
-@use '../Foundation/mixin' as *;
-@use '../Foundation/functions' as *;
+@use '../abstracts' as *;
 
 .u-visually-hidden {
   position: absolute;
@@ -13,8 +11,7 @@
   padding: 0;
   margin: -1px;
   overflow: hidden;
-  clip: rect(0 0 0 0);
-  clip-path: inset(50%);
   white-space: nowrap;
   border: 0;
+  clip-path: inset(50%);
 }

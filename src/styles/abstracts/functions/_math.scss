@@ -1,0 +1,14 @@
+@charset "utf-8";
+
+// ============================================
+// Math Functions
+// ============================================
+
+// gcd (Greatest Common Divisor)
+@function gcd($a, $b) {
+  @if $b == 0 {
+    @return $a;
+  } @else {
+    @return gcd($b, $a % $b);
+  }
+}

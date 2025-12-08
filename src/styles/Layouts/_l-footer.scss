@@ -2,9 +2,7 @@
 
 @use 'sass:map';
 @use 'sass:math';
-@use '../Foundation/variables' as *;
-@use '../Foundation/mixin' as *;
-@use '../Foundation/functions' as *;
+@use '../abstracts' as *;
 
 .l-footer {
   position: relative;

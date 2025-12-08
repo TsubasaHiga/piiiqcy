@@ -1,0 +1,11 @@
+@charset "utf-8";
+
+// ============================================
+// Base - Index
+// ============================================
+
+// Design tokens (CSS Custom Properties)
+@use '../abstracts/config/design-tokens';
+
+// Reset styles
+@use 'reset';
