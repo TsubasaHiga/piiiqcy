@@ -7,7 +7,7 @@
  * @since 1.0.0
  */
 
-// Vite dev server URL
+// Vite dev server URL.
 require_once 'inc/init-vite.php';
 
 // 定数読み込み.
@@ -22,5 +22,14 @@ require_once 'lib/cleanup.php';
 // 機能の追加.
 require_once 'lib/add.php';
 
-// 関数の追加.
-require_once 'lib/custom.php';
+// クラスファイル（カスタム関数より先に読み込む）.
+require_once 'lib/class-theme-cache.php';
+require_once 'lib/class-category-helper.php';
+require_once 'lib/class-query-optimizer.php';
+
+// ヘルパー関数.
+require_once 'lib/helpers/breadcrumb.php';
+require_once 'lib/helpers/image.php';
+require_once 'lib/helpers/pagination.php';
+require_once 'lib/helpers/text.php';
+require_once 'lib/helpers/url.php';

@@ -24,7 +24,7 @@ $page_relation_list = get_page_relation_list();
 		<section class="p-content-section">
 			<!-- 共通プロジェクトスタイル: p-content-section -->
 			<?php
-			$getterm = get_current_term();
+			$getterm = Category_Helper::get_current_term();
 
 			echo '<h1>「' . esc_html( $getterm->name ) . '」のアーカイブ</h1>';
 
@@ -39,9 +39,7 @@ $page_relation_list = get_page_relation_list();
 				get_template_part( 'template-parts/no-posts' );
 			}
 
-			if ( function_exists( 'get_pagination' ) ) {
-				get_pagination( $wp_query->max_num_pages, get_query_var( 'paged' ) );
-			}
+			get_pagination( $wp_query->max_num_pages, get_query_var( 'paged' ) );
 
 			wp_reset_postdata();
 			?>

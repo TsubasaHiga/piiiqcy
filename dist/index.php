@@ -24,7 +24,7 @@ require_once 'inc/common.php';
 			<h2 class="top-posts__title">最新の投稿</h2>
 			<div class="top-posts__list">
 				<?php
-				$query = new WP_Query( get_query_args( 'post', 4 ) );
+				$query = new WP_Query( Query_Optimizer::build_query_args( 'post', 4 ) );
 				if ( $query->have_posts() ) {
 					while ( $query->have_posts() ) {
 						$query->the_post();
