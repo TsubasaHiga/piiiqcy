@@ -107,16 +107,13 @@ piiiqcy/
 git clone https://github.com/TsubasaHiga/piiiqcy.git my-project
 cd my-project
 
-# 2. プロジェクト名を変更（オプション）
+# 2. プロジェクト初期化（プロジェクト名・ポート設定・.env作成）
 ./init.sh
 
-# 3. 環境設定ファイルを作成
-cp .env.example .env
-
-# 4. セットアップ（依存関係 + Docker + WordPress）
+# 3. セットアップ（依存関係 + Docker + WordPress）
 make setup
 
-# 5. 開発サーバーを起動
+# 4. 開発サーバーを起動
 pnpm dev
 ```
 
@@ -129,9 +126,13 @@ pnpm dev
 | phpMyAdmin      | http://localhost:8080           |
 | Vite Dev Server | http://localhost:3000           |
 
+> [!NOTE]
+> `./init.sh`にてポート番号を変更した場合は適宜読み替えてください。
+
 > [!TIP]
-> デフォルトのWordPress管理者アカウントは `test` / `test` です。
-> テーマは `make setup` で自動的に有効化されます。
+>
+> - デフォルトのWordPress管理者アカウントは `test` / `test` です。
+> - テーマは `make setup` で自動的に有効化されます。
 
 ## Commands
 

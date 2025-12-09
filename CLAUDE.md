@@ -77,7 +77,7 @@ make dbdump       # Export database to dump.sql
 ### Project Management
 
 ```bash
-./init.sh             # Interactively rename the project (no deps required)
+./init.sh             # Initialize project (name, ports, .env) - required before make setup
 ```
 
 ## Architecture

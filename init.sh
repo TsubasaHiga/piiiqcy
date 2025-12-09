@@ -184,11 +184,25 @@ echo "Updating Makefile..."
 replace_env_value "Makefile" "PREFIX" "$NEW_NAME"
 echo "  Updated: Makefile"
 
+# Create .env from .env.example
 echo ""
-echo "=== Rename Complete ==="
+if [[ -f ".env" ]]; then
+    read -p ".env already exists. Overwrite? (y/n): " OVERWRITE_ENV
+    if [[ "$OVERWRITE_ENV" == "y" || "$OVERWRITE_ENV" == "Y" ]]; then
+        cp .env.example .env
+        echo "  Created: .env (overwritten)"
+    else
+        echo "  Skipped: .env (kept existing)"
+    fi
+else
+    cp .env.example .env
+    echo "  Created: .env"
+fi
+
+echo ""
+echo "=== Setup Complete ==="
 echo ""
 echo "Next steps:"
-echo "  1. cp .env.example .env  (if not already done)"
-echo "  2. make setup"
-echo "  3. pnpm dev"
+echo "  1. make setup"
+echo "  2. pnpm dev"
 echo ""
