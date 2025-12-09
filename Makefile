@@ -1,12 +1,14 @@
 # ------------------------------------------------------------------
-# PREFIX
+# PREFIX & PORTS
 # ------------------------------------------------------------------
 PREFIX=piiiqcy
+WP_PORT?=8000
+PMA_PORT?=8080
 
 # ------------------------------------------------------------------
 # WORDPRESS SETTINGS
 # ------------------------------------------------------------------
-WP_URL=http://localhost:8000
+WP_URL=http://localhost:$(WP_PORT)
 WP_TITLE=test
 WP_ADMIN_USER=test
 WP_ADMIN_PASSWORD=test
@@ -65,9 +67,9 @@ setup:
 	@echo "✅ Setup complete!"
 	@echo ""
 	@echo "📍 URLs:"
-	@echo "   WordPress:  http://localhost:8000"
-	@echo "   Admin:      http://localhost:8000/wp-admin/"
-	@echo "   phpMyAdmin: http://localhost:8080"
+	@echo "   WordPress:  http://localhost:$(WP_PORT)"
+	@echo "   Admin:      http://localhost:$(WP_PORT)/wp-admin/"
+	@echo "   phpMyAdmin: http://localhost:$(PMA_PORT)"
 	@echo ""
 	@echo "🔑 Login: $(WP_ADMIN_USER) / $(WP_ADMIN_PASSWORD)"
 	@echo ""

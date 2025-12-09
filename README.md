@@ -157,6 +157,37 @@ pnpm build-stg
 
 本番環境では `.env` の `WORDPRESS_DEBUG` を `"false"` に設定してください。
 
+### トラブルシューティング
+
+**ポートが使用中の場合**
+
+`.env`でポート番号を変更できます：
+
+```bash
+# .env
+WP_PORT=8001   # WordPress (デフォルト: 8000)
+PMA_PORT=8081  # phpMyAdmin (デフォルト: 8080)
+```
+
+または使用中のプロセスを停止：
+
+```bash
+# 使用中のポートを確認
+lsof -i :8000  # WordPress
+lsof -i :8080  # phpMyAdmin
+
+# 古いDockerコンテナを停止
+docker stop $(docker ps -aq)
+```
+
+**Dockerネットワークエラーの場合**
+
+```bash
+# 既存のネットワークを削除して再作成
+docker network rm <PREFIX>_network
+docker network create --driver bridge <PREFIX>_network
+```
+
 ## Commands
 
 ### Theme Development
@@ -283,9 +314,7 @@ export const projectConfig = {
     network: 'piiiqcy_network'
   },
   dev: {
-    port: 3000, // Vite開発サーバーポート
-    wpPort: 8000, // WordPressポート
-    pmaPort: 8080 // phpMyAdminポート
+    port: 3000 // Vite開発サーバーポート
   }
 }
 ```

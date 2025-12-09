@@ -67,13 +67,7 @@ export const projectConfig = {
    */
   dev: {
     /** Vite dev server port */
-    port: 3000,
-
-    /** WordPress port */
-    wpPort: 8000,
-
-    /** phpMyAdmin port */
-    pmaPort: 8080
+    port: 3000
   }
 } as const
 
