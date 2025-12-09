@@ -2,9 +2,21 @@
 
 WordPress Theme Boilerplate with Monorepo Structure
 
-![logo](docs/assets/images/logo.png)
+![piiiQcy](docs/assets/images/logo-2.png)
 
 piiiQcy（ピィキュー）はWordPressコーディング規約に則ったWordPress用ボイラープレートです。**モノレポ構成**を採用し、テーマとカスタムプラグインを同時に開発できます。
+
+**👨‍💻 関連プロジェクト**
+
+| Project                                           | Description                                | Use Case                   |
+| ------------------------------------------------- | ------------------------------------------ | -------------------------- |
+| [piiiQcy](https://github.com/TsubasaHiga/piiiqcy) | WordPress テーマ開発ボイラープレート       | WordPress サイト制作       |
+| [Acty](https://github.com/TsubasaHiga/acty)       | 静的サイト向けボイラープレート             | 静的 HTML/CSS サイト制作   |
+| [Quicint](https://github.com/TsubasaHiga/Quicint) | EJS ベースの静的 HTML5 ボイラープレート    | 量産型静的ページ制作       |
+| [vnl](https://github.com/TsubasaHiga/vnl)         | Vite 製 npm ライブラリ開発ボイラープレート | npm パッケージ開発         |
+| [umaki](https://github.com/TsubasaHiga/umaki)     | Web 開発ユーティリティライブラリ           | 共通ユーティリティ関数利用 |
+
+---
 
 > [!CAUTION]
 >
