@@ -6,6 +6,32 @@ WordPress Theme Boilerplate with Monorepo Structure
 
 piiiQcy（ピィキュー）はWordPressコーディング規約に則ったWordPress用ボイラープレートです。**モノレポ構成**を採用し、テーマとカスタムプラグインを同時に開発できます。
 
+> [!CAUTION]
+>
+> ## Breaking Changes (v2.0.0)
+>
+> モノレポ構成への移行に伴い、以下の破壊的変更があります：
+>
+> **ディレクトリ構成の変更**
+> | 変更前 | 変更後 |
+> |--------|--------|
+> | `src/` | `packages/theme/src/` |
+> | `dist/` | `packages/theme/dist/` |
+> | `vite.config.ts` | `packages/theme/vite.config.ts` |
+>
+> **パッケージ管理**
+>
+> - テーマ専用パッケージのインストールは `pnpm add <pkg> --filter @piiiqcy/theme` を使用
+> - ルートの `package.json` には共通ツール（lint, format等）のみ配置
+>
+> **削除されたコマンド**
+>
+> - `pnpm archive` - 配布用アーカイブ生成機能を削除
+>
+> **WordPressテーマのシンボリックリンク**
+>
+> - テーマパスが `packages/theme/dist` に変更されたため、シンボリックリンクの再作成が必要
+
 ## Features
 
 - **Monorepo Structure** - pnpm workspacesによるテーマ・プラグインの統合管理
