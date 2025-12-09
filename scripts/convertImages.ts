@@ -9,8 +9,8 @@ import { optimize } from 'svgo'
 import { logError, logInfo, logSuccess } from '../helpers/logging.js'
 
 const name = '[convertImages]'
-const inputDir: string = 'src/images'
-const outputDir: string = 'dist/assets/images'
+const inputDir: string = 'packages/theme/src/images'
+const outputDir: string = 'packages/theme/dist/assets/images'
 
 // 画像の品質を設定
 const sharpOptions = {

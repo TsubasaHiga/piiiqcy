@@ -7,8 +7,9 @@ module.exports = {
     node: true
   },
   parserOptions: {
-    project: './tsconfig.json'
+    project: ['./tsconfig.json', './packages/theme/tsconfig.json', './packages/plugins/*/tsconfig.json']
   },
+  ignorePatterns: ['dist', 'dist-stg', 'node_modules', 'wp-plugins'],
   rules: {
     // simple-import-sort
     'simple-import-sort/imports': 'error',

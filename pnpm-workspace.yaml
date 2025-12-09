@@ -1,0 +1,9 @@
+# pnpm Workspace Configuration
+# https://pnpm.io/workspaces
+
+packages:
+  # Theme package
+  - 'packages/theme'
+
+  # Plugin packages (each plugin is a separate package)
+  - 'packages/plugins/*'

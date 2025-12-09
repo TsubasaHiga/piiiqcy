@@ -3,9 +3,9 @@ includes:
 parameters:
     level: 5
     bootstrapFiles:
-        - dist/inc/consts.php
+        - packages/theme/dist/inc/consts.php
     paths:
-        - dist/
+        - packages/theme/dist/
     ignoreErrors:
         -
             identifier: argument.type

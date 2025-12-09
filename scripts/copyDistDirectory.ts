@@ -68,8 +68,8 @@ const copyToMultipleTargetsSync = (sourcePath: string, targetPaths: string[]) =>
   })
 }
 
-let sourcePath = 'dist'
-let targetPaths = ['dist-stg']
+let sourcePath = 'packages/theme/dist'
+let targetPaths = ['packages/theme/dist-stg']
 
 // --source と --target の指定を取得
 const args = process.argv.slice(2)

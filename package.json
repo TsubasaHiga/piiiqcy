@@ -1,23 +1,27 @@
 {
   "name": "piiiqcy",
   "version": "1.0.0",
-  "description": "boilerplate for WP theme",
+  "description": "WordPress theme boilerplate with monorepo structure",
+  "private": true,
   "type": "module",
   "scripts": {
-    "dev": "vite & pnpm convertImages --watch",
-    "build": "tsc && vite build && pnpm convertImages",
-    "build-stg": "pnpm copyDistDir && tsc && vite build --mode stg && pnpm copyDistDir dist/assets/images dist-stg/assets/images",
+    "dev": "pnpm --filter @piiiqcy/theme dev",
+    "build": "pnpm --filter @piiiqcy/theme build",
+    "build-stg": "pnpm --filter @piiiqcy/theme build-stg",
     "build-all": "pnpm build && pnpm build-stg",
-    "analyze": "tsc && vite build --mode analyze",
-    "preview": "pnpm build && vite preview",
+    "analyze": "pnpm --filter @piiiqcy/theme analyze",
+    "preview": "pnpm --filter @piiiqcy/theme preview",
+    "dev:plugins": "pnpm --filter './packages/plugins/*' --parallel dev",
+    "build:plugins": "pnpm --filter './packages/plugins/*' --parallel build",
+    "dev:all": "concurrently -n theme,plugins -c blue,green \"pnpm dev\" \"pnpm dev:plugins\"",
+    "build:all-packages": "pnpm build && pnpm build:plugins",
     "archive": "pnpm build && node --no-warnings=ExperimentalWarning --loader ts-node/esm scripts/genDistArchive.ts",
-    "copyDistDir": "node --no-warnings=ExperimentalWarning --loader ts-node/esm scripts/copyDistDirectory.ts",
-    "convertImages": "node --no-warnings=ExperimentalWarning --loader ts-node/esm scripts/convertImages.ts",
-    "lint:scripts": "eslint --ext .ts",
-    "lint:styles": "stylelint \"src/**/*.{css,scss}\"",
-    "lint:php": "./vendor/bin/phpcs --standard=WordPress-Extra --colors ./dist/**/*.php",
+    "lint:scripts": "eslint --ext .ts packages/",
+    "lint:styles": "npx stylelint \"packages/**/*.{css,scss}\" --ignore-pattern \"**/dist/**\" --ignore-pattern \"**/dist-stg/**\"",
+    "lint:php": "./vendor/bin/phpcs --standard=WordPress-Extra --colors ./packages/theme/dist/**/*.php",
     "phpstan": "./vendor/bin/phpstan analyse --memory-limit=1G",
     "format": "prettier --write . --ignore-unknown",
+    "rename-project": "node --no-warnings=ExperimentalWarning --loader ts-node/esm scripts/renameProject.ts",
     "prepare": "husky"
   },
   "engines": {
@@ -31,32 +35,22 @@
   "lint-staged": {
     "*.ts": "pnpm lint:scripts",
     "*.scss": "pnpm lint:styles",
-    "dist/**/*.php": [
+    "packages/theme/dist/**/*.php": [
       "./vendor/bin/phpcs --standard=WordPress-Extra --colors",
       "pnpm phpstan"
     ],
     "*": "pnpm format"
   },
-  "dependencies": {
-    "auto-bind": "^5.0.1",
-    "dayjs": "^1.11.19",
-    "focus-visible": "^5.2.1",
-    "instant.page": "^5.2.0",
-    "ress": "^5.0.2",
-    "umaki": "^0.7.5"
-  },
   "devDependencies": {
     "@markuplint/php-parser": "^4.6.22",
     "@types/archiver": "^7.0.0",
-    "@types/auto-bind": "^2.1.4",
-    "@types/chokidar": "^2.1.3",
-    "@types/glob": "^9.0.0",
     "@types/node": "^24.10.1",
     "@typescript-eslint/eslint-plugin": "^8.48.1",
     "@typescript-eslint/parser": "^8.48.1",
     "archiver": "^7.0.1",
     "autoprefixer": "^10.4.22",
     "chokidar": "3.6.0",
+    "concurrently": "^9.1.2",
     "css-declaration-sorter": "^7.3.0",
     "css-mqpacker": "^7.0.0",
     "cssnano": "^7.1.2",
@@ -72,21 +66,15 @@
     "postcss": "^8.5.6",
     "postcss-html": "^1.8.0",
     "prettier": "^3.7.4",
-    "rollup-plugin-visualizer": "^6.0.5",
-    "sass": "^1.94.2",
     "sharp": "^0.34.5",
-    "stylelint": "16.26.1",
+    "stylelint": "^16.26.1",
     "stylelint-config-html": "^1.1.0",
     "stylelint-config-prettier-scss": "^1.0.0",
     "stylelint-config-recess-order": "^7.4.0",
     "stylelint-config-standard-scss": "^16.0.0",
-    "stylelint-order": "^7.0.0",
     "svgo": "^4.0.0",
     "ts-node": "^10.9.2",
-    "typescript": "^5.9.3",
-    "vite": "^7.2.7",
-    "vite-plugin-full-reload": "^1.2.0",
-    "vite-tsconfig-paths": "^5.1.4"
+    "typescript": "^5.9.3"
   },
   "packageManager": "pnpm@9.15.4"
 }

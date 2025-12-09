@@ -1,14 +1,19 @@
 import { exec, spawn } from 'child_process'
+import path from 'path'
 import { promisify } from 'util'
 import type { Plugin } from 'vite'
 
-import { logInfo } from '../helpers/logging.js'
+import { logInfo } from '../../../helpers/logging.js'
 
 // Name of the integration
 const name = 'images-optimize'
 
 // Promisify the exec function
 const execPromise = promisify(exec)
+
+// Root directory (monorepo root)
+const rootDir = path.resolve(import.meta.dirname, '../../..')
+const scriptPath = path.join(rootDir, 'scripts/convertImages.ts')
 
 // Function to run the convertImages script
 const runConvertImages = async (watch: boolean = false) => {
@@ -19,10 +24,11 @@ const runConvertImages = async (watch: boolean = false) => {
   if (watch) {
     const process = spawn(
       'node',
-      ['--no-warnings=ExperimentalWarning', '--loader', 'ts-node/esm', 'scripts/convertImages.ts', watchFlag],
+      ['--no-warnings=ExperimentalWarning', '--loader', 'ts-node/esm', scriptPath, watchFlag],
       {
         stdio: 'inherit',
-        shell: true
+        shell: true,
+        cwd: rootDir
       }
     )
 
@@ -34,7 +40,8 @@ const runConvertImages = async (watch: boolean = false) => {
   } else {
     try {
       const { stdout, stderr } = await execPromise(
-        `node --no-warnings=ExperimentalWarning --loader ts-node/esm scripts/convertImages.ts ${watchFlag}`
+        `node --no-warnings=ExperimentalWarning --loader ts-node/esm ${scriptPath} ${watchFlag}`,
+        { cwd: rootDir }
       )
 
       // Output the stdout and stderr
@@ -53,13 +60,20 @@ const runConvertImages = async (watch: boolean = false) => {
 
 // imagesOptimize
 const imagesOptimize = (): Plugin => {
+  let isServeMode = false
+
   return {
     name,
-    buildStart: async () => {
-      await runConvertImages()
-    },
     configureServer() {
+      isServeMode = true
       runConvertImages(true)
+    },
+    closeBundle: async () => {
+      // Run after Vite build completes (after emptyOutDir clears the directory)
+      // Skip if in serve mode (configureServer already handles it)
+      if (!isServeMode) {
+        await runConvertImages()
+      }
     }
   }
 }

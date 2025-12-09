@@ -4,27 +4,64 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-piiiQcy is a WordPress theme boilerplate that follows WordPress coding standards. It uses Vite for modern frontend development with HMR support, Docker for local development environment, and integrates TypeScript, SCSS, and PHP.
+piiiQcy is a WordPress theme boilerplate with **monorepo structure** using pnpm workspaces. It allows simultaneous development of themes and custom plugins. The project uses Vite for modern frontend development with HMR support, Docker for local development environment, and integrates TypeScript, SCSS, and PHP.
+
+## Monorepo Structure
+
+```
+piiiqcy/
+├── packages/
+│   ├── theme/              # WordPress theme package
+│   │   ├── src/            # Frontend source code
+│   │   ├── dist/           # Build output (WP theme)
+│   │   └── vite.config.ts  # Theme Vite config
+│   │
+│   └── plugins/            # Custom plugins
+│       └── sample-block/   # Sample block plugin
+│           ├── src/        # Plugin source
+│           └── vite.config.ts
+│
+├── wp-plugins/             # External + built plugins (mounted to WP)
+├── project.config.ts       # Project-wide configuration
+└── pnpm-workspace.yaml     # Workspace definition
+```
 
 ## Development Commands
 
-### Frontend Development
+### Theme Development
 
 ```bash
-pnpm dev          # Start Vite dev server with HMR and image conversion watch
-pnpm build        # TypeScript check + Vite production build + image conversion
+pnpm dev          # Start theme Vite dev server with HMR
+pnpm build        # TypeScript check + production build + image conversion
 pnpm build-stg    # Build for staging environment (outputs to dist-stg/)
 pnpm analyze      # Build with bundle analysis visualization
+```
+
+### Plugin Development
+
+```bash
+pnpm dev:plugins           # Watch all plugins
+pnpm build:plugins         # Build all plugins
+pnpm dev:all               # Develop theme AND plugins simultaneously
+pnpm build:all-packages    # Build theme AND all plugins
+```
+
+### Package-specific Commands
+
+```bash
+# Run command for specific package
+pnpm --filter @piiiqcy/theme dev
+pnpm --filter @piiiqcy/sample-block build
 ```
 
 ### Linting & Formatting
 
 ```bash
-pnpm lint:scripts               # ESLint for TypeScript files
-pnpm lint:styles                # Stylelint for CSS/SCSS files
-pnpm lint:php                   # PHP_CodeSniffer with WordPress-Extra standard
-pnpm phpstan                    # PHPStan static analysis (level 5)
-pnpm format                     # Prettier formatting
+pnpm lint:scripts          # ESLint for TypeScript files
+pnpm lint:styles           # Stylelint for CSS/SCSS files
+pnpm lint:php              # PHP_CodeSniffer with WordPress-Extra standard
+pnpm phpstan               # PHPStan static analysis (level 5)
+pnpm format                # Prettier formatting
 ```
 
 ### Docker Environment
@@ -38,37 +75,37 @@ make wpinstall    # Install WordPress with default plugins
 make dbdump       # Export database to dump.sql
 ```
 
-### Other Commands
+### Project Management
 
 ```bash
-pnpm archive      # Build and create distribution archive
-pnpm preview      # Build and preview production build
+pnpm rename-project   # Interactively rename the project
+pnpm archive          # Build and create distribution archive
 ```
 
 ## Architecture
 
 ### Directory Structure
 
-- `src/` - Frontend source code
+- `packages/theme/src/` - Theme frontend source code
   - `scripts/` - TypeScript entry points and modules
-  - `styles/` - SCSS with Foundation/Components/Layouts/Pages/Utilities structure
+  - `styles/` - SCSS with FLOCSS-like structure
   - `images/` - Source images (processed during build)
-- `dist/` - WordPress theme (production build output + PHP templates)
-- `dist-stg/` - Staging build output
-- `scripts/` - Build utility scripts (image conversion, archive generation)
+- `packages/theme/dist/` - WordPress theme (build output + PHP templates)
+- `packages/plugins/` - Custom plugin sources
+- `wp-plugins/` - WordPress plugins directory (external + built plugins)
+- `scripts/` - Build utility scripts
 - `app/WordPress/` - WordPress core files
-- `wp-plugins/` - Custom WordPress plugins
 
 ### Frontend Entry Points
 
-Entry points are defined in `vite.config.ts`:
+Entry points are defined in `packages/theme/vite.config.ts`:
 
 - `main.ts` - Global scripts and styles
 - `pageTop.ts`, `pageAbout.ts` - Page-specific bundles
 
 ### TypeScript Path Aliases
 
-Defined in `tsconfig.json`:
+Defined in `packages/theme/tsconfig.json`:
 
 - `@/*` → `src/scripts/*`
 - `@components/*`, `@modules/*`, `@pages/*`, `@utils/*`, etc.
@@ -78,25 +115,55 @@ Defined in `tsconfig.json`:
 SCSS follows FLOCSS-like organization with global imports via `vite.config.ts`:
 
 - `abstracts/` - Variables, mixins, functions, design tokens
-- `Components/` - Reusable UI components (c-button, c-post-item, etc.)
+- `Components/` - Reusable UI components
 - `Layouts/` - Layout structures
-- `Pages/` - Page-specific styles (loaded via entry points, not globally)
-- `Projects/` - Shared project styles (loaded globally)
+- `Pages/` - Page-specific styles
+- `Projects/` - Shared project styles
 - `Utilities/` - Utility classes
 
-### PHP Theme Structure (in `dist/`)
+### PHP Theme Structure (in `packages/theme/dist/`)
 
-- `functions.php` - Main theme functions (loads inc/ and lib/)
-- `inc/` - Core includes (Vite integration, constants, environment)
+- `functions.php` - Main theme functions
+- `inc/` - Core includes (Vite integration, constants)
 - `lib/` - Theme functionality (init, cleanup, custom functions)
 - `template-parts/` - Reusable PHP template parts
+
+### Plugin Build Output
+
+Plugins are built to `wp-plugins/<plugin-name>/`:
+
+```
+wp-plugins/
+├── sample-block/        # Built from packages/plugins/sample-block/
+│   ├── build/
+│   │   ├── index.js
+│   │   ├── style.css
+│   │   └── block.json
+│   └── index.php
+└── wordpress-seo/       # External plugin
+```
 
 ## Key Technologies
 
 - **Frontend**: TypeScript, SCSS, Vite
 - **Backend**: PHP with WordPress Coding Standards
+- **Package Manager**: pnpm (workspaces)
 - **Utilities**: umaki, dayjs
 - **Environment**: Node.js v23.4.0, pnpm v9.15.4, Docker, Composer
+
+## Project Configuration
+
+The `project.config.ts` file contains project-wide settings:
+
+```typescript
+export const projectConfig = {
+  name: 'piiiqcy',           // Project name
+  scope: '@piiiqcy',         // npm scope
+  theme: { ... },            // Theme settings
+  docker: { ... },           // Docker settings
+  dev: { port: 3000, ... },  // Dev server settings
+}
+```
 
 ## Coding Standards
 
@@ -109,15 +176,6 @@ Follow conventional commits with emoji from [gitmoji.dev](https://gitmoji.dev/):
 ```
 
 Types: feat, fix, docs, style, refactor, test, chore, build, ci, perf, revert
-
-### Versioning
-
-Follows [Semantic Versioning](https://semver.org/):
-
-- Major: Breaking changes
-- Minor: Backward-compatible features
-- Patch: Bug fixes
-- Beta: `Ver1.0.0-beta.x`
 
 ### PHP
 

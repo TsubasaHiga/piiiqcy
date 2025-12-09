@@ -154,11 +154,15 @@ $RECYCLE.BIN/
 # CUSTOM
 *.map
 app/
-dist/assets/
 wp-uploads/
+
+# Theme build outputs (assets only, PHP templates are tracked)
+packages/theme/dist/assets/
+packages/theme/dist-stg/
+
+# WordPress plugins (all ignored - custom plugins are built here)
 wp-plugins/
 
-dist-stg/
 vendor/
 honban/
 tmp/

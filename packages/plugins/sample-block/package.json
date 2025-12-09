@@ -1,0 +1,30 @@
+{
+  "name": "@piiiqcy/sample-block",
+  "version": "1.0.0",
+  "description": "Sample custom block plugin for WordPress",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite build --watch",
+    "build": "vite build"
+  },
+  "dependencies": {
+    "@wordpress/block-editor": "^14.0.0",
+    "@wordpress/blocks": "^13.0.0",
+    "@wordpress/components": "^28.0.0",
+    "@wordpress/i18n": "^5.0.0"
+  },
+  "devDependencies": {
+    "@types/react": "^19.2.7",
+    "@types/react-dom": "^19.2.3",
+    "@types/wordpress__block-editor": "^14.21.2",
+    "@types/wordpress__blocks": "^12.5.18",
+    "@vitejs/plugin-react": "^4.5.2",
+    "sass": "^1.94.2",
+    "vite": "^7.2.7"
+  },
+  "peerDependencies": {
+    "react": "^18.0.0",
+    "react-dom": "^18.0.0"
+  }
+}

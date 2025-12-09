@@ -1,0 +1,80 @@
+/**
+ * Project Configuration
+ *
+ * This file defines project-wide settings that can be easily changed
+ * when using this boilerplate for a new project.
+ *
+ * After changing these values, run: pnpm rename-project
+ */
+
+export const projectConfig = {
+  /**
+   * Project name (used for package names, docker containers, etc.)
+   * @example 'my-awesome-site'
+   */
+  name: 'piiiqcy',
+
+  /**
+   * Project display name (used for documentation)
+   * @example 'My Awesome Site'
+   */
+  displayName: 'piiiQcy',
+
+  /**
+   * Project description
+   */
+  description: 'WordPress theme boilerplate with monorepo structure',
+
+  /**
+   * Package scope for npm packages
+   * @example '@my-org' or '@my-awesome-site'
+   */
+  scope: '@piiiqcy',
+
+  /**
+   * Theme configuration
+   */
+  theme: {
+    /** Theme directory name (same as project name by default) */
+    name: 'piiiqcy',
+
+    /** Theme display name for WordPress */
+    displayName: 'piiiQcy Theme',
+
+    /** Theme description for WordPress */
+    description: 'A custom WordPress theme',
+
+    /** Theme author */
+    author: 'Your Name',
+
+    /** Theme version */
+    version: '1.0.0'
+  },
+
+  /**
+   * Docker configuration
+   */
+  docker: {
+    /** Docker container prefix */
+    prefix: 'piiiqcy',
+
+    /** Docker network name */
+    network: 'piiiqcy_network'
+  },
+
+  /**
+   * Development server configuration
+   */
+  dev: {
+    /** Vite dev server port */
+    port: 3000,
+
+    /** WordPress port */
+    wpPort: 8000,
+
+    /** phpMyAdmin port */
+    pmaPort: 8080
+  }
+} as const
+
+export type ProjectConfig = typeof projectConfig

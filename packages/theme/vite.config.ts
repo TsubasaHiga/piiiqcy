@@ -1,14 +1,22 @@
+import { dirname } from 'path'
 import { visualizer } from 'rollup-plugin-visualizer'
+import { fileURLToPath } from 'url'
 import { createLogger, defineConfig, loadEnv, UserConfig } from 'vite'
 import FullReload from 'vite-plugin-full-reload'
 import tsconfigPaths from 'vite-tsconfig-paths'
 
+import { projectConfig } from '../../project.config'
 import imagesOptimize from './integrations/imagesOptimize'
 import isProduction from './src/scripts/utils/isProduction'
 
-process.env = { ...process.env, ...loadEnv('', process.cwd()) }
+// ESM __dirname equivalent
+const __filename = fileURLToPath(import.meta.url)
+const __dirname = dirname(__filename)
 
-// 特定のページ別のスタイルリスト
+// Load environment variables from root .env
+process.env = { ...process.env, ...loadEnv('', process.cwd()), ...loadEnv('', '../../') }
+
+// Page-specific entry points
 type SpecificPageInputListType = {
   [key: string]: string
 }
@@ -18,25 +26,20 @@ const specificPageInputList = specificPageList.reduce((acc: SpecificPageInputLis
   return acc
 }, {})
 
-// scss logger
+// SCSS Logger - Mute specific warnings
 const muteScssWarningList = [
   'mixed-decls',
   'legacy-js-api',
   'Sass @import rules are deprecated and will be removed in Dart Sass 3.0.0.'
 ]
 const SCSS_Logger = {
-  warn(message: any, options: any) {
-    // Mute warning for muteScssWarningList
+  warn(message: string, options: { deprecation?: boolean }) {
     if (options.deprecation && muteScssWarningList.some((mute) => message.includes(mute))) return
-
-    // List all other warnings
-    // console.warn(`▲ [WARNING]: ${message}`)
   }
 }
 
-// VITE_Logger
+// Vite Logger - Mute specific warnings
 const VITE_Logger = createLogger()
-
 const muteWarnOnceList = ['it will remain unchanged to be resolved at runtime']
 VITE_Logger.warnOnce = (msg, options) => {
   if (muteWarnOnceList.some((mute) => msg.includes(mute))) return
@@ -49,25 +52,25 @@ type PathType = {
   themePath: string
 }
 
-// Path List
+// Theme name from project config
+const THEME_NAME = projectConfig.theme.name
+
+// Path configurations for different build modes
 const PathList: PathType[] = [
   {
     mode: 'stg',
     distPath: './dist-stg',
-    themePath: '/stg/wp-content/themes/piiiqcy/'
+    themePath: `/stg/wp-content/themes/${THEME_NAME}/`
   },
   {
     mode: 'prod',
     distPath: './dist',
-    themePath: '/wp-content/themes/piiiqcy/'
+    themePath: `/wp-content/themes/${THEME_NAME}/`
   }
 ] as const
 
-// get path
 const getPaths = (mode: string): PathType => {
-  const path =
-    PathList.find((path) => path.mode === mode) || (PathList.find((path) => path.mode === 'prod') as PathType)
-  return path
+  return PathList.find((path) => path.mode === mode) || (PathList.find((path) => path.mode === 'prod') as PathType)
 }
 
 // https://vitejs.dev/config/
@@ -79,23 +82,16 @@ const config = (mode: string): UserConfig => {
     root: '',
     server: {
       host: true,
-
-      // required to load scripts from custom host
       cors: true,
-
-      // we need a strict port to match on PHP side
-      // change freely, but update in your functions.php to match the same port
       strictPort: true,
-      port: 3000,
-
+      port: projectConfig.dev.port,
       hmr: {
         host: process.env.VITE_API_URL
-        //port: 443
       }
     },
     preview: {
       host: true,
-      port: 3000
+      port: projectConfig.dev.port
     },
     esbuild: isProduction()
       ? {
@@ -118,7 +114,7 @@ const config = (mode: string): UserConfig => {
           `,
           silenceDeprecations: ['import', 'global-builtin'],
           logger: SCSS_Logger
-        }
+        } as Record<string, unknown>
       }
     },
     build: {

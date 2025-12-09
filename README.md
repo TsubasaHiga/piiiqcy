@@ -1,19 +1,21 @@
 # piiiQcy
 
-Boilerplate for WP theme
+WordPress Theme Boilerplate with Monorepo Structure
 
 ![logo](docs/assets/images/logo.png)
 
-piiiQcy（ピィキュー）はWordPressコーディング規約に則ったWordPress用ボイラープレートです。Theme内で完結する簡素な作りでありつつ、モダンな構築を素早く可能にする目的で開発を行っています。
+piiiQcy（ピィキュー）はWordPressコーディング規約に則ったWordPress用ボイラープレートです。**モノレポ構成**を採用し、テーマとカスタムプラグインを同時に開発できます。
 
 ## Features
 
+- **Monorepo Structure** - pnpm workspacesによるテーマ・プラグインの統合管理
 - **Vite** - 高速なHMR（Hot Module Replacement）による開発体験
 - **TypeScript** - 型安全なJavaScript開発
 - **SCSS** - FLOCSS風のCSS設計手法
 - **WordPress Coding Standards** - phpcs/phpstanによるPHP品質管理
 - **Docker** - 簡単にローカル環境を構築
 - **画像最適化** - PNG/JPG→WebP変換、SVG最適化を自動化
+- **プラグイン開発** - カスタムブロックなどのプラグインをViteでビルド
 
 ## Tech Stack
 
@@ -21,7 +23,7 @@ piiiQcy（ピィキュー）はWordPressコーディング規約に則ったWord
 | --------------- | --------------------------------- |
 | Frontend        | TypeScript, SCSS, Vite            |
 | Backend         | PHP (WordPress)                   |
-| Package Manager | pnpm                              |
+| Package Manager | pnpm (workspaces)                 |
 | Linting         | ESLint, Stylelint, phpcs, PHPStan |
 | Formatter       | Prettier                          |
 | Environment     | Docker, Composer                  |
@@ -31,42 +33,27 @@ piiiQcy（ピィキュー）はWordPressコーディング規約に則ったWord
 
 ```
 piiiqcy/
-├── src/                      # フロントエンドソースコード
-│   ├── scripts/              # TypeScriptエントリーポイント
-│   │   ├── main.ts           # グローバルスクリプト
-│   │   ├── pageTop.ts        # トップページ用
-│   │   ├── pageAbout.ts      # アバウトページ用
-│   │   ├── modules/          # 再利用可能なモジュール
-│   │   ├── pages/            # ページ固有のスクリプト
-│   │   ├── utils/            # ユーティリティ関数
-│   │   └── const/            # 定数定義
-│   ├── styles/               # SCSSファイル
-│   │   ├── main.scss         # メインエントリー
-│   │   ├── abstracts/        # 変数、Mixin、関数
-│   │   ├── base/             # ベーススタイル
-│   │   ├── Components/       # UIコンポーネント
-│   │   ├── Layouts/          # レイアウト構造
-│   │   ├── Pages/            # ページ固有スタイル
-│   │   ├── Projects/         # プロジェクト固有スタイル
-│   │   ├── Extends/          # 拡張スタイル
-│   │   └── Utilities/        # ユーティリティクラス
-│   └── images/               # ソース画像（ビルド時に処理）
-├── dist/                     # WordPressテーマ（ビルド出力）
-│   ├── functions.php         # テーマ関数
-│   ├── index.php             # メインテンプレート
-│   ├── archive.php           # アーカイブテンプレート
-│   ├── single.php            # 個別投稿テンプレート
-│   ├── inc/                   # コアインクルード
-│   ├── lib/                  # テーマ機能
-│   │   ├── class-*.php       # クラスベースの機能
-│   │   └── helpers/          # ヘルパー関数
-│   ├── template-parts/       # 再利用可能なテンプレートパーツ
-│   ├── parts/                # パーツテンプレート
-│   └── pages/                # 固定ページテンプレート
-├── dist-stg/                 # ステージング用ビルド出力
-├── scripts/                  # ビルドユーティリティスクリプト
-├── app/WordPress/            # WordPressコアファイル
-└── wp-plugins/               # カスタムWordPressプラグイン
+├── packages/                     # モノレポパッケージ
+│   ├── theme/                    # WordPressテーマ
+│   │   ├── src/                  # フロントエンドソースコード
+│   │   │   ├── scripts/          # TypeScriptエントリーポイント
+│   │   │   ├── styles/           # SCSSファイル
+│   │   │   └── images/           # ソース画像
+│   │   ├── dist/                 # ビルド出力（WPテーマ）
+│   │   └── vite.config.ts        # テーマ用Vite設定
+│   │
+│   └── plugins/                  # カスタムプラグイン
+│       └── sample-block/         # サンプルブロックプラグイン
+│           ├── src/              # プラグインソース
+│           ├── index.php         # プラグインメインファイル
+│           └── vite.config.ts    # プラグイン用Vite設定
+│
+├── wp-plugins/                   # WordPressプラグイン（外部 + ビルド出力）
+├── app/WordPress/                # WordPressコアファイル
+├── scripts/                      # ビルドユーティリティスクリプト
+├── project.config.ts             # プロジェクト設定（名前変更時に使用）
+├── pnpm-workspace.yaml           # ワークスペース設定
+└── docker-compose.yml            # Docker設定
 ```
 
 ## Required Environment
@@ -80,9 +67,45 @@ piiiqcy/
 
 ## Setup
 
-### 1. `.env`ファイルをルートに配置
+### 1. リポジトリをクローン
+
+```bash
+git clone https://github.com/your-org/piiiqcy.git my-project
+cd my-project
+```
+
+### 2. プロジェクト名を変更（オプション）
+
+新しいプロジェクトとして使用する場合、プロジェクト名を変更します。
+
+```bash
+# 依存関係をインストール
+pnpm install
+
+# 対話式でプロジェクト名を変更
+pnpm rename-project
+```
+
+スクリプトが以下のファイルを自動更新します：
+
+- `project.config.ts`
+- 各 `package.json`
+- `docker-compose.yml`
+- `.env`
+- ブロックの `block.json`
+
+### 3. `.env`ファイルを設定
+
+`.env.example`をコピーして編集します。
+
+```bash
+cp .env.example .env
+```
 
 ```apache
+# プロジェクト名（Dockerコンテナとテーマディレクトリに使用）
+PREFIX=piiiqcy
+
 MYSQL_RANDOM_ROOT_PASSWORD=yes
 MYSQL_DATABASE=wordpress
 MYSQL_USER=wordpress
@@ -97,21 +120,13 @@ WORDPRESS_DEBUG="true"
 VITE_API_URL=192.168.1.110
 ```
 
-### 2. プロジェクト名を置換
-
-`piiiqcy`を任意のプロジェクト名に置換します。
-
-```bash
-grep -rl piiiqcy . --exclude-dir=".git" --exclude-dir="node_modules" --exclude-dir="vendor" --exclude-dir="wp-plugins" --exclude-dir="wp-uploads" | xargs sed -i '' -e 's/piiiqcy/your-project-name/g'
-```
-
-### 3. Docker環境を構築
+### 4. Docker環境を構築
 
 ```bash
 make first
 ```
 
-### 4. `app/WordPress/wp-config.php`を編集
+### 5. `app/WordPress/wp-config.php`を編集
 
 1. `.env`ファイルに基づいてDB接続情報を編集
 2. 開発環境でViteのHMRを有効にするため、以下の定数を追加
@@ -121,21 +136,21 @@ make first
 + define( 'IS_VITE_DEVELOPMENT', true );
 ```
 
-### 5. WordPressをインストール
+### 6. WordPressをインストール
 
 ```bash
 make wpinstall
 ```
 
-> **Tip**: テーマを有効化するには、管理画面で`外観` > `テーマ`から*piiiQcy*を有効化してください。
+> **Tip**: テーマを有効化するには、管理画面で`外観` > `テーマ`から選択してください。
 
-### 6. Composerをインストール
+### 7. Composerをインストール
 
 ```bash
 composer install
 ```
 
-### 7. WordPress Coding Standardsを設定
+### 8. WordPress Coding Standardsを設定
 
 ```bash
 ./vendor/bin/phpcs --config-set installed_paths "\
@@ -146,7 +161,7 @@ composer install
 ../../wp-coding-standards/wpcs"
 ```
 
-### 8. Dockerを起動
+### 9. Dockerを起動
 
 ```bash
 make up
@@ -158,21 +173,19 @@ make up
 | WordPress Admin | http://localhost:8000/wp-admin/ |
 | phpMyAdmin      | http://localhost:8080           |
 
-### 9. 依存関係をインストール
-
-```bash
-pnpm install
-```
-
 ### 10. 開発サーバーを起動
 
 ```bash
+# テーマのみ開発
 pnpm dev
+
+# テーマとプラグインを同時に開発
+pnpm dev:all
 ```
 
 ## Commands
 
-### Frontend Development
+### Theme Development
 
 | Command          | Description                                 |
 | ---------------- | ------------------------------------------- |
@@ -182,6 +195,15 @@ pnpm dev
 | `pnpm build-all` | 本番 + ステージングビルドを実行             |
 | `pnpm analyze`   | バンドル分析を視覚化                        |
 | `pnpm preview`   | ビルド + プレビューサーバーを起動           |
+
+### Plugin Development
+
+| Command                   | Description                          |
+| ------------------------- | ------------------------------------ |
+| `pnpm dev:plugins`        | 全プラグインをウォッチモードでビルド |
+| `pnpm build:plugins`      | 全プラグインを本番ビルド             |
+| `pnpm dev:all`            | テーマとプラグインを同時に開発       |
+| `pnpm build:all-packages` | テーマと全プラグインをビルド         |
 
 ### Linting & Formatting
 
@@ -206,14 +228,141 @@ pnpm dev
 
 ### Utilities
 
-| Command              | Description                         |
-| -------------------- | ----------------------------------- |
-| `pnpm archive`       | ビルド + 配布用アーカイブを作成     |
-| `pnpm convertImages` | 画像変換（PNG/JPG→WebP、SVG最適化） |
+| Command               | Description                     |
+| --------------------- | ------------------------------- |
+| `pnpm archive`        | ビルド + 配布用アーカイブを作成 |
+| `pnpm rename-project` | プロジェクト名を対話式で変更    |
+
+## Creating a New Plugin
+
+新しいカスタムブロックプラグインを作成する手順：
+
+### 1. プラグインディレクトリを作成
+
+```bash
+mkdir -p packages/plugins/my-custom-block/src/blocks/my-block
+```
+
+### 2. package.jsonを作成
+
+```json
+{
+  "name": "@piiiqcy/my-custom-block",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite build --watch",
+    "build": "vite build"
+  },
+  "dependencies": {
+    "@wordpress/block-editor": "^14.0.0",
+    "@wordpress/blocks": "^13.0.0"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-react": "^4.5.2",
+    "vite": "^7.2.7"
+  }
+}
+```
+
+### 3. vite.config.tsを作成
+
+`packages/plugins/sample-block/vite.config.ts`を参考にしてください。
+重要なのは`OUTPUT_DIR`を`wp-plugins/`配下に設定することです。
+
+### 4. ソースファイルを作成
+
+- `src/index.tsx` - エントリーポイント
+- `src/blocks/my-block/edit.tsx` - エディタコンポーネント
+- `src/blocks/my-block/save.tsx` - 保存コンポーネント
+- `src/blocks/my-block/block.json` - ブロック定義
+- `index.php` - プラグインメインファイル
+
+### 5. ビルド
+
+```bash
+# 特定のプラグインのみビルド
+pnpm --filter @piiiqcy/my-custom-block build
+
+# 全プラグインをビルド
+pnpm build:plugins
+```
+
+ビルド出力は`wp-plugins/my-custom-block/`に生成されます。
+
+## Project Configuration
+
+プロジェクト全体の設定は`project.config.ts`で管理されています：
+
+```typescript
+export const projectConfig = {
+  name: 'piiiqcy', // プロジェクト名
+  displayName: 'piiiQcy', // 表示名
+  scope: '@piiiqcy', // npmスコープ
+  theme: {
+    name: 'piiiqcy', // テーマディレクトリ名
+    displayName: 'piiiQcy Theme'
+  },
+  docker: {
+    prefix: 'piiiqcy', // Dockerコンテナプレフィックス
+    network: 'piiiqcy_network'
+  },
+  dev: {
+    port: 3000, // Vite開発サーバーポート
+    wpPort: 8000, // WordPressポート
+    pmaPort: 8080 // phpMyAdminポート
+  }
+}
+```
+
+## Renaming the Project
+
+このテンプレートを新しいプロジェクトで使用する場合：
+
+```bash
+pnpm rename-project
+```
+
+対話式プロンプトで以下を入力：
+
+1. 新しいプロジェクト名（例: `my-awesome-site`）
+2. 表示名（例: `My Awesome Site`）
+
+スクリプトが自動的に更新するファイル：
+
+- `project.config.ts`
+- `package.json`（ルートと各パッケージ）
+- `docker-compose.yml`
+- `.env`
+- `block.json`ファイル
+
+### 手動で必要な作業
+
+名前変更後：
+
+1. Dockerネットワークを再作成：
+
+```bash
+docker network rm piiiqcy_network
+docker network create my-awesome-site_network
+```
+
+2. 依存関係を再インストール：
+
+```bash
+pnpm install
+```
+
+3. プロジェクトをリビルド：
+
+```bash
+pnpm build:all-packages
+```
 
 ## Architecture
 
-### PHP Classes (`dist/lib/`)
+### PHP Classes (`packages/theme/dist/lib/`)
 
 | Class             | Description                      |
 | ----------------- | -------------------------------- |
@@ -221,19 +370,9 @@ pnpm dev
 | `Category_Helper` | カテゴリ関連ユーティリティ       |
 | `Query_Optimizer` | WP_Query引数の構築               |
 
-### Helper Functions (`dist/lib/helpers/`)
-
-| File             | Functions                                       |
-| ---------------- | ----------------------------------------------- |
-| `breadcrumb.php` | `get_page_relation_list()` - パンくずリスト生成 |
-| `image.php`      | `get_image()`, `get_thumb()` - 画像取得         |
-| `pagination.php` | `get_pagination()` - ページネーション生成       |
-| `text.php`       | `show_txt()`, `get_txt()` - テキスト出力        |
-| `url.php`        | `get_current_url()` - 現在のURL取得             |
-
 ### TypeScript Path Aliases
 
-`tsconfig.json`で定義されたパスエイリアス:
+`packages/theme/tsconfig.json`で定義：
 
 | Alias           | Path                       |
 | --------------- | -------------------------- |
@@ -261,17 +400,6 @@ pnpm dev
 - Stylelint with `standard-scss` config
 - Property ordering via `recess-order`
 - Prettier integration
-
-### Formatter
-
-- Prettier for all files
-- EditorConfig for basic formatting rules
-
-## Q&A
-
-### トップページのリンクが機能しない場合は？
-
-アバウトページのリンクを機能させるには、固定ページとして登録する必要があります。
 
 ## License
 

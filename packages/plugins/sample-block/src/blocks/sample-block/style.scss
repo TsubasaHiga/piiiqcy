@@ -1,0 +1,30 @@
+/**
+ * Sample Block Styles
+ *
+ * These styles are applied to both the editor and frontend.
+ */
+
+.wp-block-piiiqcy-sample-block {
+  padding: 1.5rem;
+  background-color: #f9f9f9;
+  border: 2px solid #e0e0e0;
+  border-radius: 8px;
+
+  &.align-left {
+    text-align: left;
+  }
+
+  &.align-center {
+    text-align: center;
+  }
+
+  &.align-right {
+    text-align: right;
+  }
+
+  p {
+    margin: 0;
+    font-size: 1rem;
+    line-height: 1.6;
+  }
+}

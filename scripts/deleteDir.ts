@@ -35,4 +35,4 @@ const deleteDir = (targetPath: string, removePaths: string[]) => {
   })
 }
 
-deleteDir('dist', [])
+deleteDir('packages/theme/dist', [])
