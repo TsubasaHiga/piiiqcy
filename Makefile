@@ -71,6 +71,10 @@ setup:
 up:
 	export PREFIX="$(PREFIX)" && docker compose up -d
 
+# docker compose restart (recreate containers to apply .env changes)
+restart:
+	export PREFIX="$(PREFIX)" && docker compose up -d --force-recreate
+
 # docker compose stop
 stop:
 	export PREFIX="$(PREFIX)" && docker compose stop

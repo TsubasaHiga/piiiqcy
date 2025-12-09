@@ -226,14 +226,15 @@ docker network create --driver bridge <PREFIX>_network
 
 ### Docker Environment
 
-| Command          | Description                            |
-| ---------------- | -------------------------------------- |
-| `make setup`     | **推奨**: 初回セットアップを一括実行   |
-| `make up`        | Dockerコンテナを起動                   |
-| `make stop`      | Dockerコンテナを停止                   |
-| `make down`      | コンテナを停止し、ボリュームと共に削除 |
-| `make dbdump`    | データベースをdump.sqlにエクスポート   |
-| `make db-export` | URL変換付きDBエクスポート（対話式）    |
+| Command          | Description                              |
+| ---------------- | ---------------------------------------- |
+| `make setup`     | **推奨**: 初回セットアップを一括実行     |
+| `make up`        | Dockerコンテナを起動                     |
+| `make restart`   | コンテナを再作成（.env変更の反映に使用） |
+| `make stop`      | Dockerコンテナを停止                     |
+| `make down`      | コンテナを停止し、ボリュームと共に削除   |
+| `make dbdump`    | データベースをdump.sqlにエクスポート     |
+| `make db-export` | URL変換付きDBエクスポート（対話式）      |
 
 ### Utilities
 
@@ -344,7 +345,7 @@ export const projectConfig = {
 | `@pages/*`      | `src/scripts/pages/*`      |
 | `@utils/*`      | `src/scripts/utils/*`      |
 
-## Adobanced Topics
+## Advanced Topics
 
 ### 本番/ステージング環境用のDBエクスポート
 
@@ -378,6 +379,39 @@ make db-export ENV=stg    # → dump-stg.sql
 ```bash
 make search-replace FROM=http://old.url TO=http://new.url
 ```
+
+### ローカル環境で本番モードを確認する
+
+ローカル環境でVite開発サーバーを介さない本番と同様の動作を確認できます。
+
+**1. 本番ビルドを実行**
+
+```bash
+pnpm build
+```
+
+**2. `.env`のデバッグモードを無効化**
+
+```bash
+# .env
+# 以下のいずれかの方法で無効化
+WORDPRESS_DEBUG=""              # 空文字列にする
+# WORDPRESS_DEBUG="true"        # またはコメントアウト
+```
+
+> [!CAUTION]
+> `WORDPRESS_DEBUG="false"`は**機能しません**。PHPでは空でない文字列は`true`に評価されるため、`"false"`という文字列も`true`として扱われます。
+
+**3. コンテナを再起動して設定を反映**
+
+```bash
+make restart
+```
+
+これでビルドされたアセット（`packages/theme/dist/assets/`）が使用されます。
+
+> [!NOTE]
+> 開発モードに戻す場合は、`.env`で`WORDPRESS_DEBUG="true"`に変更し、再度`make restart`を実行してください。
 
 ### 同一ネットワーク内の他デバイスからWordPressにアクセス
 

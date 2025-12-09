@@ -24,6 +24,7 @@ services:
     volumes:
       - ./docker/php/php.conf.ini:/usr/local/etc/php/conf.d/conf.ini
       - ./app/WordPress:/var/www/html
+      - ./packages/theme/dist:/var/www/html/wp-content/themes/${PREFIX}
       - ./wp-plugins:/var/www/html/wp-content/plugins
     depends_on:
       - db
