@@ -105,8 +105,7 @@ Entry points are defined in `packages/theme/vite.config.ts`:
 
 Defined in `packages/theme/tsconfig.json`:
 
-- `@/*` → `src/scripts/*`
-- `@components/*`, `@modules/*`, `@pages/*`, `@utils/*`, etc.
+- `@/*` → `src/*`
 
 ### SCSS Structure
 
