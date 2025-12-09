@@ -337,13 +337,17 @@ export const projectConfig = {
 
 `packages/theme/tsconfig.json`で定義：
 
-| Alias           | Path                       |
-| --------------- | -------------------------- |
-| `@/*`           | `src/scripts/*`            |
-| `@components/*` | `src/scripts/components/*` |
-| `@modules/*`    | `src/scripts/modules/*`    |
-| `@pages/*`      | `src/scripts/pages/*`      |
-| `@utils/*`      | `src/scripts/utils/*`      |
+| Alias | Path    |
+| ----- | ------- |
+| `@/*` | `src/*` |
+
+使用例：
+
+```typescript
+import '@/styles/main.scss'
+import InView from '@/scripts/modules/InView'
+import { values } from '@/scripts/const/values'
+```
 
 ## Advanced Topics
 

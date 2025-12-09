@@ -1,4 +1,4 @@
-import { values } from '@const/values'
+import { values } from '@/scripts/const/values'
 
 /**
  * breakpointとウインドウサイズを比較してlgかsmか取得します

@@ -1,4 +1,4 @@
-import '@styles/Pages/_about.scss'
+import '@/styles/Pages/_about.scss'
 
 import pageScript from './pages/about/index'
 

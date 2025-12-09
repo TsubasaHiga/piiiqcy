@@ -3,15 +3,7 @@
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
-      "@/*": ["src/scripts/*"],
-      "@components/*": ["src/scripts/components/*"],
-      "@const/*": ["src/scripts/const/*"],
-      "@libs/*": ["src/scripts/libs/*"],
-      "@modules/*": ["src/scripts/modules/*"],
-      "@pages/*": ["src/scripts/pages/*"],
-      "@styles/*": ["src/styles/*"],
-      "@type/*": ["src/scripts/types/*"],
-      "@utils/*": ["src/scripts/utils/*"]
+      "@/*": ["src/*"]
     }
   },
   "include": ["src", "vite.config.ts", "integrations/**/*.ts"],

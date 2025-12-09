@@ -1,11 +1,12 @@
-import '@styles/main.scss'
+import '@/styles/main.scss'
 import 'focus-visible'
 import 'instant.page'
 
-import AddUaData from '@modules/AddUaData'
-import InView from '@modules/InView'
-import SetOrientation from '@modules/SetOrientation'
 import { debounce, getDocumentHeight, throttle } from 'umaki'
+
+import AddUaData from '@/scripts/modules/AddUaData'
+import InView from '@/scripts/modules/InView'
+import SetOrientation from '@/scripts/modules/SetOrientation'
 
 const onDOMContentLoaded = () => {
   // AddUaData

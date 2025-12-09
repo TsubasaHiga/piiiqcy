@@ -1,5 +1,6 @@
-import GetDeviceType from '@utils/getDeviceType'
 import autoBind from 'auto-bind'
+
+import GetDeviceType from '@/scripts/utils/getDeviceType'
 
 type RootMarginOptions = {
   [keyof in 'lg' | 'sm']: string
