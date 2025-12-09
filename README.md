@@ -165,9 +165,13 @@ pnpm build-stg
 
 ```bash
 # .env
-WP_PORT=8001   # WordPress (デフォルト: 8000)
-PMA_PORT=8081  # phpMyAdmin (デフォルト: 8080)
+WP_PORT=8001    # WordPress (デフォルト: 8000)
+PMA_PORT=8081   # phpMyAdmin (デフォルト: 8080)
+VITE_PORT=3001  # Vite開発サーバー (デフォルト: 3000)
 ```
+
+> [!NOTE]
+> ポート設定は`.env`で一元管理されています。変更は自動的にVite、PHP、Dockerに反映されます。
 
 または使用中のプロセスを停止：
 
@@ -312,12 +316,12 @@ export const projectConfig = {
   docker: {
     prefix: 'piiiqcy', // Dockerコンテナプレフィックス
     network: 'piiiqcy_network'
-  },
-  dev: {
-    port: 3000 // Vite開発サーバーポート
   }
 }
 ```
+
+> [!NOTE]
+> Vite開発サーバーのポートは`.env`の`VITE_PORT`で設定します（デフォルト: 3000）。
 
 ## Architecture
 

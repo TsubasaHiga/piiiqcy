@@ -51,7 +51,8 @@ define( 'DIST_PATH', get_template_directory() . '/' );
 define( 'ASSETS_PATH', 'assets/' );
 
 // Vite.
-define( 'VITE_SERVER', 'http://' . getenv( 'VITE_API_URL' ) . ':3000' );
+$vite_port = getenv( 'VITE_PORT' ) ? getenv( 'VITE_PORT' ) : '3000';
+define( 'VITE_SERVER', 'http://' . getenv( 'VITE_API_URL' ) . ':' . $vite_port );
 define( 'VITE_ENTRY_POINT', '/src/scripts/' );
 
 // タイトルが空の場合のデフォルトタイトル.

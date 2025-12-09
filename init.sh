@@ -50,6 +50,8 @@ read -p "WordPress port (default: 8000): " WP_PORT
 WP_PORT="${WP_PORT:-8000}"
 read -p "phpMyAdmin port (default: 8080): " PMA_PORT
 PMA_PORT="${PMA_PORT:-8080}"
+read -p "Vite dev server port (default: 3000): " VITE_PORT
+VITE_PORT="${VITE_PORT:-3000}"
 
 echo ""
 echo "New configuration:"
@@ -59,6 +61,7 @@ echo "  Display: $NEW_DISPLAY"
 echo "  Theme Display: $NEW_THEME_DISPLAY"
 echo "  WordPress Port: $WP_PORT"
 echo "  phpMyAdmin Port: $PMA_PORT"
+echo "  Vite Port: $VITE_PORT"
 echo ""
 
 read -p "Proceed? (y/n): " CONFIRM
@@ -133,6 +136,7 @@ echo "Updating .env.example..."
 replace_in_file ".env.example" "PREFIX=$OLD_NAME" "PREFIX=$NEW_NAME"
 replace_in_file ".env.example" "WP_PORT=8000" "WP_PORT=$WP_PORT"
 replace_in_file ".env.example" "PMA_PORT=8080" "PMA_PORT=$PMA_PORT"
+replace_in_file ".env.example" "VITE_PORT=3000" "VITE_PORT=$VITE_PORT"
 
 # Update .env if it exists
 if [[ -f ".env" ]]; then
@@ -140,6 +144,7 @@ if [[ -f ".env" ]]; then
     replace_in_file ".env" "PREFIX=$OLD_NAME" "PREFIX=$NEW_NAME"
     replace_in_file ".env" "WP_PORT=8000" "WP_PORT=$WP_PORT"
     replace_in_file ".env" "PMA_PORT=8080" "PMA_PORT=$PMA_PORT"
+    replace_in_file ".env" "VITE_PORT=3000" "VITE_PORT=$VITE_PORT"
 fi
 
 # Update Makefile

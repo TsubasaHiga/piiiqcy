@@ -17,6 +17,9 @@ const __dirname = dirname(__filename)
 // Load environment variables from root .env
 process.env = { ...process.env, ...loadEnv('', process.cwd()), ...loadEnv('', '../../') }
 
+// Vite dev server port from .env (default: 3000)
+const VITE_PORT = Number(process.env.VITE_PORT) || 3000
+
 // Page-specific entry points
 type SpecificPageInputListType = {
   [key: string]: string
@@ -85,14 +88,14 @@ const config = (mode: string): UserConfig => {
       host: true,
       cors: true,
       strictPort: true,
-      port: projectConfig.dev.port,
+      port: VITE_PORT,
       hmr: {
         host: process.env.VITE_API_URL
       }
     },
     preview: {
       host: true,
-      port: projectConfig.dev.port
+      port: VITE_PORT
     },
     esbuild: isProduction()
       ? {

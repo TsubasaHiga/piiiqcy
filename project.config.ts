@@ -64,11 +64,9 @@ export const projectConfig = {
 
   /**
    * Development server configuration
+   * Note: Vite port is configured in .env (VITE_PORT)
    */
-  dev: {
-    /** Vite dev server port */
-    port: 3000
-  }
+  dev: {}
 } as const
 
 export type ProjectConfig = typeof projectConfig
