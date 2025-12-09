@@ -107,6 +107,20 @@ replace_in_file() {
     fi
 }
 
+# Helper function to replace key=value patterns (replaces any existing value)
+replace_env_value() {
+    local file=$1
+    local key=$2
+    local value=$3
+    if [[ -f "$file" ]]; then
+        if [[ "$OSTYPE" == "darwin"* ]]; then
+            sed -i '' "s|^${key}=.*|${key}=${value}|" "$file"
+        else
+            sed -i "s|^${key}=.*|${key}=${value}|" "$file"
+        fi
+    fi
+}
+
 # Update project.config.ts
 echo "Updating project.config.ts..."
 replace_in_file "project.config.ts" "name: '$OLD_NAME'" "name: '$NEW_NAME'"
@@ -143,29 +157,32 @@ done
 
 # Update .env.example
 echo "Updating .env.example..."
-replace_in_file ".env.example" "PREFIX=$OLD_NAME" "PREFIX=$NEW_NAME"
-replace_in_file ".env.example" "WP_PORT=8000" "WP_PORT=$WP_PORT"
-replace_in_file ".env.example" "PMA_PORT=8080" "PMA_PORT=$PMA_PORT"
-replace_in_file ".env.example" "VITE_PORT=3000" "VITE_PORT=$VITE_PORT"
-replace_in_file ".env.example" "URL_LOCAL=http://localhost:8000" "URL_LOCAL=http://localhost:$WP_PORT"
-replace_in_file ".env.example" "URL_STG=https://stg.example.com" "URL_STG=$URL_STG"
-replace_in_file ".env.example" "URL_PROD=https://example.com" "URL_PROD=$URL_PROD"
+replace_env_value ".env.example" "PREFIX" "$NEW_NAME"
+replace_env_value ".env.example" "WP_PORT" "$WP_PORT"
+replace_env_value ".env.example" "PMA_PORT" "$PMA_PORT"
+replace_env_value ".env.example" "VITE_PORT" "$VITE_PORT"
+replace_env_value ".env.example" "URL_LOCAL" "http://localhost:$WP_PORT"
+replace_env_value ".env.example" "URL_STG" "$URL_STG"
+replace_env_value ".env.example" "URL_PROD" "$URL_PROD"
+echo "  Updated: .env.example"
 
 # Update .env if it exists
 if [[ -f ".env" ]]; then
     echo "Updating .env..."
-    replace_in_file ".env" "PREFIX=$OLD_NAME" "PREFIX=$NEW_NAME"
-    replace_in_file ".env" "WP_PORT=8000" "WP_PORT=$WP_PORT"
-    replace_in_file ".env" "PMA_PORT=8080" "PMA_PORT=$PMA_PORT"
-    replace_in_file ".env" "VITE_PORT=3000" "VITE_PORT=$VITE_PORT"
-    replace_in_file ".env" "URL_LOCAL=http://localhost:8000" "URL_LOCAL=http://localhost:$WP_PORT"
-    replace_in_file ".env" "URL_STG=https://stg.example.com" "URL_STG=$URL_STG"
-    replace_in_file ".env" "URL_PROD=https://example.com" "URL_PROD=$URL_PROD"
+    replace_env_value ".env" "PREFIX" "$NEW_NAME"
+    replace_env_value ".env" "WP_PORT" "$WP_PORT"
+    replace_env_value ".env" "PMA_PORT" "$PMA_PORT"
+    replace_env_value ".env" "VITE_PORT" "$VITE_PORT"
+    replace_env_value ".env" "URL_LOCAL" "http://localhost:$WP_PORT"
+    replace_env_value ".env" "URL_STG" "$URL_STG"
+    replace_env_value ".env" "URL_PROD" "$URL_PROD"
+    echo "  Updated: .env"
 fi
 
 # Update Makefile
 echo "Updating Makefile..."
-replace_in_file "Makefile" "PREFIX=$OLD_NAME" "PREFIX=$NEW_NAME"
+replace_env_value "Makefile" "PREFIX" "$NEW_NAME"
+echo "  Updated: Makefile"
 
 echo ""
 echo "=== Rename Complete ==="

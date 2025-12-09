@@ -1,7 +1,10 @@
 # ------------------------------------------------------------------
-# PREFIX & PORTS
+# PREFIX & PORTS (loaded from .env if available)
 # ------------------------------------------------------------------
-PREFIX=piiiqcy
+-include .env
+export
+
+PREFIX?=piiiqcy
 WP_PORT?=8000
 PMA_PORT?=8080
 
