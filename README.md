@@ -97,13 +97,14 @@ piiiqcy/
 | -------- | --------- |
 | Node.js  | `v23.4.0` |
 | pnpm     | `v9.15.4` |
-| Docker   | `27.4.0+` |
+| PHP      | `8.x`     |
 | Composer | `2.8.4+`  |
-
-### Setup
+| Docker   | `27.4.0+` |
 
 > [!NOTE]
-> Windowsユーザーは [Git Bash](https://gitforwindows.org/) または WSL での実行を推奨します。
+> **Windowsユーザー向け**: [WSL2](https://learn.microsoft.com/ja-jp/windows/wsl/install) での実行を推奨します（Git Bash等は動作未確認）。
+
+### Setup
 
 ```bash
 # 1. クローン

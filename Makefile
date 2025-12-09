@@ -51,7 +51,7 @@ setup:
 	@echo "📝 Installing WordPress..."
 	export PREFIX="$(PREFIX)" && docker compose run --rm wpcli wp core install --url='$(WP_URL)' --title='$(WP_TITLE)' --admin_user='$(WP_ADMIN_USER)' --admin_password='$(WP_ADMIN_PASSWORD)' --admin_email='$(WP_ADMIN_EMAIL)' --allow-root
 	export PREFIX="$(PREFIX)" && docker compose run --rm wpcli wp language core install ja --activate --allow-root
-	export PREFIX="$(PREFIX)" && docker compose run --rm wpcli plugin install $(WP_INSTALL_PLUGINS) --activate --allow-root
+	export PREFIX="$(PREFIX)" && docker compose run --rm wpcli wp plugin install $(WP_INSTALL_PLUGINS) --activate --allow-root
 	@echo "🎨 Activating theme..."
 	export PREFIX="$(PREFIX)" && docker compose run --rm wpcli wp theme activate $(PREFIX) --allow-root
 	@echo ""
