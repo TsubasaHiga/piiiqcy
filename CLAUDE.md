@@ -79,7 +79,6 @@ make dbdump       # Export database to dump.sql
 
 ```bash
 pnpm rename-project   # Interactively rename the project
-pnpm archive          # Build and create distribution archive
 ```
 
 ## Architecture
@@ -148,7 +147,7 @@ wp-plugins/
 - **Frontend**: TypeScript, SCSS, Vite
 - **Backend**: PHP with WordPress Coding Standards
 - **Package Manager**: pnpm (workspaces)
-- **Utilities**: umaki, dayjs
+- **Utilities**: umaki
 - **Environment**: Node.js v23.4.0, pnpm v9.15.4, Docker, Composer
 
 ## Project Configuration

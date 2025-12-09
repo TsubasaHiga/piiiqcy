@@ -15,7 +15,6 @@
   },
   "dependencies": {
     "auto-bind": "^5.0.1",
-    "dayjs": "^1.11.19",
     "focus-visible": "^5.2.1",
     "instant.page": "^5.2.0",
     "ress": "^5.0.2",

@@ -27,7 +27,7 @@ piiiQcy（ピィキュー）はWordPressコーディング規約に則ったWord
 | Linting         | ESLint, Stylelint, phpcs, PHPStan |
 | Formatter       | Prettier                          |
 | Environment     | Docker, Composer                  |
-| Utilities       | umaki, dayjs, sharp, svgo         |
+| Utilities       | umaki, sharp, svgo                |
 
 ## Project Structure
 
@@ -228,10 +228,9 @@ pnpm dev:all
 
 ### Utilities
 
-| Command               | Description                     |
-| --------------------- | ------------------------------- |
-| `pnpm archive`        | ビルド + 配布用アーカイブを作成 |
-| `pnpm rename-project` | プロジェクト名を対話式で変更    |
+| Command               | Description                  |
+| --------------------- | ---------------------------- |
+| `pnpm rename-project` | プロジェクト名を対話式で変更 |
 
 ## Creating a New Plugin
 
