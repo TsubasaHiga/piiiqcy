@@ -226,15 +226,14 @@ docker network create --driver bridge <PREFIX>_network
 
 ### Docker Environment
 
-| Command          | Description                                     |
-| ---------------- | ----------------------------------------------- |
-| `make setup`     | **推奨**: 初回セットアップを一括実行            |
-| `make up`        | Dockerコンテナを起動                            |
-| `make stop`      | Dockerコンテナを停止                            |
-| `make down`      | コンテナを停止し、ボリュームと共に削除          |
-| `make first`     | Docker初期設定のみ（ネットワーク作成 + ビルド） |
-| `make wpinstall` | WordPressインストールのみ                       |
-| `make dbdump`    | データベースをdump.sqlにエクスポート            |
+| Command          | Description                            |
+| ---------------- | -------------------------------------- |
+| `make setup`     | **推奨**: 初回セットアップを一括実行   |
+| `make up`        | Dockerコンテナを起動                   |
+| `make stop`      | Dockerコンテナを停止                   |
+| `make down`      | コンテナを停止し、ボリュームと共に削除 |
+| `make dbdump`    | データベースをdump.sqlにエクスポート   |
+| `make db-export` | URL変換付きDBエクスポート（対話式）    |
 
 ### Utilities
 
@@ -344,6 +343,70 @@ export const projectConfig = {
 | `@modules/*`    | `src/scripts/modules/*`    |
 | `@pages/*`      | `src/scripts/pages/*`      |
 | `@utils/*`      | `src/scripts/utils/*`      |
+
+## Adobanced Topics
+
+### 本番/ステージング環境用のDBエクスポート
+
+ローカルDBを本番やステージング環境用に変換してエクスポートできます。URLの変換→dump出力→ローカルDBの復元を1コマンドで実行します。
+
+**1. `.env`に環境URLを設定**
+
+```bash
+# .env
+URL_LOCAL=http://localhost:8000
+URL_STG=https://stg.example.com
+URL_PROD=https://example.com
+```
+
+**2. エクスポートを実行**
+
+```bash
+# 対話式（環境を選択）
+make db-export
+
+# 引数で直接指定
+make db-export ENV=prod   # → dump-prod.sql
+make db-export ENV=stg    # → dump-stg.sql
+```
+
+> [!NOTE]
+> エクスポート後、ローカルDBは自動的に元のURLに復元されます。
+
+**手動でsearch-replaceを実行する場合**
+
+```bash
+make search-replace FROM=http://old.url TO=http://new.url
+```
+
+### 同一ネットワーク内の他デバイスからWordPressにアクセス
+
+WordPressはサイトURLをデータベースに保存するため、`localhost`でインストールすると他デバイスからアクセスできません。以下の方法で対応できます：
+
+**方法1: search-replaceコマンド（推奨）**
+
+```bash
+# IPアドレスを確認
+ifconfig | grep "inet " | grep -v 127.0.0.1
+
+# URLを置換（例: 192.168.1.100）
+docker compose run --rm wpcli wp search-replace 'http://localhost:8000' 'http://192.168.1.100:8000' --allow-root
+
+# localhostに戻す場合
+docker compose run --rm wpcli wp search-replace 'http://192.168.1.100:8000' 'http://localhost:8000' --allow-root
+```
+
+**方法2: wp-config.phpで動的URL設定**
+
+`app/WordPress/wp-config.php`に以下を追加：
+
+```php
+define('WP_HOME', 'http://' . $_SERVER['HTTP_HOST']);
+define('WP_SITEURL', 'http://' . $_SERVER['HTTP_HOST']);
+```
+
+> [!NOTE]
+> 方法2はDockerコンテナ内のファイルを編集する必要があります。永続的な設定が必要な場合は、mu-pluginsを使用する方法もあります。
 
 ## Coding Standards
 

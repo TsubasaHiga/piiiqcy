@@ -53,6 +53,14 @@ PMA_PORT="${PMA_PORT:-8080}"
 read -p "Vite dev server port (default: 3000): " VITE_PORT
 VITE_PORT="${VITE_PORT:-3000}"
 
+# Environment URLs (optional)
+echo ""
+echo "Environment URLs for DB export (press Enter to use defaults):"
+read -p "Production URL (default: https://example.com): " URL_PROD
+URL_PROD="${URL_PROD:-https://example.com}"
+read -p "Staging URL (default: https://stg.example.com): " URL_STG
+URL_STG="${URL_STG:-https://stg.example.com}"
+
 echo ""
 echo "New configuration:"
 echo "  Name: $NEW_NAME"
@@ -62,6 +70,8 @@ echo "  Theme Display: $NEW_THEME_DISPLAY"
 echo "  WordPress Port: $WP_PORT"
 echo "  phpMyAdmin Port: $PMA_PORT"
 echo "  Vite Port: $VITE_PORT"
+echo "  Production URL: $URL_PROD"
+echo "  Staging URL: $URL_STG"
 echo ""
 
 read -p "Proceed? (y/n): " CONFIRM
@@ -137,6 +147,9 @@ replace_in_file ".env.example" "PREFIX=$OLD_NAME" "PREFIX=$NEW_NAME"
 replace_in_file ".env.example" "WP_PORT=8000" "WP_PORT=$WP_PORT"
 replace_in_file ".env.example" "PMA_PORT=8080" "PMA_PORT=$PMA_PORT"
 replace_in_file ".env.example" "VITE_PORT=3000" "VITE_PORT=$VITE_PORT"
+replace_in_file ".env.example" "URL_LOCAL=http://localhost:8000" "URL_LOCAL=http://localhost:$WP_PORT"
+replace_in_file ".env.example" "URL_STG=https://stg.example.com" "URL_STG=$URL_STG"
+replace_in_file ".env.example" "URL_PROD=https://example.com" "URL_PROD=$URL_PROD"
 
 # Update .env if it exists
 if [[ -f ".env" ]]; then
@@ -145,6 +158,9 @@ if [[ -f ".env" ]]; then
     replace_in_file ".env" "WP_PORT=8000" "WP_PORT=$WP_PORT"
     replace_in_file ".env" "PMA_PORT=8080" "PMA_PORT=$PMA_PORT"
     replace_in_file ".env" "VITE_PORT=3000" "VITE_PORT=$VITE_PORT"
+    replace_in_file ".env" "URL_LOCAL=http://localhost:8000" "URL_LOCAL=http://localhost:$WP_PORT"
+    replace_in_file ".env" "URL_STG=https://stg.example.com" "URL_STG=$URL_STG"
+    replace_in_file ".env" "URL_PROD=https://example.com" "URL_PROD=$URL_PROD"
 fi
 
 # Update Makefile
