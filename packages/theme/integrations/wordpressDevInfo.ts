@@ -20,7 +20,8 @@ export default function wordpressDevInfo(): Plugin {
   return {
     name: 'wordpress-dev-info',
     configureServer(server) {
-      const env = loadEnv('', process.cwd() + '/../..')
+      // Load all env vars (not just VITE_ prefixed) by passing empty string as prefix
+      const env = loadEnv('', process.cwd() + '/../..', '')
       const wpPort = env.WP_PORT || '8000'
       const pmaPort = env.PMA_PORT || '8080'
 
