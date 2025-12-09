@@ -266,6 +266,7 @@ import InView from '@/scripts/modules/InView'
 
 - Stylelint with `standard-scss` config
 - Property ordering via `recess-order`
+- FLOCSS ライクなディレクトリ構造（[詳細](docs/architecture/scss-structure.md)）
 
 ## Advanced Topics
 

@@ -39,8 +39,8 @@
 
 // Extends
 // プレースホルダーセレクタ（必要に応じてコンポーネントで @extend）
-@use './extends';
+@use './Extends';
 
 // Utilities
 // ユーティリティクラス
-@use './utilities';
+@use './Utilities';
