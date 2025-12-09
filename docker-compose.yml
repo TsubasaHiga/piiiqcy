@@ -32,7 +32,6 @@ services:
     networks:
       - app_network
     env_file: .env
-    user: xfs
 
   db:
     container_name: ${PREFIX}_db
