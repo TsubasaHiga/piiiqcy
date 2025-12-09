@@ -13,9 +13,7 @@ WP_TITLE=test
 WP_ADMIN_USER=test
 WP_ADMIN_PASSWORD=test
 WP_ADMIN_EMAIL=info@example.com
-WP_INSTALL_PLUGINS=admin-menu-editor \
-        custom-post-type-ui \
-        wordpress-seo
+WP_INSTALL_PLUGINS=wp-multibyte-patch
 
 # ------------------------------------------------------------------
 # SEARCH REPLACE
@@ -56,7 +54,22 @@ setup:
 	@echo "🚀 Starting Docker containers..."
 	export PREFIX="$(PREFIX)" && docker compose up -d --build
 	@echo "⏳ Waiting for MySQL to be ready..."
-	sleep 10
+	@export PREFIX="$(PREFIX)" && \
+		MAX_ATTEMPTS=30 && \
+		ATTEMPT=1 && \
+		while [ $$ATTEMPT -le $$MAX_ATTEMPTS ]; do \
+			if docker compose run --rm wpcli wp db check --allow-root 2>/dev/null; then \
+				echo "✅ MySQL is ready!"; \
+				break; \
+			fi; \
+			echo "   Attempt $$ATTEMPT/$$MAX_ATTEMPTS - MySQL not ready, waiting 2s..."; \
+			sleep 2; \
+			ATTEMPT=$$((ATTEMPT + 1)); \
+		done; \
+		if [ $$ATTEMPT -gt $$MAX_ATTEMPTS ]; then \
+			echo "❌ MySQL failed to start after $$MAX_ATTEMPTS attempts"; \
+			exit 1; \
+		fi
 	@echo "📝 Installing WordPress..."
 	export PREFIX="$(PREFIX)" && docker compose run --rm wpcli wp core install --url='$(WP_URL)' --title='$(WP_TITLE)' --admin_user='$(WP_ADMIN_USER)' --admin_password='$(WP_ADMIN_PASSWORD)' --admin_email='$(WP_ADMIN_EMAIL)' --allow-root
 	export PREFIX="$(PREFIX)" && docker compose run --rm wpcli wp language core install ja --activate --allow-root

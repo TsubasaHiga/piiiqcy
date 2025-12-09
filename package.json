@@ -5,6 +5,7 @@
   "private": true,
   "type": "module",
   "scripts": {
+    "version": "node --no-warnings=ExperimentalWarning --loader ts-node/esm scripts/syncVersion.ts && git add packages/theme/integrations/wordpressDevInfo.ts",
     "dev": "pnpm --filter @piiiqcy/theme dev",
     "build": "pnpm --filter @piiiqcy/theme build",
     "build-stg": "pnpm --filter @piiiqcy/theme build-stg",

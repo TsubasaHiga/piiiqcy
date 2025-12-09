@@ -7,6 +7,7 @@ import tsconfigPaths from 'vite-tsconfig-paths'
 
 import { projectConfig } from '../../project.config'
 import imagesOptimize from './integrations/imagesOptimize'
+import wordpressDevInfo from './integrations/wordpressDevInfo'
 import isProduction from './src/scripts/utils/isProduction'
 
 // ESM __dirname equivalent
@@ -137,7 +138,12 @@ const config = (mode: string): UserConfig => {
         ]
       }
     },
-    plugins: [tsconfigPaths(), FullReload([distPath + '/**/*.php'], { root: __dirname }), imagesOptimize()]
+    plugins: [
+      tsconfigPaths(),
+      FullReload([distPath + '/**/*.php'], { root: __dirname }),
+      imagesOptimize(),
+      wordpressDevInfo()
+    ]
   }
 }
 
