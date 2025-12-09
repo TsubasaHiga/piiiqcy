@@ -8,7 +8,7 @@ const dim = (str: string) => `\x1b[2m${str}\x1b[0m`
 // Fixed boilerplate info (not affected by init.sh rename)
 // VERSION is auto-updated by `pnpm version` script
 const LOGO_NAME = 'piiiQcy'
-const VERSION = '1.0.0'
+const VERSION = '2.0.0'
 const GITHUB_REPO = 'TsubasaHiga/piiiqcy'
 
 /**

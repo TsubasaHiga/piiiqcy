@@ -1,6 +1,6 @@
 {
   "name": "piiiqcy",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "description": "WordPress theme boilerplate with monorepo structure",
   "private": true,
   "type": "module",
