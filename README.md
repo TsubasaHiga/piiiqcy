@@ -102,6 +102,9 @@ piiiqcy/
 
 ### Setup
 
+> [!NOTE]
+> Windowsユーザーは [Git Bash](https://gitforwindows.org/) または WSL での実行を推奨します。
+
 ```bash
 # 1. クローン
 git clone https://github.com/TsubasaHiga/piiiqcy.git my-project
