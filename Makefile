@@ -36,7 +36,7 @@ setup:
 		MAX_ATTEMPTS=30 && \
 		ATTEMPT=1 && \
 		while [ $$ATTEMPT -le $$MAX_ATTEMPTS ]; do \
-			if docker compose run --rm wpcli wp db check --allow-root 2>/dev/null; then \
+			if docker compose run --rm wpcli mysql -h db -u wordpress -pwordpress --skip-ssl -s -N -e "SELECT 1" >/dev/null 2>&1; then \
 				echo "✅ MySQL is ready!"; \
 				break; \
 			fi; \
@@ -158,7 +158,7 @@ db-export:
 	MAX_ATTEMPTS=15; \
 	ATTEMPT=1; \
 	while [ $$ATTEMPT -le $$MAX_ATTEMPTS ]; do \
-		if export PREFIX="$(PREFIX)" && docker compose run --rm wpcli wp db check --allow-root 2>/dev/null; then \
+		if export PREFIX="$(PREFIX)" && docker compose run --rm wpcli mysql -h db -u wordpress -pwordpress --skip-ssl -s -N -e "SELECT 1" >/dev/null 2>&1; then \
 			echo "✅ Database is ready!"; \
 			break; \
 		fi; \
