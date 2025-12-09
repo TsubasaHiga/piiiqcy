@@ -4,7 +4,7 @@
  * This file defines project-wide settings that can be easily changed
  * when using this boilerplate for a new project.
  *
- * After changing these values, run: pnpm rename-project
+ * To rename the project, run: ./init.sh
  */
 
 export const projectConfig = {

@@ -21,7 +21,12 @@
   "phpsab.executablePathCBF": "./vendor/bin/phpcbf",
   "phpsab.standard": "WordPress-Extra",
   "cSpell.ignoreRegExpList": ["[０-９Ａ-Ｚａ-ｚぁ-んァ-ヶ亜-熙纊-黑]+"],
-  "cSpell.enabledLanguageIds": ["javascript", "javascriptreact", "typescript", "typescriptreact"],
+  "cSpell.enabledFileTypes": {
+    "javascript": true,
+    "javascriptreact": true,
+    "typescript": true,
+    "typescriptreact": true
+  },
   "cSpell.words": [
     "blockless",
     "classname",

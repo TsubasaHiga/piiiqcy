@@ -95,7 +95,7 @@ piiiqcy/
 
 ```bash
 # 1. クローン
-git clone https://github.com/your-org/piiiqcy.git my-project
+git clone https://github.com/TsubasaHiga/piiiqcy.git my-project
 cd my-project
 
 # 2. プロジェクト名を変更（オプション）

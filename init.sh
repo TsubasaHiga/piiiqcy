@@ -15,6 +15,7 @@ set -e
 OLD_NAME="piiiqcy"
 OLD_SCOPE="@piiiqcy"
 OLD_DISPLAY="piiiQcy"
+OLD_THEME_DISPLAY="piiiQcy Theme"
 
 echo ""
 echo "=== piiiQcy Project Setup ==="
@@ -40,12 +41,14 @@ fi
 NEW_SCOPE="@${NEW_NAME}"
 read -p "Enter display name (default: $NEW_NAME): " NEW_DISPLAY
 NEW_DISPLAY="${NEW_DISPLAY:-$NEW_NAME}"
+NEW_THEME_DISPLAY="${NEW_DISPLAY} Theme"
 
 echo ""
 echo "New configuration:"
 echo "  Name: $NEW_NAME"
 echo "  Scope: $NEW_SCOPE"
 echo "  Display: $NEW_DISPLAY"
+echo "  Theme Display: $NEW_THEME_DISPLAY"
 echo ""
 
 read -p "Proceed? (y/n): " CONFIRM
@@ -86,6 +89,7 @@ echo "Updating project.config.ts..."
 replace_in_file "project.config.ts" "name: '$OLD_NAME'" "name: '$NEW_NAME'"
 replace_in_file "project.config.ts" "scope: '$OLD_SCOPE'" "scope: '$NEW_SCOPE'"
 replace_in_file "project.config.ts" "displayName: '$OLD_DISPLAY'" "displayName: '$NEW_DISPLAY'"
+replace_in_file "project.config.ts" "displayName: '$OLD_THEME_DISPLAY'" "displayName: '$NEW_THEME_DISPLAY'"
 replace_in_file "project.config.ts" "prefix: '$OLD_NAME'" "prefix: '$NEW_NAME'"
 replace_in_file "project.config.ts" "network: '${OLD_NAME}_network'" "network: '${NEW_NAME}_network'"
 
