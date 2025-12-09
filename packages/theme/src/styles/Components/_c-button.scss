@@ -12,6 +12,7 @@
 
 .c-button {
   @include fz(14, 14, 600);
+  @include hover-opacity;
 
   $this: &;
 
@@ -26,24 +27,9 @@
   border: 1px solid #1a1a1a;
   border-radius: rem(8);
   box-shadow: 0 1px 2px rgb(0 0 0 / 5%);
-  transition: all 0.2s ease;
 
   @include mqw-down {
     padding: rem(12) rem(24);
-  }
-
-  @include canhover {
-    &:hover {
-      background-color: #333;
-      border-color: #333;
-      box-shadow: 0 4px 12px rgb(0 0 0 / 15%);
-      transform: translateY(-1px);
-    }
-
-    &:active {
-      box-shadow: 0 1px 2px rgb(0 0 0 / 5%);
-      transform: translateY(0);
-    }
   }
 
   // Secondary style - アウトラインボタン
@@ -51,15 +37,6 @@
     color: #1a1a1a;
     background-color: #fff;
     border-color: #e5e5e5;
-
-    @include canhover {
-      &:hover {
-        color: #1a1a1a;
-        background-color: #fafafa;
-        border-color: #d0d0d0;
-        box-shadow: 0 4px 12px rgb(0 0 0 / 8%);
-      }
-    }
   }
 
   // Ghost style - 背景なし
@@ -68,14 +45,6 @@
     background-color: transparent;
     border-color: transparent;
     box-shadow: none;
-
-    @include canhover {
-      &:hover {
-        color: #1a1a1a;
-        background-color: #f5f5f5;
-        box-shadow: none;
-      }
-    }
   }
 
   // Small size
@@ -102,7 +71,6 @@
       &:hover {
         box-shadow: 0 1px 2px rgb(0 0 0 / 5%);
         opacity: 0.4;
-        transform: none;
       }
     }
   }

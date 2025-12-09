@@ -106,21 +106,13 @@
 
     li {
       @include fz(12, 12, 500);
+      @include hover-opacity;
 
       padding: rem(6) rem(12);
       color: #777;
       background-color: #fff;
       border: 1px solid #eaeaea;
       border-radius: rem(6);
-      transition: all var(--com-ms) var(--com-es);
-
-      @include canhover {
-        &:hover {
-          color: #333;
-          background-color: #fafafa;
-          border-color: #ddd;
-        }
-      }
 
       @include mqw-down {
         @include fz(11, 11, 500);

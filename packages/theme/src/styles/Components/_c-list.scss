@@ -20,13 +20,7 @@
   }
 
   a {
-    transition: opacity var(--com-ms) var(--com-es);
-
-    @include canhover {
-      &:hover {
-        opacity: 0.6;
-      }
-    }
+    @include hover-opacity;
   }
 
   &__count {

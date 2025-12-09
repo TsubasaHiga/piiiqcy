@@ -13,14 +13,8 @@
 
   &__link {
     @include fz(14, 14, 500);
+    @include hover-opacity;
 
     color: inherit;
-    transition: opacity var(--com-ms) var(--com-es);
-
-    @include canhover {
-      &:hover {
-        opacity: 0.6;
-      }
-    }
   }
 }
