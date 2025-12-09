@@ -7,6 +7,7 @@
     }
   },
   "require-dev": {
+    "dealerdirect/phpcodesniffer-composer-installer": "^1.0",
     "wp-coding-standards/wpcs": "^3.1",
     "cakephp/cakephp-codesniffer": "^5.1.4",
     "szepeviktor/phpstan-wordpress": "^2.0"

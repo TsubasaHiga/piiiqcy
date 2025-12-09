@@ -4,27 +4,27 @@
     "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
     "This file is @generated automatically"
   ],
-  "content-hash": "80ab4c09987ee8c8cb01ea7f3ab4eaf1",
+  "content-hash": "ce3afd773c3c2b3ece8e82a6f3bfdbb4",
   "packages": [],
   "packages-dev": [
     {
       "name": "cakephp/cakephp-codesniffer",
-      "version": "5.1.4",
+      "version": "5.2.2",
       "source": {
         "type": "git",
         "url": "https://github.com/cakephp/cakephp-codesniffer.git",
-        "reference": "6d0168a18c9fb6802103b41579abdcfba7021790"
+        "reference": "3c62979556e98d0330f8af8b103ad1ade0a7067e"
       },
       "dist": {
         "type": "zip",
-        "url": "https://api.github.com/repos/cakephp/cakephp-codesniffer/zipball/6d0168a18c9fb6802103b41579abdcfba7021790",
-        "reference": "6d0168a18c9fb6802103b41579abdcfba7021790",
+        "url": "https://api.github.com/repos/cakephp/cakephp-codesniffer/zipball/3c62979556e98d0330f8af8b103ad1ade0a7067e",
+        "reference": "3c62979556e98d0330f8af8b103ad1ade0a7067e",
         "shasum": ""
       },
       "require": {
         "php": ">=8.1.0",
-        "phpstan/phpdoc-parser": "^1.4.5",
-        "slevomat/coding-standard": "^8.15",
+        "phpstan/phpdoc-parser": "^2.1.0",
+        "slevomat/coding-standard": "^8.16",
         "squizlabs/php_codesniffer": "^3.9"
       },
       "require-dev": {
@@ -37,7 +37,9 @@
         }
       },
       "notification-url": "https://packagist.org/downloads/",
-      "license": ["MIT"],
+      "license": [
+        "MIT"
+      ],
       "authors": [
         {
           "name": "CakePHP Community",
@@ -46,40 +48,43 @@
       ],
       "description": "CakePHP CodeSniffer Standards",
       "homepage": "https://cakephp.org",
-      "keywords": ["codesniffer", "framework"],
+      "keywords": [
+        "codesniffer",
+        "framework"
+      ],
       "support": {
         "forum": "https://stackoverflow.com/tags/cakephp",
         "irc": "irc://irc.freenode.org/cakephp",
         "issues": "https://github.com/cakephp/cakephp-codesniffer/issues",
         "source": "https://github.com/cakephp/cakephp-codesniffer"
       },
-      "time": "2024-12-18T21:15:44+00:00"
+      "time": "2025-06-07T17:04:07+00:00"
     },
     {
       "name": "dealerdirect/phpcodesniffer-composer-installer",
-      "version": "v1.0.0",
+      "version": "v1.2.0",
       "source": {
         "type": "git",
         "url": "https://github.com/PHPCSStandards/composer-installer.git",
-        "reference": "4be43904336affa5c2f70744a348312336afd0da"
+        "reference": "845eb62303d2ca9b289ef216356568ccc075ffd1"
       },
       "dist": {
         "type": "zip",
-        "url": "https://api.github.com/repos/PHPCSStandards/composer-installer/zipball/4be43904336affa5c2f70744a348312336afd0da",
-        "reference": "4be43904336affa5c2f70744a348312336afd0da",
+        "url": "https://api.github.com/repos/PHPCSStandards/composer-installer/zipball/845eb62303d2ca9b289ef216356568ccc075ffd1",
+        "reference": "845eb62303d2ca9b289ef216356568ccc075ffd1",
         "shasum": ""
       },
       "require": {
-        "composer-plugin-api": "^1.0 || ^2.0",
+        "composer-plugin-api": "^2.2",
         "php": ">=5.4",
-        "squizlabs/php_codesniffer": "^2.0 || ^3.1.0 || ^4.0"
+        "squizlabs/php_codesniffer": "^3.1.0 || ^4.0"
       },
       "require-dev": {
-        "composer/composer": "*",
+        "composer/composer": "^2.2",
         "ext-json": "*",
         "ext-zip": "*",
-        "php-parallel-lint/php-parallel-lint": "^1.3.1",
-        "phpcompatibility/php-compatibility": "^9.0",
+        "php-parallel-lint/php-parallel-lint": "^1.4.0",
+        "phpcompatibility/php-compatibility": "^9.0 || ^10.0.0@dev",
         "yoast/phpunit-polyfills": "^1.0"
       },
       "type": "composer-plugin",
@@ -92,13 +97,15 @@
         }
       },
       "notification-url": "https://packagist.org/downloads/",
-      "license": ["MIT"],
+      "license": [
+        "MIT"
+      ],
       "authors": [
         {
           "name": "Franck Nijhof",
-          "email": "franck.nijhof@dealerdirect.com",
-          "homepage": "http://www.frenck.nl",
-          "role": "Developer / IT Manager"
+          "email": "opensource@frenck.dev",
+          "homepage": "https://frenck.dev",
+          "role": "Open source developer"
         },
         {
           "name": "Contributors",
@@ -106,7 +113,6 @@
         }
       ],
       "description": "PHP_CodeSniffer Standards Composer Installer Plugin",
-      "homepage": "http://www.dealerdirect.com",
       "keywords": [
         "PHPCodeSniffer",
         "PHP_CodeSniffer",
@@ -127,31 +133,53 @@
       ],
       "support": {
         "issues": "https://github.com/PHPCSStandards/composer-installer/issues",
+        "security": "https://github.com/PHPCSStandards/composer-installer/security/policy",
         "source": "https://github.com/PHPCSStandards/composer-installer"
       },
-      "time": "2023-01-05T11:28:13+00:00"
+      "funding": [
+        {
+          "url": "https://github.com/PHPCSStandards",
+          "type": "github"
+        },
+        {
+          "url": "https://github.com/jrfnl",
+          "type": "github"
+        },
+        {
+          "url": "https://opencollective.com/php_codesniffer",
+          "type": "open_collective"
+        },
+        {
+          "url": "https://thanks.dev/u/gh/phpcsstandards",
+          "type": "thanks_dev"
+        }
+      ],
+      "time": "2025-11-11T04:32:07+00:00"
     },
     {
       "name": "php-stubs/wordpress-stubs",
-      "version": "v6.7.2",
+      "version": "v6.9.0",
       "source": {
         "type": "git",
         "url": "https://github.com/php-stubs/wordpress-stubs.git",
-        "reference": "c04f96cb232fab12a3cbcccf5a47767f0665c3f4"
+        "reference": "5171cb6650e6c583a96943fd6ea0dfa3e1089a8a"
       },
       "dist": {
         "type": "zip",
-        "url": "https://api.github.com/repos/php-stubs/wordpress-stubs/zipball/c04f96cb232fab12a3cbcccf5a47767f0665c3f4",
-        "reference": "c04f96cb232fab12a3cbcccf5a47767f0665c3f4",
+        "url": "https://api.github.com/repos/php-stubs/wordpress-stubs/zipball/5171cb6650e6c583a96943fd6ea0dfa3e1089a8a",
+        "reference": "5171cb6650e6c583a96943fd6ea0dfa3e1089a8a",
         "shasum": ""
+      },
+      "conflict": {
+        "phpdocumentor/reflection-docblock": "5.6.1"
       },
       "require-dev": {
         "dealerdirect/phpcodesniffer-composer-installer": "^1.0",
-        "nikic/php-parser": "^4.13",
+        "nikic/php-parser": "^5.5",
         "php": "^7.4 || ^8.0",
         "php-stubs/generator": "^0.8.3",
         "phpdocumentor/reflection-docblock": "^5.4.1",
-        "phpstan/phpstan": "^1.11",
+        "phpstan/phpstan": "^2.1",
         "phpunit/phpunit": "^9.5",
         "szepeviktor/phpcs-psr-12-neutron-hybrid-ruleset": "^1.1.1",
         "wp-coding-standards/wpcs": "3.1.0 as 2.3.0"
@@ -163,41 +191,47 @@
       },
       "type": "library",
       "notification-url": "https://packagist.org/downloads/",
-      "license": ["MIT"],
+      "license": [
+        "MIT"
+      ],
       "description": "WordPress function and class declaration stubs for static analysis.",
       "homepage": "https://github.com/php-stubs/wordpress-stubs",
-      "keywords": ["PHPStan", "static analysis", "wordpress"],
+      "keywords": [
+        "PHPStan",
+        "static analysis",
+        "wordpress"
+      ],
       "support": {
         "issues": "https://github.com/php-stubs/wordpress-stubs/issues",
-        "source": "https://github.com/php-stubs/wordpress-stubs/tree/v6.7.2"
+        "source": "https://github.com/php-stubs/wordpress-stubs/tree/v6.9.0"
       },
-      "time": "2025-02-12T04:51:58+00:00"
+      "time": "2025-12-03T23:06:24+00:00"
     },
     {
       "name": "phpcsstandards/phpcsextra",
-      "version": "1.2.1",
+      "version": "1.5.0",
       "source": {
         "type": "git",
         "url": "https://github.com/PHPCSStandards/PHPCSExtra.git",
-        "reference": "11d387c6642b6e4acaf0bd9bf5203b8cca1ec489"
+        "reference": "b598aa890815b8df16363271b659d73280129101"
       },
       "dist": {
         "type": "zip",
-        "url": "https://api.github.com/repos/PHPCSStandards/PHPCSExtra/zipball/11d387c6642b6e4acaf0bd9bf5203b8cca1ec489",
-        "reference": "11d387c6642b6e4acaf0bd9bf5203b8cca1ec489",
+        "url": "https://api.github.com/repos/PHPCSStandards/PHPCSExtra/zipball/b598aa890815b8df16363271b659d73280129101",
+        "reference": "b598aa890815b8df16363271b659d73280129101",
         "shasum": ""
       },
       "require": {
         "php": ">=5.4",
-        "phpcsstandards/phpcsutils": "^1.0.9",
-        "squizlabs/php_codesniffer": "^3.8.0"
+        "phpcsstandards/phpcsutils": "^1.2.0",
+        "squizlabs/php_codesniffer": "^3.13.5 || ^4.0.1"
       },
       "require-dev": {
         "php-parallel-lint/php-console-highlighter": "^1.0",
-        "php-parallel-lint/php-parallel-lint": "^1.3.2",
-        "phpcsstandards/phpcsdevcs": "^1.1.6",
+        "php-parallel-lint/php-parallel-lint": "^1.4.0",
+        "phpcsstandards/phpcsdevcs": "^1.2.0",
         "phpcsstandards/phpcsdevtools": "^1.2.1",
-        "phpunit/phpunit": "^4.5 || ^5.0 || ^6.0 || ^7.0 || ^8.0 || ^9.0"
+        "phpunit/phpunit": "^4.5 || ^5.0 || ^6.0 || ^7.0 || ^8.0 || ^9.3.4"
       },
       "type": "phpcodesniffer-standard",
       "extra": {
@@ -207,7 +241,9 @@
         }
       },
       "notification-url": "https://packagist.org/downloads/",
-      "license": ["LGPL-3.0-or-later"],
+      "license": [
+        "LGPL-3.0-or-later"
+      ],
       "authors": [
         {
           "name": "Juliette Reinders Folmer",
@@ -220,7 +256,14 @@
         }
       ],
       "description": "A collection of sniffs and standards for use with PHP_CodeSniffer.",
-      "keywords": ["PHP_CodeSniffer", "phpcbf", "phpcodesniffer-standard", "phpcs", "standards", "static analysis"],
+      "keywords": [
+        "PHP_CodeSniffer",
+        "phpcbf",
+        "phpcodesniffer-standard",
+        "phpcs",
+        "standards",
+        "static analysis"
+      ],
       "support": {
         "issues": "https://github.com/PHPCSStandards/PHPCSExtra/issues",
         "security": "https://github.com/PHPCSStandards/PHPCSExtra/security/policy",
@@ -238,35 +281,39 @@
         {
           "url": "https://opencollective.com/php_codesniffer",
           "type": "open_collective"
+        },
+        {
+          "url": "https://thanks.dev/u/gh/phpcsstandards",
+          "type": "thanks_dev"
         }
       ],
-      "time": "2023-12-08T16:49:07+00:00"
+      "time": "2025-11-12T23:06:57+00:00"
     },
     {
       "name": "phpcsstandards/phpcsutils",
-      "version": "1.0.12",
+      "version": "1.2.2",
       "source": {
         "type": "git",
         "url": "https://github.com/PHPCSStandards/PHPCSUtils.git",
-        "reference": "87b233b00daf83fb70f40c9a28692be017ea7c6c"
+        "reference": "c216317e96c8b3f5932808f9b0f1f7a14e3bbf55"
       },
       "dist": {
         "type": "zip",
-        "url": "https://api.github.com/repos/PHPCSStandards/PHPCSUtils/zipball/87b233b00daf83fb70f40c9a28692be017ea7c6c",
-        "reference": "87b233b00daf83fb70f40c9a28692be017ea7c6c",
+        "url": "https://api.github.com/repos/PHPCSStandards/PHPCSUtils/zipball/c216317e96c8b3f5932808f9b0f1f7a14e3bbf55",
+        "reference": "c216317e96c8b3f5932808f9b0f1f7a14e3bbf55",
         "shasum": ""
       },
       "require": {
         "dealerdirect/phpcodesniffer-composer-installer": "^0.4.1 || ^0.5 || ^0.6.2 || ^0.7 || ^1.0",
         "php": ">=5.4",
-        "squizlabs/php_codesniffer": "^3.10.0 || 4.0.x-dev@dev"
+        "squizlabs/php_codesniffer": "^3.13.5 || ^4.0.1"
       },
       "require-dev": {
         "ext-filter": "*",
         "php-parallel-lint/php-console-highlighter": "^1.0",
-        "php-parallel-lint/php-parallel-lint": "^1.3.2",
-        "phpcsstandards/phpcsdevcs": "^1.1.6",
-        "yoast/phpunit-polyfills": "^1.1.0 || ^2.0.0"
+        "php-parallel-lint/php-parallel-lint": "^1.4.0",
+        "phpcsstandards/phpcsdevcs": "^1.2.0",
+        "yoast/phpunit-polyfills": "^1.1.0 || ^2.0.0 || ^3.0.0"
       },
       "type": "phpcodesniffer-standard",
       "extra": {
@@ -276,10 +323,14 @@
         }
       },
       "autoload": {
-        "classmap": ["PHPCSUtils/"]
+        "classmap": [
+          "PHPCSUtils/"
+        ]
       },
       "notification-url": "https://packagist.org/downloads/",
-      "license": ["LGPL-3.0-or-later"],
+      "license": [
+        "LGPL-3.0-or-later"
+      ],
       "authors": [
         {
           "name": "Juliette Reinders Folmer",
@@ -299,6 +350,7 @@
         "phpcodesniffer-standard",
         "phpcs",
         "phpcs3",
+        "phpcs4",
         "standards",
         "static analysis",
         "tokens",
@@ -322,65 +374,68 @@
         {
           "url": "https://opencollective.com/php_codesniffer",
           "type": "open_collective"
+        },
+        {
+          "url": "https://thanks.dev/u/gh/phpcsstandards",
+          "type": "thanks_dev"
         }
       ],
-      "time": "2024-05-20T13:34:27+00:00"
+      "time": "2025-12-08T14:27:58+00:00"
     },
     {
       "name": "phpstan/phpdoc-parser",
-      "version": "1.33.0",
+      "version": "2.3.0",
       "source": {
         "type": "git",
         "url": "https://github.com/phpstan/phpdoc-parser.git",
-        "reference": "82a311fd3690fb2bf7b64d5c98f912b3dd746140"
+        "reference": "1e0cd5370df5dd2e556a36b9c62f62e555870495"
       },
       "dist": {
         "type": "zip",
-        "url": "https://api.github.com/repos/phpstan/phpdoc-parser/zipball/82a311fd3690fb2bf7b64d5c98f912b3dd746140",
-        "reference": "82a311fd3690fb2bf7b64d5c98f912b3dd746140",
+        "url": "https://api.github.com/repos/phpstan/phpdoc-parser/zipball/1e0cd5370df5dd2e556a36b9c62f62e555870495",
+        "reference": "1e0cd5370df5dd2e556a36b9c62f62e555870495",
         "shasum": ""
       },
       "require": {
-        "php": "^7.2 || ^8.0"
+        "php": "^7.4 || ^8.0"
       },
       "require-dev": {
         "doctrine/annotations": "^2.0",
-        "nikic/php-parser": "^4.15",
+        "nikic/php-parser": "^5.3.0",
         "php-parallel-lint/php-parallel-lint": "^1.2",
         "phpstan/extension-installer": "^1.0",
-        "phpstan/phpstan": "^1.5",
-        "phpstan/phpstan-phpunit": "^1.1",
-        "phpstan/phpstan-strict-rules": "^1.0",
-        "phpunit/phpunit": "^9.5",
+        "phpstan/phpstan": "^2.0",
+        "phpstan/phpstan-phpunit": "^2.0",
+        "phpstan/phpstan-strict-rules": "^2.0",
+        "phpunit/phpunit": "^9.6",
         "symfony/process": "^5.2"
       },
       "type": "library",
       "autoload": {
         "psr-4": {
-          "PHPStan\\PhpDocParser\\": ["src/"]
+          "PHPStan\\PhpDocParser\\": [
+            "src/"
+          ]
         }
       },
       "notification-url": "https://packagist.org/downloads/",
-      "license": ["MIT"],
+      "license": [
+        "MIT"
+      ],
       "description": "PHPDoc parser with support for nullable, intersection and generic types",
       "support": {
         "issues": "https://github.com/phpstan/phpdoc-parser/issues",
-        "source": "https://github.com/phpstan/phpdoc-parser/tree/1.33.0"
+        "source": "https://github.com/phpstan/phpdoc-parser/tree/2.3.0"
       },
-      "time": "2024-10-13T11:25:22+00:00"
+      "time": "2025-08-30T15:50:23+00:00"
     },
     {
       "name": "phpstan/phpstan",
-      "version": "2.1.6",
-      "source": {
-        "type": "git",
-        "url": "https://github.com/phpstan/phpstan.git",
-        "reference": "6eaec7c6c9e90dcfe46ad1e1ffa5171e2dab641c"
-      },
+      "version": "2.1.33",
       "dist": {
         "type": "zip",
-        "url": "https://api.github.com/repos/phpstan/phpstan/zipball/6eaec7c6c9e90dcfe46ad1e1ffa5171e2dab641c",
-        "reference": "6eaec7c6c9e90dcfe46ad1e1ffa5171e2dab641c",
+        "url": "https://api.github.com/repos/phpstan/phpstan/zipball/9e800e6bee7d5bd02784d4c6069b48032d16224f",
+        "reference": "9e800e6bee7d5bd02784d4c6069b48032d16224f",
         "shasum": ""
       },
       "require": {
@@ -389,15 +444,25 @@
       "conflict": {
         "phpstan/phpstan-shim": "*"
       },
-      "bin": ["phpstan", "phpstan.phar"],
+      "bin": [
+        "phpstan",
+        "phpstan.phar"
+      ],
       "type": "library",
       "autoload": {
-        "files": ["bootstrap.php"]
+        "files": [
+          "bootstrap.php"
+        ]
       },
       "notification-url": "https://packagist.org/downloads/",
-      "license": ["MIT"],
+      "license": [
+        "MIT"
+      ],
       "description": "PHPStan - PHP Static Analysis Tool",
-      "keywords": ["dev", "static analysis"],
+      "keywords": [
+        "dev",
+        "static analysis"
+      ],
       "support": {
         "docs": "https://phpstan.org/user-guide/getting-started",
         "forum": "https://github.com/phpstan/phpstan/discussions",
@@ -415,36 +480,36 @@
           "type": "github"
         }
       ],
-      "time": "2025-02-19T15:46:42+00:00"
+      "time": "2025-12-05T10:24:31+00:00"
     },
     {
       "name": "slevomat/coding-standard",
-      "version": "8.15.0",
+      "version": "8.22.1",
       "source": {
         "type": "git",
         "url": "https://github.com/slevomat/coding-standard.git",
-        "reference": "7d1d957421618a3803b593ec31ace470177d7817"
+        "reference": "1dd80bf3b93692bedb21a6623c496887fad05fec"
       },
       "dist": {
         "type": "zip",
-        "url": "https://api.github.com/repos/slevomat/coding-standard/zipball/7d1d957421618a3803b593ec31ace470177d7817",
-        "reference": "7d1d957421618a3803b593ec31ace470177d7817",
+        "url": "https://api.github.com/repos/slevomat/coding-standard/zipball/1dd80bf3b93692bedb21a6623c496887fad05fec",
+        "reference": "1dd80bf3b93692bedb21a6623c496887fad05fec",
         "shasum": ""
       },
       "require": {
-        "dealerdirect/phpcodesniffer-composer-installer": "^0.6.2 || ^0.7 || ^1.0",
-        "php": "^7.2 || ^8.0",
-        "phpstan/phpdoc-parser": "^1.23.1",
-        "squizlabs/php_codesniffer": "^3.9.0"
+        "dealerdirect/phpcodesniffer-composer-installer": "^0.6.2 || ^0.7 || ^1.1.2",
+        "php": "^7.4 || ^8.0",
+        "phpstan/phpdoc-parser": "^2.3.0",
+        "squizlabs/php_codesniffer": "^3.13.4"
       },
       "require-dev": {
-        "phing/phing": "2.17.4",
-        "php-parallel-lint/php-parallel-lint": "1.3.2",
-        "phpstan/phpstan": "1.10.60",
-        "phpstan/phpstan-deprecation-rules": "1.1.4",
-        "phpstan/phpstan-phpunit": "1.3.16",
-        "phpstan/phpstan-strict-rules": "1.5.2",
-        "phpunit/phpunit": "8.5.21|9.6.8|10.5.11"
+        "phing/phing": "3.0.1|3.1.0",
+        "php-parallel-lint/php-parallel-lint": "1.4.0",
+        "phpstan/phpstan": "2.1.24",
+        "phpstan/phpstan-deprecation-rules": "2.0.3",
+        "phpstan/phpstan-phpunit": "2.0.7",
+        "phpstan/phpstan-strict-rules": "2.0.6",
+        "phpunit/phpunit": "9.6.8|10.5.48|11.4.4|11.5.36|12.3.10"
       },
       "type": "phpcodesniffer-standard",
       "extra": {
@@ -458,12 +523,17 @@
         }
       },
       "notification-url": "https://packagist.org/downloads/",
-      "license": ["MIT"],
+      "license": [
+        "MIT"
+      ],
       "description": "Slevomat Coding Standard for PHP_CodeSniffer complements Consistence Coding Standard by providing sniffs with additional checks.",
-      "keywords": ["dev", "phpcs"],
+      "keywords": [
+        "dev",
+        "phpcs"
+      ],
       "support": {
         "issues": "https://github.com/slevomat/coding-standard/issues",
-        "source": "https://github.com/slevomat/coding-standard/tree/8.15.0"
+        "source": "https://github.com/slevomat/coding-standard/tree/8.22.1"
       },
       "funding": [
         {
@@ -475,20 +545,20 @@
           "type": "tidelift"
         }
       ],
-      "time": "2024-03-09T15:20:58+00:00"
+      "time": "2025-09-13T08:53:30+00:00"
     },
     {
       "name": "squizlabs/php_codesniffer",
-      "version": "3.11.3",
+      "version": "3.13.5",
       "source": {
         "type": "git",
         "url": "https://github.com/PHPCSStandards/PHP_CodeSniffer.git",
-        "reference": "ba05f990e79cbe69b9f35c8c1ac8dca7eecc3a10"
+        "reference": "0ca86845ce43291e8f5692c7356fccf3bcf02bf4"
       },
       "dist": {
         "type": "zip",
-        "url": "https://api.github.com/repos/PHPCSStandards/PHP_CodeSniffer/zipball/ba05f990e79cbe69b9f35c8c1ac8dca7eecc3a10",
-        "reference": "ba05f990e79cbe69b9f35c8c1ac8dca7eecc3a10",
+        "url": "https://api.github.com/repos/PHPCSStandards/PHP_CodeSniffer/zipball/0ca86845ce43291e8f5692c7356fccf3bcf02bf4",
+        "reference": "0ca86845ce43291e8f5692c7356fccf3bcf02bf4",
         "shasum": ""
       },
       "require": {
@@ -500,15 +570,15 @@
       "require-dev": {
         "phpunit/phpunit": "^4.0 || ^5.0 || ^6.0 || ^7.0 || ^8.0 || ^9.3.4"
       },
-      "bin": ["bin/phpcbf", "bin/phpcs"],
+      "bin": [
+        "bin/phpcbf",
+        "bin/phpcs"
+      ],
       "type": "library",
-      "extra": {
-        "branch-alias": {
-          "dev-master": "3.x-dev"
-        }
-      },
       "notification-url": "https://packagist.org/downloads/",
-      "license": ["BSD-3-Clause"],
+      "license": [
+        "BSD-3-Clause"
+      ],
       "authors": [
         {
           "name": "Greg Sherwood",
@@ -525,7 +595,11 @@
       ],
       "description": "PHP_CodeSniffer tokenizes PHP, JavaScript and CSS files and detects violations of a defined set of coding standards.",
       "homepage": "https://github.com/PHPCSStandards/PHP_CodeSniffer",
-      "keywords": ["phpcs", "standards", "static analysis"],
+      "keywords": [
+        "phpcs",
+        "standards",
+        "static analysis"
+      ],
       "support": {
         "issues": "https://github.com/PHPCSStandards/PHP_CodeSniffer/issues",
         "security": "https://github.com/PHPCSStandards/PHP_CodeSniffer/security/policy",
@@ -546,24 +620,24 @@
           "type": "open_collective"
         },
         {
-          "url": "https://thanks.dev/phpcsstandards",
+          "url": "https://thanks.dev/u/gh/phpcsstandards",
           "type": "thanks_dev"
         }
       ],
-      "time": "2025-01-23T17:04:15+00:00"
+      "time": "2025-11-04T16:30:35+00:00"
     },
     {
       "name": "szepeviktor/phpstan-wordpress",
-      "version": "v2.0.1",
+      "version": "v2.0.3",
       "source": {
         "type": "git",
         "url": "https://github.com/szepeviktor/phpstan-wordpress.git",
-        "reference": "f7beb13cd22998e3d913fdb897a1e2553ccd637e"
+        "reference": "aa722f037b2d034828cd6c55ebe9e5c74961927e"
       },
       "dist": {
         "type": "zip",
-        "url": "https://api.github.com/repos/szepeviktor/phpstan-wordpress/zipball/f7beb13cd22998e3d913fdb897a1e2553ccd637e",
-        "reference": "f7beb13cd22998e3d913fdb897a1e2553ccd637e",
+        "url": "https://api.github.com/repos/szepeviktor/phpstan-wordpress/zipball/aa722f037b2d034828cd6c55ebe9e5c74961927e",
+        "reference": "aa722f037b2d034828cd6c55ebe9e5c74961927e",
         "shasum": ""
       },
       "require": {
@@ -573,6 +647,7 @@
       },
       "require-dev": {
         "composer/composer": "^2.1.14",
+        "composer/semver": "^3.4",
         "dealerdirect/phpcodesniffer-composer-installer": "^1.0",
         "php-parallel-lint/php-parallel-lint": "^1.1",
         "phpstan/phpstan-strict-rules": "^2.0",
@@ -586,7 +661,9 @@
       "type": "phpstan-extension",
       "extra": {
         "phpstan": {
-          "includes": ["extension.neon"]
+          "includes": [
+            "extension.neon"
+          ]
         }
       },
       "autoload": {
@@ -595,27 +672,35 @@
         }
       },
       "notification-url": "https://packagist.org/downloads/",
-      "license": ["MIT"],
+      "license": [
+        "MIT"
+      ],
       "description": "WordPress extensions for PHPStan",
-      "keywords": ["PHPStan", "code analyse", "code analysis", "static analysis", "wordpress"],
+      "keywords": [
+        "PHPStan",
+        "code analyse",
+        "code analysis",
+        "static analysis",
+        "wordpress"
+      ],
       "support": {
         "issues": "https://github.com/szepeviktor/phpstan-wordpress/issues",
-        "source": "https://github.com/szepeviktor/phpstan-wordpress/tree/v2.0.1"
+        "source": "https://github.com/szepeviktor/phpstan-wordpress/tree/v2.0.3"
       },
-      "time": "2024-12-01T02:13:05+00:00"
+      "time": "2025-09-14T02:58:22+00:00"
     },
     {
       "name": "wp-coding-standards/wpcs",
-      "version": "3.1.0",
+      "version": "3.3.0",
       "source": {
         "type": "git",
         "url": "https://github.com/WordPress/WordPress-Coding-Standards.git",
-        "reference": "9333efcbff231f10dfd9c56bb7b65818b4733ca7"
+        "reference": "7795ec6fa05663d716a549d0b44e47ffc8b0d4a6"
       },
       "dist": {
         "type": "zip",
-        "url": "https://api.github.com/repos/WordPress/WordPress-Coding-Standards/zipball/9333efcbff231f10dfd9c56bb7b65818b4733ca7",
-        "reference": "9333efcbff231f10dfd9c56bb7b65818b4733ca7",
+        "url": "https://api.github.com/repos/WordPress/WordPress-Coding-Standards/zipball/7795ec6fa05663d716a549d0b44e47ffc8b0d4a6",
+        "reference": "7795ec6fa05663d716a549d0b44e47ffc8b0d4a6",
         "shasum": ""
       },
       "require": {
@@ -623,17 +708,17 @@
         "ext-libxml": "*",
         "ext-tokenizer": "*",
         "ext-xmlreader": "*",
-        "php": ">=5.4",
-        "phpcsstandards/phpcsextra": "^1.2.1",
-        "phpcsstandards/phpcsutils": "^1.0.10",
-        "squizlabs/php_codesniffer": "^3.9.0"
+        "php": ">=7.2",
+        "phpcsstandards/phpcsextra": "^1.5.0",
+        "phpcsstandards/phpcsutils": "^1.1.0",
+        "squizlabs/php_codesniffer": "^3.13.4"
       },
       "require-dev": {
         "php-parallel-lint/php-console-highlighter": "^1.0.0",
-        "php-parallel-lint/php-parallel-lint": "^1.3.2",
-        "phpcompatibility/php-compatibility": "^9.0",
+        "php-parallel-lint/php-parallel-lint": "^1.4.0",
+        "phpcompatibility/php-compatibility": "^10.0.0@dev",
         "phpcsstandards/phpcsdevtools": "^1.2.0",
-        "phpunit/phpunit": "^4.0 || ^5.0 || ^6.0 || ^7.0 || ^8.0 || ^9.0"
+        "phpunit/phpunit": "^8.0 || ^9.0"
       },
       "suggest": {
         "ext-iconv": "For improved results",
@@ -641,7 +726,9 @@
       },
       "type": "phpcodesniffer-standard",
       "notification-url": "https://packagist.org/downloads/",
-      "license": ["MIT"],
+      "license": [
+        "MIT"
+      ],
       "authors": [
         {
           "name": "Contributors",
@@ -649,7 +736,12 @@
         }
       ],
       "description": "PHP_CodeSniffer rules (sniffs) to enforce WordPress coding conventions",
-      "keywords": ["phpcs", "standards", "static analysis", "wordpress"],
+      "keywords": [
+        "phpcs",
+        "standards",
+        "static analysis",
+        "wordpress"
+      ],
       "support": {
         "issues": "https://github.com/WordPress/WordPress-Coding-Standards/issues",
         "source": "https://github.com/WordPress/WordPress-Coding-Standards",
@@ -661,7 +753,7 @@
           "type": "custom"
         }
       ],
-      "time": "2024-03-25T16:39:00+00:00"
+      "time": "2025-11-25T12:08:04+00:00"
     }
   ],
   "aliases": [],

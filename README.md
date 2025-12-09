@@ -91,106 +91,24 @@ piiiqcy/
 | Docker   | `27.4.0+` |
 | Composer | `2.8.4+`  |
 
-## Setup
-
-### 1. リポジトリをクローン
+## Quick Start
 
 ```bash
+# 1. クローン
 git clone https://github.com/your-org/piiiqcy.git my-project
 cd my-project
-```
 
-### 2. プロジェクト名を変更（オプション）
+# 2. プロジェクト名を変更（オプション）
+./init.sh
 
-新しいプロジェクトとして使用する場合、プロジェクト名を変更します。
-
-```bash
-# 依存関係をインストール
-pnpm install
-
-# 対話式でプロジェクト名を変更
-pnpm rename-project
-```
-
-スクリプトが以下のファイルを自動更新します：
-
-- `project.config.ts`
-- 各 `package.json`
-- `docker-compose.yml`
-- `.env`
-- ブロックの `block.json`
-
-### 3. `.env`ファイルを設定
-
-`.env.example`をコピーして編集します。
-
-```bash
+# 3. 環境設定ファイルを作成
 cp .env.example .env
-```
 
-```apache
-# プロジェクト名（Dockerコンテナとテーマディレクトリに使用）
-PREFIX=piiiqcy
+# 4. セットアップ（依存関係 + Docker + WordPress）
+make setup
 
-MYSQL_RANDOM_ROOT_PASSWORD=yes
-MYSQL_DATABASE=wordpress
-MYSQL_USER=wordpress
-MYSQL_PASSWORD=wordpress
-
-WORDPRESS_DB_HOST=db:3306
-WORDPRESS_DB_NAME=wordpress
-WORDPRESS_DB_USER=wordpress
-WORDPRESS_DB_PASSWORD=wordpress
-WORDPRESS_DEBUG="true"
-
-VITE_API_URL=192.168.1.110
-```
-
-### 4. Docker環境を構築
-
-```bash
-make first
-```
-
-### 5. `app/WordPress/wp-config.php`を編集
-
-1. `.env`ファイルに基づいてDB接続情報を編集
-2. 開発環境でViteのHMRを有効にするため、以下の定数を追加
-
-```diff
-  define( 'WP_DEBUG', !!getenv_docker('WORDPRESS_DEBUG', '') );
-+ define( 'IS_VITE_DEVELOPMENT', true );
-```
-
-### 6. WordPressをインストール
-
-```bash
-make wpinstall
-```
-
-> **Tip**: テーマを有効化するには、管理画面で`外観` > `テーマ`から選択してください。
-
-### 7. Composerをインストール
-
-```bash
-composer install
-```
-
-### 8. WordPress Coding Standardsを設定
-
-```bash
-./vendor/bin/phpcs --config-set installed_paths "\
-../../cakephp/cakephp-codesniffer,\
-../../phpcsstandards/phpcsextra,\
-../../phpcsstandards/phpcsutils,\
-../../slevomat/coding-standard,\
-../../wp-coding-standards/wpcs"
-```
-
-### 9. Dockerを起動
-
-```bash
-make up
+# 5. 開発サーバーを起動
+pnpm dev
 ```
 
 | Service         | URL                             |
@@ -198,16 +116,46 @@ make up
 | WordPress       | http://localhost:8000           |
 | WordPress Admin | http://localhost:8000/wp-admin/ |
 | phpMyAdmin      | http://localhost:8080           |
+| Vite Dev Server | http://localhost:3000           |
 
-### 10. 開発サーバーを起動
+> [!TIP]
+> デフォルトのWordPress管理者アカウントは `test` / `test` です。
+> テーマは `make setup` で自動的に有効化されます。
+
+> [!NOTE]
+> `./init.sh`は対話式でプロジェクト名を変更します。Node依存なしで実行可能なため、クローン直後に実行できます。
+
+## Setup Details
+
+### .env 設定項目
+
+```apache
+# プロジェクト名（Docker コンテナとテーマディレクトリに使用）
+PREFIX=piiiqcy
+
+# MySQL 設定
+MYSQL_DATABASE=wordpress
+MYSQL_USER=wordpress
+MYSQL_PASSWORD=wordpress
+
+# WordPress 設定
+WORDPRESS_DEBUG="true"    # 開発環境では true（Vite HMR が有効になる）
+
+# Vite 開発サーバー（LAN内デバイスからアクセスする場合は IP を指定）
+VITE_API_URL=localhost
+```
+
+### 本番環境向けビルド
 
 ```bash
-# テーマのみ開発
-pnpm dev
+# 本番ビルド
+pnpm build
 
-# テーマとプラグインを同時に開発
-pnpm dev:all
+# ステージングビルド
+pnpm build-stg
 ```
+
+本番環境では `.env` の `WORDPRESS_DEBUG` を `"false"` に設定してください。
 
 ## Commands
 
@@ -243,20 +191,21 @@ pnpm dev:all
 
 ### Docker Environment
 
-| Command          | Description                                   |
-| ---------------- | --------------------------------------------- |
-| `make first`     | 初期Docker設定（ネットワーク作成 + ビルド）   |
-| `make up`        | Dockerコンテナを起動                          |
-| `make stop`      | Dockerコンテナを停止                          |
-| `make down`      | コンテナを停止し、ボリュームと共に削除        |
-| `make wpinstall` | WordPressとデフォルトプラグインをインストール |
-| `make dbdump`    | データベースをdump.sqlにエクスポート          |
+| Command          | Description                                     |
+| ---------------- | ----------------------------------------------- |
+| `make setup`     | **推奨**: 初回セットアップを一括実行            |
+| `make up`        | Dockerコンテナを起動                            |
+| `make stop`      | Dockerコンテナを停止                            |
+| `make down`      | コンテナを停止し、ボリュームと共に削除          |
+| `make first`     | Docker初期設定のみ（ネットワーク作成 + ビルド） |
+| `make wpinstall` | WordPressインストールのみ                       |
+| `make dbdump`    | データベースをdump.sqlにエクスポート            |
 
 ### Utilities
 
-| Command               | Description                  |
-| --------------------- | ---------------------------- |
-| `pnpm rename-project` | プロジェクト名を対話式で変更 |
+| Command     | Description                  |
+| ----------- | ---------------------------- |
+| `./init.sh` | プロジェクト名を対話式で変更 |
 
 ## Creating a New Plugin
 
@@ -339,50 +288,6 @@ export const projectConfig = {
     pmaPort: 8080 // phpMyAdminポート
   }
 }
-```
-
-## Renaming the Project
-
-このテンプレートを新しいプロジェクトで使用する場合：
-
-```bash
-pnpm rename-project
-```
-
-対話式プロンプトで以下を入力：
-
-1. 新しいプロジェクト名（例: `my-awesome-site`）
-2. 表示名（例: `My Awesome Site`）
-
-スクリプトが自動的に更新するファイル：
-
-- `project.config.ts`
-- `package.json`（ルートと各パッケージ）
-- `docker-compose.yml`
-- `.env`
-- `block.json`ファイル
-
-### 手動で必要な作業
-
-名前変更後：
-
-1. Dockerネットワークを再作成：
-
-```bash
-docker network rm piiiqcy_network
-docker network create my-awesome-site_network
-```
-
-2. 依存関係を再インストール：
-
-```bash
-pnpm install
-```
-
-3. プロジェクトをリビルド：
-
-```bash
-pnpm build:all-packages
 ```
 
 ## Architecture

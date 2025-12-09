@@ -10,3 +10,20 @@ parameters:
         -
             identifier: argument.type
         - '#^Variable \$post might not be defined\.#'
+        # init-vite.php: APPLICATION_ENVは実行時にドメインに基づいて決定されるため、静的解析では正確に判定できない
+        -
+            message: '#Strict comparison using === between .development. and .production. will always evaluate to false#'
+            path: packages/theme/dist/inc/init-vite.php
+        -
+            identifier: booleanAnd.alwaysFalse
+            path: packages/theme/dist/inc/init-vite.php
+        -
+            identifier: booleanAnd.rightAlwaysFalse
+            path: packages/theme/dist/inc/init-vite.php
+        -
+            identifier: if.alwaysFalse
+            path: packages/theme/dist/inc/init-vite.php
+        # class-category-helper.php: is_wp_errorは型安全のための防御的チェック
+        -
+            identifier: function.impossibleType
+            path: packages/theme/dist/lib/class-category-helper.php

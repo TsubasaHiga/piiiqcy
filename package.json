@@ -20,7 +20,6 @@
     "lint:php": "./vendor/bin/phpcs --standard=WordPress-Extra --colors ./packages/theme/dist/**/*.php",
     "phpstan": "./vendor/bin/phpstan analyse --memory-limit=1G",
     "format": "prettier --write . --ignore-unknown",
-    "rename-project": "node --no-warnings=ExperimentalWarning --loader ts-node/esm scripts/renameProject.ts",
     "prepare": "husky"
   },
   "engines": {

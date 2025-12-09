@@ -58,7 +58,8 @@ services:
       - ./docker/phpmyadmin/phpmyadmin-misc.ini:/usr/local/etc/php/conf.d/phpmyadmin-misc.ini
 
 networks:
-  piiiqcy_network:
+  ${PREFIX}_network:
+    name: ${PREFIX}_network
     external: true
 
 volumes:

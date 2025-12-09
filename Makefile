@@ -40,6 +40,43 @@ REPLACE_DOMAIN_TO=http://192.168.1.110:8000
 # REPLACE_DOMAIN_FROM=http://192.168.1.110:8000
 # REPLACE_DOMAIN_TO=https://stg.example.com
 
+# ===========================================
+# Quick Setup (recommended for first time)
+# ===========================================
+# Full setup: dependencies + docker + wordpress
+setup:
+	@echo "📦 Installing Node dependencies..."
+	pnpm install
+	@echo "📦 Installing PHP dependencies..."
+	composer install
+	@echo "🐳 Creating Docker network..."
+	-docker network create --driver bridge $(PREFIX)_network 2>/dev/null || true
+	@echo "🚀 Starting Docker containers..."
+	export PREFIX="$(PREFIX)" && docker compose up -d --build
+	@echo "⏳ Waiting for MySQL to be ready..."
+	sleep 10
+	@echo "📝 Installing WordPress..."
+	export PREFIX="$(PREFIX)" && docker compose run --rm wpcli wp core install --url='$(WP_URL)' --title='$(WP_TITLE)' --admin_user='$(WP_ADMIN_USER)' --admin_password='$(WP_ADMIN_PASSWORD)' --admin_email='$(WP_ADMIN_EMAIL)' --allow-root
+	export PREFIX="$(PREFIX)" && docker compose run --rm wpcli wp language core install ja --activate --allow-root
+	export PREFIX="$(PREFIX)" && docker compose run --rm wpcli plugin install $(WP_INSTALL_PLUGINS) --activate --allow-root
+	@echo "🎨 Activating theme..."
+	export PREFIX="$(PREFIX)" && docker compose run --rm wpcli wp theme activate $(PREFIX) --allow-root
+	@echo ""
+	@echo "✅ Setup complete!"
+	@echo ""
+	@echo "📍 URLs:"
+	@echo "   WordPress:  http://localhost:8000"
+	@echo "   Admin:      http://localhost:8000/wp-admin/"
+	@echo "   phpMyAdmin: http://localhost:8080"
+	@echo ""
+	@echo "🔑 Login: $(WP_ADMIN_USER) / $(WP_ADMIN_PASSWORD)"
+	@echo ""
+	@echo "🚀 Next: pnpm dev"
+
+# ===========================================
+# Individual Commands
+# ===========================================
+
 # docker compose first
 first:
 	docker network create --driver bridge $(PREFIX)_network && \

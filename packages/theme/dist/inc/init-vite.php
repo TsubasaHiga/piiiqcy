@@ -70,7 +70,13 @@ add_action( 'wp_enqueue_scripts', 'add_scripts' );
 function add_scripts() {
 	global $page_name;
 
-	if ( defined( 'IS_VITE_DEVELOPMENT' ) && IS_VITE_DEVELOPMENT === true ) {
+	// WP_DEBUGが有効かつ開発環境の場合はVite開発サーバーを使用
+	// .envでWORDPRESS_DEBUG="true"を設定するとWP_DEBUGが有効になる
+	$is_wp_debug = defined( 'WP_DEBUG' ) && WP_DEBUG;
+	$is_dev_env  = defined( 'APPLICATION_ENV' ) && 'development' === constant( 'APPLICATION_ENV' );
+	$is_vite_dev = $is_wp_debug && $is_dev_env;
+
+	if ( $is_vite_dev ) {
 		//develop mode
 		add_action( 'send_headers', 'cors_http_header' );
 

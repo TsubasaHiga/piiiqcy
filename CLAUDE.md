@@ -67,18 +67,17 @@ pnpm format                # Prettier formatting
 ### Docker Environment
 
 ```bash
-make first        # Initial Docker setup (create network and build)
+make setup        # Full setup: composer + docker + wordpress (recommended)
 make up           # Start Docker containers
 make stop         # Stop Docker containers
 make down         # Stop and remove containers with volumes
-make wpinstall    # Install WordPress with default plugins
 make dbdump       # Export database to dump.sql
 ```
 
 ### Project Management
 
 ```bash
-pnpm rename-project   # Interactively rename the project
+./init.sh             # Interactively rename the project (no deps required)
 ```
 
 ## Architecture
