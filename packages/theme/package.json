@@ -18,14 +18,14 @@
     "focus-visible": "^5.2.1",
     "instant.page": "^5.2.0",
     "ress": "^5.0.2",
-    "umaki": "^0.7.5"
+    "umaki": "^0.10.1"
   },
   "devDependencies": {
     "oh-my-logo": "^0.4.0",
     "rollup-plugin-visualizer": "^6.0.5",
-    "sass": "^1.94.2",
-    "vite": "^7.2.7",
+    "sass": "^1.97.1",
+    "vite": "^7.3.0",
     "vite-plugin-full-reload": "^1.2.0",
-    "vite-tsconfig-paths": "^5.1.4"
+    "vite-tsconfig-paths": "^6.0.3"
   }
 }
