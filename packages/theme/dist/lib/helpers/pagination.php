@@ -23,6 +23,7 @@
  */
 function get_pagination( int $pages, int $current_page, int $range = 4, bool $show_only = false ): void {
 	// float 型で渡ってくるので明示的に int 型へ.
+	$pages        = (int) $pages;
 	$current_page = $current_page ? $current_page : 1;
 
 	if ( $show_only && 1 === $pages ) {

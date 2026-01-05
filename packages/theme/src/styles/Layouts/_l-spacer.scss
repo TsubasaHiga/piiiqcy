@@ -1,0 +1,138 @@
+@charset "utf-8";
+
+@use 'sass:map';
+@use 'sass:math';
+@use '../abstracts' as *;
+@use '../Extends/spacer' as *;
+
+// ============================================
+// Spacer Layout Classes
+// スペーシング用レイアウトクラス
+// ============================================
+
+// Base spacer (左右パディング)
+.l-spacer {
+  @extend %e-spacer;
+}
+
+// Left spacer variants
+.l-spacer-left {
+  @extend %e-spacer-left;
+}
+
+.l-spacer-left-x2 {
+  @extend %e-spacer-left-x2;
+}
+
+.l-spacer-left-up {
+  @extend %e-spacer-left-up;
+}
+
+.l-spacer-left-up-x2 {
+  @extend %e-spacer-left-up-x2;
+}
+
+.l-spacer-left-down {
+  @extend %e-spacer-left-down;
+}
+
+.l-spacer-left-down-x2 {
+  @extend %e-spacer-left-down-x2;
+}
+
+// Right spacer variants
+.l-spacer-right {
+  @extend %e-spacer-right;
+}
+
+.l-spacer-right-x2 {
+  @extend %e-spacer-right-x2;
+}
+
+.l-spacer-right-up {
+  @extend %e-spacer-right-up;
+}
+
+.l-spacer-right-up-x2 {
+  @extend %e-spacer-right-up-x2;
+}
+
+.l-spacer-right-down {
+  @extend %e-spacer-right-down;
+}
+
+.l-spacer-right-down-x2 {
+  @extend %e-spacer-right-down-x2;
+}
+
+// Both sides spacer variants
+.l-spacer-up {
+  @extend %e-spacer-up;
+}
+
+.l-spacer-up-x2 {
+  @extend %e-spacer-up-x2;
+}
+
+.l-spacer-xmd-down {
+  @extend %e-spacer-xmd-down;
+}
+
+.l-spacer-down {
+  @extend %e-spacer-down;
+}
+
+.l-spacer-down-x2 {
+  @extend %e-spacer-down-x2;
+}
+
+// Inherit spacer (負のマージンでスペーサーを打ち消す)
+.l-inherit-spacer {
+  @extend %e-inherit-spacer;
+}
+
+.l-inherit-spacer-x2 {
+  @extend %e-inherit-spacer-x2;
+}
+
+.l-inherit-spacer-sm-down {
+  @extend %e-inherit-spacer-sm-down;
+}
+
+.l-inherit-spacer-sm-down-x2 {
+  @extend %e-inherit-spacer-sm-down-x2;
+}
+
+// Inherit spacer left variants
+.l-inherit-spacer-left {
+  @extend %e-inherit-spacer-left;
+}
+
+.l-inherit-spacer-left-up {
+  @extend %e-inherit-spacer-left-up;
+}
+
+.l-inherit-spacer-left-down {
+  @extend %e-inherit-spacer-left-down;
+}
+
+.l-inherit-spacer-left-down-x2 {
+  @extend %e-inherit-spacer-left-down-x2;
+}
+
+// Inherit spacer right variants
+.l-inherit-spacer-right {
+  @extend %e-inherit-spacer-right;
+}
+
+.l-inherit-spacer-right-up {
+  @extend %e-inherit-spacer-right-up;
+}
+
+.l-inherit-spacer-right-down {
+  @extend %e-inherit-spacer-right-down;
+}
+
+.l-inherit-spacer-right-down-x2 {
+  @extend %e-inherit-spacer-right-down-x2;
+}

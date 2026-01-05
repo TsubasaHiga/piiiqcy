@@ -1,5 +1,6 @@
 @charset "utf-8";
 
+/// 最初の要素
 @mixin first {
   &:first-of-type {
     @content;

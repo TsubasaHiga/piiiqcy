@@ -3,6 +3,11 @@
 @use 'sass:math';
 @use '../functions' as *;
 
+/// 三角形
+/// @param {Number} $width - 幅（px）
+/// @param {Number} $height - 高さ（px）
+/// @param {Color} $color - 色
+/// @param {String} $rotate - 方向 (top, right, bottom, left)
 @mixin triangle($width, $height, $color, $rotate) {
   position: absolute;
   width: 0;

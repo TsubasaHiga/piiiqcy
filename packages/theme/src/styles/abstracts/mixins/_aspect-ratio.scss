@@ -1,12 +1,12 @@
 @charset "utf-8";
 
 @use 'sass:math';
-@use './icon-ini.scss' as *;
 @use '../functions' as *;
 
+/// アスペクト比（最大公約数で簡約化）
+/// @param {Number} $number-a - 幅
+/// @param {Number} $number-b - 高さ
 @mixin aspect-ratio($number-a, $number-b) {
-  // 2つの最大公倍数を求め、aspect-ratio: 16 / 9;の様な出力をする
-  // 例: $number-a = 640, $number-b = 480の場合、aspect-ratio: 4 / 3;と出力される
   $gcd: gcd($number-a, $number-b);
   $a: math.div($number-a, $gcd);
   $b: math.div($number-b, $gcd);

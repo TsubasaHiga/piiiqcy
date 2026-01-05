@@ -5,11 +5,11 @@
 @use '../abstracts' as *;
 
 // ============================================
-// Base Reset Styles
+// Reset & Base Styles
 // ============================================
 
 * {
-  @include add-selection-color(var(--color-primary-rgb), 10%);
+  @include add-selection-color(var(--color-primary-rgb), 20%);
 
   box-sizing: border-box;
 
@@ -20,14 +20,14 @@
 }
 
 html {
-  @include letter-spacing(10);
-  @include responsive-font-size(14, 16, map.get($breakpoint-w, 'md'), map.get($breakpoint-w, 'lg'));
+  @include responsive-font-size(10, 16, map.get($breakpoint-w, 'md'), map.get($breakpoint-w, 'lg'));
 
   height: 100%;
   font-family: var(--font-family);
   font-optical-sizing: auto;
   line-height: math.div(33, 14);
   color: var(--color-black);
+  touch-action: manipulation;
   background-color: var(--color-white);
   -webkit-font-smoothing: antialiased;
   -webkit-tap-highlight-color: rgb(#000, 0);
@@ -41,25 +41,33 @@ html {
   }
 
   @include mqw-up {
-    &[data-type='tablet'][data-orientation='portrait'] {
-      @include responsive-font-size(11, 16, map.get($breakpoint-w, 'md'), map.get($breakpoint-w, 'lg'));
+    @include mqh-down(xl) {
+      // @include responsive-font-size(9, 16, map.get($breakpoint-w, 'md'), map.get($breakpoint-w, 'lg'));
     }
   }
 
   @include mqw-up(lg) {
-    @include responsive-font-size(16, 20, map.get($breakpoint-w, 'lg') + 1, map.get($breakpoint-w, 'xlg'));
+    @include responsive-font-size(16, 18, map.get($breakpoint-w, 'lg') + 1, map.get($breakpoint-w, 'xl'));
   }
 
-  @include mqw-up(xlg) {
-    @include responsive-font-size(20, 25, map.get($breakpoint-w, 'xlg') + 1, 3000px);
+  @include mqw-up(xl) {
+    @include responsive-font-size(17, 19, map.get($breakpoint-w, 'xl') + 1, map.get($breakpoint-w, 'xl2'));
+  }
+
+  @include mqw-up(xl2) {
+    @include responsive-font-size(18, 20, map.get($breakpoint-w, 'xl2') + 1, map.get($breakpoint-w, 'xl3'));
+  }
+
+  @include mqw-up(xl3) {
+    @include responsive-font-size(19, 21, map.get($breakpoint-w, 'xl3') + 1, 3000px);
   }
 
   @include mqw-down {
-    @include responsive-font-size(16, 18, map.get($breakpoint-w, 'sm'), map.get($breakpoint-w, 'md') - 1);
+    @include responsive-font-size(16, 20, map.get($breakpoint-w, 'sm'), map.get($breakpoint-w, 'md') - 1);
   }
 
   @include mqw-down(sm) {
-    @include responsive-font-size(16, 16, map.get($breakpoint-w, xs), map.get($breakpoint-w, sm));
+    @include responsive-font-size(16, 18, map.get($breakpoint-w, xs), map.get($breakpoint-w, sm));
   }
 
   @include mqw-down(xs) {
@@ -95,22 +103,24 @@ a {
   }
 }
 
-// image
-
+// Image
 img,
 svg,
 video {
-  max-width: 100%;
-  height: auto;
+  width: 100%;
+  height: 100%;
   vertical-align: top;
 }
 
 picture {
   display: block;
+  width: 100%;
+  height: 100%;
 
   img {
     width: 100%;
-    height: auto;
+    height: 100%;
+    object-fit: cover;
   }
 }
 
@@ -119,8 +129,7 @@ svg {
   height: 100%;
 }
 
-// table
-
+// Table
 table {
   width: 100%;
   max-width: 100%;

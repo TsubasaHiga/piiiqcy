@@ -9,6 +9,29 @@
  */
 
 /**
+ * Vite manifest.json を取得（静的変数でキャッシュ）
+ *
+ * manifest.json は複数箇所から参照されるため、
+ * 一度読み込んだ内容を静的変数にキャッシュして再利用する。
+ *
+ * @since 1.0.0
+ * @return array|null manifest データ、読み込み失敗時は null
+ */
+function get_vite_manifest() {
+	static $manifest = null;
+
+	if ( null === $manifest ) {
+		$manifest_path = DIST_PATH . ASSETS_PATH . '.vite/manifest.json';
+		if ( file_exists( $manifest_path ) ) {
+			// phpcs:ignore WordPress.WP.AlternativeFunctions.file_get_contents_file_get_contents
+			$manifest = json_decode( file_get_contents( $manifest_path ), true );
+		}
+	}
+
+	return $manifest;
+}
+
+/**
  * スクリプトのエンキューラッパー
  */
 function enque_script( $handle, $src ) {
@@ -95,18 +118,11 @@ function add_scripts() {
 	} else {
 		// production mode, 'npm run build' must be executed in order to generate assets
 
-		// read manifest.json to figure out what to enqueue
-		// phpcs:ignore WordPress.WP.AlternativeFunctions.file_get_contents_file_get_contents
-		$manifest = json_decode( file_get_contents( esc_url_raw( DIST_PATH . ASSETS_PATH . '.vite/manifest.json' ) ), true );
+		// read manifest.json to figure out what to enqueue (cached)
+		$manifest = get_vite_manifest();
 
 		// if there is no manifest file, do nothing
 		if ( ! is_array( $manifest ) ) {
-			return;
-		}
-
-		// get the first key of the manifest
-		$manifest_key = array_keys( $manifest );
-		if ( ! isset( $manifest_key[0] ) ) {
 			return;
 		}
 

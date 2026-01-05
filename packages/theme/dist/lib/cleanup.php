@@ -26,8 +26,6 @@ function remove_dashboard_widget() {
  */
 /** コメント機能 */
 add_filter( 'comments_open', '__return_false' );
-/** 管理画面のadminbarの表示 */
-add_filter( 'show_admin_bar', '__return_false' );
 /** Xmlrpc.phpの無効化 */
 add_filter( 'xmlrpc_enabled', '__return_false' );
 
@@ -39,7 +37,7 @@ add_filter( 'xmlrpc_enabled', '__return_false' );
  */
 add_filter( 'wp_headers', 'remove_x_pingback' );
 function remove_x_pingback( $headers ) {
-	unset( $headers['X - Pingback'] );
+	unset( $headers['X-Pingback'] );
 	return $headers;
 }
 
@@ -56,6 +54,8 @@ remove_action( 'wp_head', 'wp_oembed_add_discovery_links' );
 remove_action( 'wp_head', 'wp_oembed_add_host_js' );
 /** Wp-json系 */
 remove_action( 'wp_head', 'rest_output_link_wp_head' );
+/** REST API Link HTTPヘッダーの削除 */
+remove_action( 'template_redirect', 'rest_output_link_header', 11 );
 /** EditURI */
 remove_action( 'wp_head', 'rsd_link' );
 /** Wlwmanifest */
@@ -67,15 +67,19 @@ remove_action( 'wp_head', 'adjacent_posts_rel_link_wp_head', 10 );
 /** Canonical */
 remove_action( 'wp_head', 'rel_canonical' );
 remove_action( 'wp_head', 'wp_shortlink_wp_head' );
+/** Shortlink HTTPヘッダーの削除 */
+remove_action( 'template_redirect', 'wp_shortlink_header', 11 );
 remove_action( 'wp_head', 'feed_links_extra', 3 );
 remove_action( 'wp_head', 'feed_links', 2 );
 /** DNSプリフェッチコード挿入を削除 */
 add_filter( 'wp_resource_hints', 'remove_dns_prefetch', 10, 2 );
-/** Remove_block_library_style */
-function remove_block_library_style() {
-	wp_dequeue_style( 'wp-block-library' );
-	wp_dequeue_style( 'wp-block-library-theme' );
-}
+/** グローバルスタイル（CSS変数）を削除 */
+remove_action( 'wp_enqueue_scripts', 'wp_enqueue_global_styles' );
+remove_action( 'wp_footer', 'wp_enqueue_global_styles', 1 );
+remove_action( 'wp_body_open', 'wp_global_styles_render_svg_filters' );
+/** 画像自動サイズスタイルを削除 */
+remove_filter( 'wp_content_img_tag', 'wp_img_tag_add_auto_sizes' );
+add_filter( 'wp_img_tag_add_auto_sizes', '__return_false' );
 
 /**
  * アクティビティ、クイックドラフト、WordPressニュースの削除

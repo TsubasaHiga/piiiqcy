@@ -26,13 +26,15 @@ function get_page_relation_list(): array {
 
 	// すべての親ページのタイトルと post_name を追加していく.
 	foreach ( $parent_page_ids as $parent_page_id ) {
-		$parent_post        = get_post( $parent_page_id );
-		$page_relation_list = array_merge(
-			array(
-				$parent_post->post_title => $parent_post->post_name,
-			),
-			$page_relation_list
-		);
+		$parent_post = get_post( $parent_page_id );
+		if ( $parent_post ) {
+			$page_relation_list = array_merge(
+				array(
+					$parent_post->post_title => $parent_post->post_name,
+				),
+				$page_relation_list
+			);
+		}
 	}
 
 	return $page_relation_list;

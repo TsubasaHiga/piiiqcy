@@ -1,0 +1,44 @@
+@charset "utf-8";
+
+@use '../abstracts' as *;
+
+// ============================================
+// Animation Utilities
+// アニメーション用ユーティリティクラス
+// ============================================
+
+.u-animation {
+  --ms: 600ms;
+  --es: cubic-bezier(0.035, 0.217, 0.536, 1.09);
+  --delay: 40ms;
+
+  &[data-animation='fade-in-up'] {
+    opacity: 0;
+    translate: 0 rem(20);
+    will-change: translate, opacity;
+
+    &.is-animation {
+      opacity: 1;
+      translate: 0 0;
+      transition:
+        translate var(--ms) var(--es),
+        opacity var(--ms) var(--es);
+      transition-delay: var(--delay);
+    }
+  }
+
+  &[data-animation='fade-in-rl'] {
+    opacity: 0;
+    translate: rem(20) 0;
+    will-change: translate, opacity;
+
+    &.is-animation {
+      opacity: 1;
+      translate: 0 0;
+      transition:
+        opacity var(--ms) var(--es),
+        translate var(--ms) var(--es);
+      transition-delay: var(--delay);
+    }
+  }
+}

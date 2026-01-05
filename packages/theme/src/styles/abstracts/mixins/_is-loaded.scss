@@ -1,5 +1,6 @@
 @charset "utf-8";
 
+/// ページロード完了時
 @mixin is-loaded() {
   html.is-loaded & {
     @content;

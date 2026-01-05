@@ -2,7 +2,7 @@
 
 // ============================================
 // Extends - Index
+// プレースホルダーの集約
 // ============================================
 
-// Placeholder selectors can be added here
-// Example: @use 'spacer';
+@forward 'spacer';

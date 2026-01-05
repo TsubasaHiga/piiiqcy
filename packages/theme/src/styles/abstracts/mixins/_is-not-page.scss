@@ -1,5 +1,7 @@
 @charset "utf-8";
 
+/// 特定ページ以外
+/// @param {String} $page-name - ページクラス名
 @mixin is-not-page($page-name) {
   body:not(.#{$page-name}) & {
     @content;

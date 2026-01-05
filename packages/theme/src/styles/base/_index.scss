@@ -2,10 +2,11 @@
 
 // ============================================
 // Base - Index
+// 基本スタイルの集約
 // ============================================
 
-// Design tokens (CSS Custom Properties)
+// Design Tokens（CSS Custom Properties）
 @use '../abstracts/config/design-tokens';
 
-// Reset styles
+// Reset & Base Styles
 @use 'reset';

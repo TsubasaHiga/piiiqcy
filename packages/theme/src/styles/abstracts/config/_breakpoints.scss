@@ -8,10 +8,12 @@
 
 // Width breakpoints
 $breakpoint-w: (
-  xlg: 1920px,
+  xl3: 2100px,
+  xl2: 1920px,
+  xl: 1680px,
   lg: 1440px,
   xmd: 1180px,
-  md: 980px,
+  md: 768px,
   sm: 640px,
   xs: 375px,
   xxs: 320px
@@ -19,8 +21,10 @@ $breakpoint-w: (
 
 // Height breakpoints
 $breakpoint-h: (
+  xl: 1028px,
+  lg: 910px,
   xmd: 845px,
   md: 668px,
-  sm: 635px,
-  xs: 549px
+  sm: 510px,
+  xs: 380px
 ) !default;

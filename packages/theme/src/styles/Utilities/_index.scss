@@ -2,9 +2,11 @@
 
 // ============================================
 // Utilities - Index
+// ユーティリティクラスの集約
 // ============================================
 
-@use 'u-animation';
-@use 'u-etc';
-@use 'u-mqw';
-@use 'u-plugins';
+@use 'animation';
+@use 'visibility';
+@use 'responsive';
+@use 'plugins';
+@use 'underline';

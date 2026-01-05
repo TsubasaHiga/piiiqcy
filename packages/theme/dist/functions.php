@@ -22,12 +22,12 @@ require_once 'lib/cleanup.php';
 // 機能の追加.
 require_once 'lib/add.php';
 
-// クラスファイル（カスタム関数より先に読み込む）.
+// コアクラスの読み込み（ヘルパー・フィルターより先に読み込む）.
 require_once 'lib/class-theme-cache.php';
 require_once 'lib/class-category-helper.php';
 require_once 'lib/class-query-optimizer.php';
 
-// ヘルパー関数.
+// ヘルパー関数の読み込み.
 require_once 'lib/helpers/breadcrumb.php';
 require_once 'lib/helpers/image.php';
 require_once 'lib/helpers/pagination.php';
