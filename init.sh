@@ -147,6 +147,10 @@ for file in packages/plugins/*/package.json; do
     fi
 done
 
+# Update composer.json
+echo "Updating composer.json..."
+replace_in_file "composer.json" "/$OLD_NAME\"" "/$NEW_NAME\""
+
 # Update block.json files
 echo "Updating block.json files..."
 for file in packages/plugins/*/src/blocks/*/block.json; do
@@ -197,6 +201,19 @@ if [[ -f ".env" ]]; then
 else
     cp .env.example .env
     echo "  Created: .env"
+fi
+
+# Install Composer dependencies and configure phpcs
+echo ""
+echo "Installing Composer dependencies..."
+if command -v composer &> /dev/null; then
+    composer update --lock --quiet
+    composer install --quiet
+    echo "  ✓ Composer dependencies installed"
+    echo "  ✓ phpcs paths configured automatically"
+else
+    echo "  ⚠ Composer not found. Please install Composer and run:"
+    echo "    composer update --lock && composer install"
 fi
 
 echo ""
