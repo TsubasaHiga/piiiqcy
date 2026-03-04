@@ -43,5 +43,6 @@
     "stylelint",
     "wpcs"
   ],
-  "files.eol": "\n"
+  "files.eol": "\n",
+  "phpstan.configFile": "./phpstan.neon"
 }
