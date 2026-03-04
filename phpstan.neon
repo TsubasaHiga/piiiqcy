@@ -27,3 +27,12 @@ parameters:
         -
             identifier: function.impossibleType
             path: packages/theme/dist/lib/class-category-helper.php
+        # ACF: get_field()はAdvanced Custom Fieldsプラグインの関数であり、phpstan-wordpressでは認識されない
+        -
+            message: '#^Function get_field not found\.#'
+            identifier: function.notFound
+        # WordPress Loop: have_posts()をifで事前チェック後のwhileループは常にtrueと誤判定される
+        -
+            identifier: while.alwaysTrue
+        -
+            identifier: deadCode.unreachable
