@@ -8,7 +8,7 @@
  * @since 1.0.0
  */
 
-if ( getenv( 'APPLICATION_ENV' ) === 'production' ) :
+if ( defined( 'APPLICATION_ENV' ) && APPLICATION_ENV === 'production' ) : // @phpstan-ignore identical.alwaysTrue
 // @codingStandardsIgnoreStart
 ?>
 <!-- ここにGoogle Analytics等の解析タグを入れる -->
